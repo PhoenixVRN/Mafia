@@ -42,4 +42,14 @@
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/buttonMy"
+        android:layout_width="48dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="170dp"
+        android:layout_marginRight="0dp"
+        android:text="My"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

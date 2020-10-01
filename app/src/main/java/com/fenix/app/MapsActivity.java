@@ -12,14 +12,24 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    private GoogleMap googleMap;
+    private Marker myMarker;
 
     private Button mapButton;
     private View.OnClickListener mapButtonListener = new View.OnClickListener() {
+        public void onClick(View v) {
+
+            MapsActivity.this.mapTextView.append("Button click! ");
+        }
+    };
+
+    private Button myButton;
+    private View.OnClickListener myButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
 
             MapsActivity.this.mapTextView.append("Button click! ");
@@ -39,7 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         // Button
-        mapButton = (Button)findViewById(R.id.button);
+        mapButton = (Button) findViewById(R.id.button);
         mapButton.setOnClickListener(mapButtonListener);
 
         // TextView
@@ -57,11 +67,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        this.googleMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // Add a marker and move the camera
+        LatLng myLocation = new LatLng(-34, 151);
+        MarkerOptions myMarkerOptions = new MarkerOptions().position(myLocation).title("My Marker");
+        myMarker = this.googleMap.addMarker(myMarkerOptions);
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
     }
 }
