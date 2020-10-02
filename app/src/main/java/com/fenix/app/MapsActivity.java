@@ -1,7 +1,10 @@
 package com.fenix.app;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +28,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public void onClick(View v) {
 
             MapsActivity.this.mapTextView.append("Button click! ");
+
+            if (MapsActivity.this.myMarker != null) {
+                MapsActivity.this.myMarker.remove();
+            }
+
+            LatLng myLocation = new LatLng(0, 0);
+            MarkerOptions myMarkerOptions = new MarkerOptions().position(myLocation).title("My Marker 2");
+            MapsActivity.this.myMarker = MapsActivity.this.googleMap.addMarker(myMarkerOptions);
+            MapsActivity.this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+
         }
     };
 
@@ -32,10 +45,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private View.OnClickListener myButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
 
+            //TODO https://developers.google.com/maps/documentation/android-sdk/marker?hl=ru
+
             // Add a marker and move the camera
             LatLng myLocation = new LatLng(-34, 151);
-            MarkerOptions myMarkerOptions = new MarkerOptions().position(myLocation).title("My Marker");
-            myMarker = MapsActivity.this.googleMap.addMarker(myMarkerOptions);
+            MarkerOptions myMarkerOptions = new MarkerOptions().position(myLocation).title("My Marker 1");
+            MapsActivity.this.myMarker = MapsActivity.this.googleMap.addMarker(myMarkerOptions);
             MapsActivity.this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
         }
     };
@@ -75,6 +90,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         this.googleMap = googleMap;
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            if (this.googleMap != null) {
+                this.googleMap.setMyLocationEnabled(true);
+            }
+        }
     }
 }
