@@ -32,7 +32,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private View.OnClickListener myButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
 
-            MapsActivity.this.mapTextView.append("Button click! ");
+            // Add a marker and move the camera
+            LatLng myLocation = new LatLng(-34, 151);
+            MarkerOptions myMarkerOptions = new MarkerOptions().position(myLocation).title("My Marker");
+            myMarker = MapsActivity.this.googleMap.addMarker(myMarkerOptions);
+            MapsActivity.this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
         }
     };
 
@@ -54,6 +58,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // TextView
         mapTextView = findViewById(R.id.textView);
+
+        // myButton
+        myButton = (Button) findViewById(R.id.buttonMy);
+        myButton.setOnClickListener(myButtonListener);
     }
 
     /**
@@ -68,11 +76,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-
-        // Add a marker and move the camera
-        LatLng myLocation = new LatLng(-34, 151);
-        MarkerOptions myMarkerOptions = new MarkerOptions().position(myLocation).title("My Marker");
-        myMarker = this.googleMap.addMarker(myMarkerOptions);
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
     }
 }
