@@ -3,6 +3,7 @@ package com.fenix.app.com.fenix.app.service;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -15,7 +16,10 @@ public class MapService {
     public Marker MoveToMyLocation(GoogleMap map, String title) {
         LatLng location = new LatLng(-34, 151);
 
-        MarkerOptions options = new MarkerOptions().position(location);
+        MarkerOptions options = new MarkerOptions()
+                .position(location)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+
         if (!Strings.isEmptyOrWhitespace(title))
             options.title("title");
 

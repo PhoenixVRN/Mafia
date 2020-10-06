@@ -21,7 +21,7 @@
         tools:context=".MapsActivity" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/alienButton"
         android:text="Button"
         android:layout_width="150dp"
         android:layout_height="36dp"
@@ -30,7 +30,7 @@
         map:layout_constraintStart_toStartOf="parent"/>
 
     <Button
-        android:id="@+id/buttonMy"
+        android:id="@+id/myButton"
         android:text="My"
         android:layout_width="48dp"
         android:layout_height="36dp"
@@ -39,7 +39,7 @@
         map:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/logTextView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginLeft="10dp"

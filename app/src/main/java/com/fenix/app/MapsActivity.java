@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.fenix.app.com.fenix.app.service.MapService;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -20,40 +21,46 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private MapService mapService = new MapService();
     private GoogleMap googleMap;
+    private Marker alienMarker;
     private Marker myMarker;
 
-    private Button mapButton;
-    private View.OnClickListener mapButtonListener = new View.OnClickListener() {
+    //#region alienButton
+    private Button alienButton;
+    private View.OnClickListener alienButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
 
-            MapsActivity.this.mapTextView.append("Button click! ");
+            MapsActivity.this.mapTextView.append("Alient Button click! ");
 
-            if (MapsActivity.this.myMarker != null) {
-                MapsActivity.this.myMarker.remove();
+            if (MapsActivity.this.alienMarker != null) {
+                MapsActivity.this.alienMarker.remove();
             }
 
+            // Add a marker and move the camera
             LatLng myLocation = new LatLng(0, 0);
             MarkerOptions myMarkerOptions = new MarkerOptions().position(myLocation).title("My Marker 2");
-            MapsActivity.this.myMarker = MapsActivity.this.googleMap.addMarker(myMarkerOptions);
+            MapsActivity.this.alienMarker = MapsActivity.this.googleMap.addMarker(myMarkerOptions);
             MapsActivity.this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
 
         }
     };
+    //#endregion
 
+    //#region myButton
     private Button myButton;
     private View.OnClickListener myButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
 
             //TODO https://developers.google.com/maps/documentation/android-sdk/marker?hl=ru
 
-            // Add a marker and move the camera
-            LatLng myLocation = new LatLng(-34, 151);
-            MarkerOptions myMarkerOptions = new MarkerOptions().position(myLocation).title("My Marker 1");
-            MapsActivity.this.myMarker = MapsActivity.this.googleMap.addMarker(myMarkerOptions);
-            MapsActivity.this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+            if (MapsActivity.this.myMarker != null) {
+                MapsActivity.this.myMarker.remove();
+            }
+            MapsActivity.this.myMarker = MapsActivity.this.mapService.MoveToMyLocation(MapsActivity.this.googleMap, "My Marker 1!!!");
         }
     };
+    //#endregion
 
     private TextView mapTextView;
 
@@ -68,14 +75,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         // Button
-        mapButton = (Button) findViewById(R.id.button);
-        mapButton.setOnClickListener(mapButtonListener);
+        alienButton = (Button) findViewById(R.id.alienButton);
+        alienButton.setOnClickListener(alienButtonListener);
 
         // TextView
-        mapTextView = findViewById(R.id.textView);
+        mapTextView = findViewById(R.id.logTextView);
 
         // myButton
-        myButton = (Button) findViewById(R.id.buttonMy);
+        myButton = (Button) findViewById(R.id.myButton);
         myButton.setOnClickListener(myButtonListener);
     }
 
