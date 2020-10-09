@@ -1,7 +1,5 @@
 package com.fenix.app.com.fenix.app.service;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.location.Location;
 
 import com.google.android.gms.common.util.Strings;
@@ -12,8 +10,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import androidx.core.content.ContextCompat;
 
 public class MapService {
 
@@ -43,4 +39,20 @@ public class MapService {
         return marker;
     }
 
+    /**
+     * Map around me and zoom if need
+     */
+    public void MoveCameraToMe(GoogleMap map, float zoom) {
+
+        Location location = map.getMyLocation();
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        float currentZoom = map.getCameraPosition().zoom;
+        if(currentZoom > zoom) {
+            zoom = currentZoom;
+        }
+
+        CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(latLng, zoom);
+        map.animateCamera(cu);
+    }
 }

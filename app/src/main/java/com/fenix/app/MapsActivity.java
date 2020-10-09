@@ -11,34 +11,46 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fenix.app.com.fenix.app.service.MapService;
+import com.fenix.app.util.LocationUtils;
 import com.fenix.app.util.PermissionUtils;
-import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationChangeListener {
 
+    //#region Constants
+    private static final float MY_ZOOM = 17;
+    private static final float MY_FOLLOW_DISTANCE = 0.25f;
+    //#endregion
+
+    //#region Variables
     private MapService mapService = new MapService();
     private GoogleMap map;
     private Marker alienMarker;
-    private Marker myMarker;
     private LatLng myLocation;
+    private boolean myLocationFollow = false;
+    //#endregion
+
+    //#region Controls
 
     //#region alienButton
     private Button alienButton;
     private View.OnClickListener alienButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
 
-            MapsActivity.this.mapTextView.append("Alient Button click!\n");
+            MapsActivity.this.mapEventsLog.append("Alient Button click!\n");
 
             if (MapsActivity.this.alienMarker != null) {
                 MapsActivity.this.alienMarker.remove();
@@ -54,23 +66,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     };
     //#endregion
 
-    //#region myButton
+    //#region My
+
+    /**
+     * Map around me
+     */
     private Button myButton;
     private View.OnClickListener myButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
-
-            //TODO https://developers.google.com/maps/documentation/android-sdk/marker?hl=ru
-
-            if (MapsActivity.this.myMarker != null) {
-                MapsActivity.this.myMarker.remove();
-            }
-            MapsActivity.this.myMarker = MapsActivity.this.mapService.MarkerToMyLocation(MapsActivity.this.map, "My Marker 1!!!");
+            mapService.MoveCameraToMe(MapsActivity.this.map, MY_ZOOM);
         }
     };
+
+
+    /**
+     * Follow my location
+     */
+    private Switch mySwitch;
+    private CompoundButton.OnCheckedChangeListener mySwitchListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            myLocationFollow = b;
+        }
+    };
+
     //#endregion
 
-    private TextView mapTextView;
+    private TextView mapEventsLog;
 
+    //#endregion
+
+    /**
+     * Activity initializer
+     *
+     * @param savedInstanceState - previous state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,12 +116,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         alienButton.setOnClickListener(alienButtonListener);
 
         // TextView
-        mapTextView = findViewById(R.id.logTextView);
-        mapTextView.setMovementMethod(new ScrollingMovementMethod());
+        mapEventsLog = findViewById(R.id.logTextView);
+        mapEventsLog.setMovementMethod(new ScrollingMovementMethod());
 
         // myButton
         myButton = (Button) findViewById(R.id.myButton);
         myButton.setOnClickListener(myButtonListener);
+
+        // mySwitch
+        mySwitch = (Switch) findViewById(R.id.mySwitch);
+        mySwitch.setOnCheckedChangeListener(mySwitchListener);
     }
 
     /**
@@ -110,6 +144,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         map.setOnMyLocationButtonClickListener(this);
         map.setOnMyLocationClickListener(this);
         map.setOnMyLocationChangeListener(this);
+        map.getUiSettings().setZoomControlsEnabled(true);
         this.enableMyLocation();
     }
 
@@ -132,10 +167,31 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //#endregion
     }
 
+    /**
+     * Function to append a string to a TextView as a new line
+     * and scroll to the bottom if needed
+     *
+     * @param msg - message to log
+     */
+    private void addLogMessage(String msg) {
+        // append the new string
+        mapEventsLog.append(msg + "\n");
+        // find the amount we need to scroll.  This works by
+        // asking the TextView's internal layout for the position
+        // of the final line and then subtracting the TextView's height
+        final int scrollAmount = mapEventsLog.getLayout().getLineTop(mapEventsLog.getLineCount()) - mapEventsLog.getHeight();
+        // if there is no need to scroll, scrollAmount will be <=0
+        if (scrollAmount > 0)
+            mapEventsLog.scrollTo(0, scrollAmount);
+        else
+            mapEventsLog.scrollTo(0, 0);
+    }
+
+
     @Override
     public boolean onMyLocationButtonClick() {
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        this.mapTextView.append("MyLocation button clicked!\n");
+        this.mapEventsLog.append("MyLocation button clicked!\n");
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
@@ -146,7 +202,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         myLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
         Toast.makeText(this, "Current location:\n" + myLocation, Toast.LENGTH_LONG).show();
-        this.mapTextView.append("Current location: " + myLocation + "\n");
+        this.mapEventsLog.append("Current location: " + myLocation + "\n");
     }
 
     @Override
@@ -154,11 +210,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        if (myLocation == null || !myLocation.toString().equalsIgnoreCase(latLng.toString())) {
+        if (myLocation == null || LocationUtils.distance(myLocation, latLng) >= MY_FOLLOW_DISTANCE) {
             myLocation = latLng;
+            if (myLocationFollow) {
+                mapService.MoveCameraToMe(MapsActivity.this.map, MY_ZOOM);
+            }
 
-            Toast.makeText(this, "Changed location: " + myLocation, Toast.LENGTH_SHORT).show();
-            this.mapTextView.append("Changed location: " + myLocation + "!\n");
+            addLogMessage("Changed location: " + myLocation + "!");
         }
     }
 }
