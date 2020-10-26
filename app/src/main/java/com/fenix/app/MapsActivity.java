@@ -141,11 +141,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
 
         map = googleMap;
+        this.enableMyLocation();
+
         map.setOnMyLocationButtonClickListener(this);
         map.setOnMyLocationClickListener(this);
         map.setOnMyLocationChangeListener(this);
         map.getUiSettings().setZoomControlsEnabled(true);
-        this.enableMyLocation();
+
     }
 
 
