@@ -2,10 +2,7 @@ package com.fenix.app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -19,23 +16,15 @@ import android.widget.Toast;
 
 import com.fenix.app.com.fenix.app.service.MapService;
 import com.fenix.app.com.fenix.app.service.PusherService;
-import com.fenix.app.util.LocationUtils;
-import com.fenix.app.util.PermissionUtils;
-import com.google.android.gms.maps.CameraUpdateFactory;
+import com.fenix.app.util.LocationUtil;
+import com.fenix.app.util.TextViewUtil;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.pusher.client.Pusher;
-import com.pusher.client.PusherOptions;
-import com.pusher.client.channel.Channel;
 import com.pusher.client.channel.PusherEvent;
 import com.pusher.client.channel.SubscriptionEventListener;
 import com.pusher.client.connection.ConnectionEventListener;
-import com.pusher.client.connection.ConnectionState;
 import com.pusher.client.connection.ConnectionStateChange;
 
 public class MapsActivity extends AppCompatActivity implements
@@ -66,20 +55,18 @@ public class MapsActivity extends AppCompatActivity implements
     private View.OnClickListener alienButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
 
-            MapsActivity.this.mapEventsLog.append("Alient Button click!\n");
+            Toast.makeText(MapsActivity.this, "New Alien cumming!", Toast.LENGTH_SHORT).show();
 
-            if (MapsActivity.this.alienMarker != null) {
-                MapsActivity.this.alienMarker.remove();
-            }
+            aliensTextView.append("New Alien cumming!\n");
+            TextViewUtil.ScrollToBottom(aliensTextView);
 
-            // Add a marker and move the camera
-            LatLng myLocation = new LatLng(0, 0);
-            MarkerOptions myMarkerOptions = new MarkerOptions().position(myLocation).title("My Marker 2");
-            MapsActivity.this.alienMarker = mapService.map.addMarker(myMarkerOptions);
-            mapService.map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-
+            Log.i("Alien", "New Alien cumming!");
         }
     };
+    //#endregion
+
+    private TextView aliensTextView;
+
     //#endregion
 
     //#region My
@@ -108,8 +95,6 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#endregion
 
-    private TextView mapEventsLog;
-
     //#endregion
 
     /**
@@ -135,8 +120,8 @@ public class MapsActivity extends AppCompatActivity implements
         alienButton.setOnClickListener(alienButtonListener);
 
         // TextView
-        mapEventsLog = findViewById(R.id.logTextView);
-        mapEventsLog.setMovementMethod(new ScrollingMovementMethod());
+        aliensTextView = findViewById(R.id.aliensTextView);
+        aliensTextView.setMovementMethod(new ScrollingMovementMethod());
 
         // myButton
         myButton = (Button) findViewById(R.id.myButton);
@@ -152,8 +137,8 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        this.mapEventsLog.append("MyLocation button clicked!\n");
+
+        Log.i("Alien", "New Alien cumming!");
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
@@ -164,7 +149,7 @@ public class MapsActivity extends AppCompatActivity implements
         myLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
         Toast.makeText(this, "Current location:\n" + myLocation, Toast.LENGTH_LONG).show();
-        this.mapEventsLog.append("Current location: " + myLocation + "\n");
+        this.aliensTextView.append("Current location: " + myLocation + "\n");
     }
 
     @Override
@@ -172,7 +157,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        if (myLocation == null || LocationUtils.distance(myLocation, latLng) >= MY_FOLLOW_DISTANCE) {
+        if (myLocation == null || LocationUtil.distance(myLocation, latLng) >= MY_FOLLOW_DISTANCE) {
             myLocation = latLng;
             if (myLocationFollow) {
                 mapService.MoveCameraToMe(MY_ZOOM);

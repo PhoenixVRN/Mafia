@@ -14,19 +14,18 @@ public class PusherService {
     public Pusher pusher;
 
     private AppCompatActivity activity;
-    private PusherOptions options;
 
-    public PusherService(AppCompatActivity activity){
+    public PusherService(AppCompatActivity activity) {
         this.activity = activity;
 
-        options = new PusherOptions();
+        PusherOptions options = new PusherOptions();
         options.setCluster("eu");
 
         pusher = new Pusher("42507c1d16edfe393a0e", options);
         pusher.connect((ConnectionEventListener) this.activity, ConnectionState.ALL);
     }
 
-    public void Bind(String channelName, String eventName){
+    public void Bind(String channelName, String eventName) {
         Channel channel = pusher.subscribe(channelName);
         channel.bind(eventName, (SubscriptionEventListener) this.activity);
     }

@@ -7,7 +7,7 @@ import android.location.Location;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.fenix.app.util.PermissionUtils;
+import com.fenix.app.util.PermissionUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -82,7 +82,7 @@ public class MapService implements OnMapReadyCallback {
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
-            PermissionUtils.requestPermission(this.activity, PermissionUtils.LOCATION_PERMISSION_REQUEST_CODE,
+            PermissionUtil.requestPermission(this.activity, PermissionUtil.LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         }
         //#endregion

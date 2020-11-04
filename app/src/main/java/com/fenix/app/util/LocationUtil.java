@@ -2,7 +2,7 @@ package com.fenix.app.util;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public abstract class LocationUtils {
+public final class LocationUtil {
 
     /**
      * Calculate distance in meters between two points
