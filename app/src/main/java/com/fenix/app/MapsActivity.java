@@ -38,7 +38,9 @@ import com.pusher.client.connection.ConnectionEventListener;
 import com.pusher.client.connection.ConnectionState;
 import com.pusher.client.connection.ConnectionStateChange;
 
-public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationChangeListener {
+public class MapsActivity extends AppCompatActivity implements
+        GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationChangeListener,
+        ConnectionEventListener, SubscriptionEventListener {
 
     //#region Constants
     private static final float MY_ZOOM = 17;
@@ -48,7 +50,7 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMyLoc
     //#region Services
 
     private MapService mapService = new MapService(this);
-    private PusherService pusherService = new PusherService();
+    private PusherService pusherService = new PusherService(this);
     //#endregion
 
     //#region Variables
@@ -123,7 +125,10 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMyLoc
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this.mapService);
+        mapFragment.getMapAsync(mapService);
+
+        // Connect to Pusher-channel
+        pusherService.Bind("map", "location");
 
         // Button
         alienButton = (Button) findViewById(R.id.alienButton);
@@ -141,56 +146,7 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMyLoc
         mySwitch = (Switch) findViewById(R.id.mySwitch);
         mySwitch.setOnCheckedChangeListener(mySwitchListener);
 
-
-        PusherOptions options = new PusherOptions();
-        options.setCluster("eu");
-
-        Pusher pusher = new Pusher("42507c1d16edfe393a0e", options);
-        pusher.connect(new ConnectionEventListener() {
-            @Override
-            public void onConnectionStateChange(ConnectionStateChange change) {
-                Log.i("Pusher", "State changed from " + change.getPreviousState() +
-                        " to " + change.getCurrentState());
-            }
-
-            @Override
-            public void onError(String message, String code, Exception e) {
-                Log.i("Pusher", "There was a problem connecting! " +
-                        "\ncode: " + code +
-                        "\nmessage: " + message +
-                        "\nException: " + e
-                );
-            }
-        }, ConnectionState.ALL);
-        Channel channel = pusher.subscribe("my-channel");
-        channel.bind("my-event", new SubscriptionEventListener() {
-            @Override
-            public void onEvent(PusherEvent event) {
-                Log.i("Pusher", "Received event with data: " + event.toString());
-            }
-        });
     }
-
-    /**
-     * Function to append a string to a TextView as a new line
-     * and scroll to the bottom if needed
-     *
-     * @param msg - message to log
-     */
-    private void addLogMessage(String msg) {
-        // append the new string
-        mapEventsLog.append(msg + "\n");
-        // find the amount we need to scroll.  This works by
-        // asking the TextView's internal layout for the position
-        // of the final line and then subtracting the TextView's height
-        final int scrollAmount = mapEventsLog.getLayout().getLineTop(mapEventsLog.getLineCount()) - mapEventsLog.getHeight();
-        // if there is no need to scroll, scrollAmount will be <=0
-        if (scrollAmount > 0)
-            mapEventsLog.scrollTo(0, scrollAmount);
-        else
-            mapEventsLog.scrollTo(0, 0);
-    }
-
 
     //#region Map events
 
@@ -222,9 +178,34 @@ public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMyLoc
                 mapService.MoveCameraToMe(MY_ZOOM);
             }
 
-            addLogMessage("Changed location: " + myLocation + "!");
+            Log.i("Map", "\"Changed location: " + myLocation.toString());
         }
     }
 
     //#endregion
+
+    //#region Pusher events
+
+    @Override
+    public void onEvent(PusherEvent event) {
+        Log.i("Pusher", "Received event with data: " + event.toString());
+    }
+
+    @Override
+    public void onConnectionStateChange(ConnectionStateChange change) {
+        Log.i("Pusher", "State changed from " + change.getPreviousState() +
+                " to " + change.getCurrentState());
+    }
+
+    @Override
+    public void onError(String message, String code, Exception e) {
+        Log.i("Pusher", "There was a problem connecting! " +
+                "\ncode: " + code +
+                "\nmessage: " + message +
+                "\nException: " + e
+        );
+    }
+
+    //#endregion
+
 }
