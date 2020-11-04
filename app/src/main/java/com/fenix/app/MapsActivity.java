@@ -42,6 +42,8 @@ public class MapsActivity extends AppCompatActivity implements
 
     private static final float MY_ZOOM = 17;
     private static final float MY_FOLLOW_DISTANCE = 0.25f;
+    private static final String P_CHANNEL = "map";
+    private static final String P_EVENT = "location";
 
     //#endregion
 
@@ -56,7 +58,10 @@ public class MapsActivity extends AppCompatActivity implements
 
     public List<AlienDto> aliens = new ArrayList<>();
 
-    private LatLng myLocation;
+    private AlienDto my = new AlienDto() {{
+        name = "MY_NAME";
+        location = null;
+    }};
     private boolean myLocationFollow = false;
 
     //#endregion
@@ -77,17 +82,17 @@ public class MapsActivity extends AppCompatActivity implements
 
             if (aliens.size() == 0) {
                 aliens.add(new AlienDto() {{
-                    name = "my";
-                    location = myLocation;
+                    name = "alien 1";
+                    location = new LatLng(-10, -10);
                 }});
             } else if (aliens.size() == 1) {
                 aliens.add(new AlienDto() {{
-                    name = "alien 1";
+                    name = "alien 2";
                     location = new LatLng(0, 0);
                 }});
             } else {
                 aliens.add(new AlienDto() {{
-                    name = "alien 2";
+                    name = "alien 3";
                     location = new LatLng(10, 10);
                 }});
             }
@@ -152,7 +157,7 @@ public class MapsActivity extends AppCompatActivity implements
         mapFragment.getMapAsync(mapService);
 
         // Connect to Pusher-channel
-        pusherService.Bind("map", "location");
+        pusherService.Bind(P_CHANNEL, P_EVENT);
 
         // alienButton
         alienButton = (Button) findViewById(R.id.alienButton);
@@ -163,7 +168,11 @@ public class MapsActivity extends AppCompatActivity implements
         aliensTextView.setMovementMethod(new ScrollingMovementMethod());
 
         // aliensSpinner
-        aliensSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+        aliens.add(new AlienDto() {{
+            name = "MY_NAME";
+            location = null;
+        }});
+        aliensSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, aliens);
         aliensSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         aliensSpinner = findViewById(R.id.aliensSpinner);
         aliensSpinner.setAdapter(aliensSpinnerAdapter);
@@ -192,10 +201,10 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        my.location = new LatLng(location.getLatitude(), location.getLongitude());
 
-        Toast.makeText(this, "Current location:\n" + myLocation, Toast.LENGTH_LONG).show();
-        this.aliensTextView.append("Current location: " + myLocation + "\n");
+        Toast.makeText(this, "Current location:\n" + my.location, Toast.LENGTH_LONG).show();
+        Log.i("Map", "My location click:" + my.location);
     }
 
     @Override
@@ -203,13 +212,15 @@ public class MapsActivity extends AppCompatActivity implements
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        if (myLocation == null || LocationUtil.distance(myLocation, latLng) >= MY_FOLLOW_DISTANCE) {
-            myLocation = latLng;
+        if (my.location == null || LocationUtil.distance(my.location, latLng) >= MY_FOLLOW_DISTANCE) {
+            my.location = latLng;
+            pusherService.Push(P_CHANNEL, P_EVENT, my);
+
             if (myLocationFollow) {
                 mapService.MoveCameraToMe(MY_ZOOM);
             }
 
-            Log.i("Map", "\"Changed location: " + myLocation.toString());
+            Log.i("Map", "Changed location: " + my.location);
         }
     }
 
