@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fenix.app.com.fenix.app.service.MapService;
+import com.fenix.app.com.fenix.app.service.PusherService;
 import com.fenix.app.util.LocationUtils;
 import com.fenix.app.util.PermissionUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,17 +29,29 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.pusher.client.Pusher;
+import com.pusher.client.PusherOptions;
+import com.pusher.client.channel.Channel;
+import com.pusher.client.channel.PusherEvent;
+import com.pusher.client.channel.SubscriptionEventListener;
+import com.pusher.client.connection.ConnectionEventListener;
+import com.pusher.client.connection.ConnectionState;
+import com.pusher.client.connection.ConnectionStateChange;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationChangeListener {
+public class MapsActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationChangeListener {
 
     //#region Constants
     private static final float MY_ZOOM = 17;
     private static final float MY_FOLLOW_DISTANCE = 0.25f;
     //#endregion
 
+    //#region Services
+
+    private MapService mapService = new MapService(this);
+    private PusherService pusherService = new PusherService();
+    //#endregion
+
     //#region Variables
-    private MapService mapService = new MapService();
-    private GoogleMap map;
     private Marker alienMarker;
     private LatLng myLocation;
     private boolean myLocationFollow = false;
@@ -59,8 +73,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             // Add a marker and move the camera
             LatLng myLocation = new LatLng(0, 0);
             MarkerOptions myMarkerOptions = new MarkerOptions().position(myLocation).title("My Marker 2");
-            MapsActivity.this.alienMarker = MapsActivity.this.map.addMarker(myMarkerOptions);
-            MapsActivity.this.map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
+            MapsActivity.this.alienMarker = mapService.map.addMarker(myMarkerOptions);
+            mapService.map.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
 
         }
     };
@@ -74,7 +88,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Button myButton;
     private View.OnClickListener myButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
-            mapService.MoveCameraToMe(MapsActivity.this.map, MY_ZOOM);
+            mapService.MoveCameraToMe(MY_ZOOM);
         }
     };
 
@@ -109,7 +123,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        mapFragment.getMapAsync(this.mapService);
 
         // Button
         alienButton = (Button) findViewById(R.id.alienButton);
@@ -126,47 +140,35 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // mySwitch
         mySwitch = (Switch) findViewById(R.id.mySwitch);
         mySwitch.setOnCheckedChangeListener(mySwitchListener);
-    }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-        map = googleMap;
-        this.enableMyLocation();
-
-        map.setOnMyLocationButtonClickListener(this);
-        map.setOnMyLocationClickListener(this);
-        map.setOnMyLocationChangeListener(this);
-        map.getUiSettings().setZoomControlsEnabled(true);
-
-    }
 
 
-    /**
-     * Enables the My Location layer if the fine location permission has been granted.
-     */
-    private void enableMyLocation() {
-        //#region maps_check_location_permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            if (map != null) {
-                map.setMyLocationEnabled(true);
+        PusherOptions options = new PusherOptions();
+        options.setCluster("eu");
+
+        Pusher pusher = new Pusher("42507c1d16edfe393a0e", options);
+        pusher.connect(new ConnectionEventListener() {
+            @Override
+            public void onConnectionStateChange(ConnectionStateChange change) {
+                Log.i("Pusher", "State changed from " + change.getPreviousState() +
+                        " to " + change.getCurrentState());
             }
-        } else {
-            // Permission to access the location is missing. Show rationale and request permission
-            PermissionUtils.requestPermission(this, PermissionUtils.LOCATION_PERMISSION_REQUEST_CODE,
-                    Manifest.permission.ACCESS_FINE_LOCATION, true);
-        }
-        //#endregion
+
+            @Override
+            public void onError(String message, String code, Exception e) {
+                Log.i("Pusher", "There was a problem connecting! " +
+                        "\ncode: " + code +
+                        "\nmessage: " + message +
+                        "\nException: " + e
+                );
+            }
+        }, ConnectionState.ALL);
+        Channel channel = pusher.subscribe("my-channel");
+        channel.bind("my-event", new SubscriptionEventListener() {
+            @Override
+            public void onEvent(PusherEvent event) {
+                Log.i("Pusher", "Received event with data: " + event.toString());
+            }
+        });
     }
 
     /**
@@ -189,6 +191,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mapEventsLog.scrollTo(0, 0);
     }
 
+
+    //#region Map events
 
     @Override
     public boolean onMyLocationButtonClick() {
@@ -215,10 +219,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (myLocation == null || LocationUtils.distance(myLocation, latLng) >= MY_FOLLOW_DISTANCE) {
             myLocation = latLng;
             if (myLocationFollow) {
-                mapService.MoveCameraToMe(MapsActivity.this.map, MY_ZOOM);
+                mapService.MoveCameraToMe(MY_ZOOM);
             }
 
             addLogMessage("Changed location: " + myLocation + "!");
         }
     }
+
+    //#endregion
 }
