@@ -1,4 +1,4 @@
-package com.fenix.app.com.fenix.app.service;
+package com.fenix.app.service;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MapsActivity">
 
+    <!--#region Alien -->
     <Button
         android:id="@+id/alienButton"
         android:layout_width="150dp"
@@ -15,6 +16,17 @@
         android:text="New Alien !"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/aliensSpinner"
+        android:layout_width="250dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="130dp"
+        android:dropDownWidth="wrap_content"
+        android:spinnerMode="dropdown"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintStart_toStartOf="parent" />
+    <!--#endregion -->
 
     <!--#region My -->
     <Button
@@ -30,7 +42,7 @@
         android:id="@+id/mySwitch"
         android:layout_width="150dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginBottom="130dp"
         android:text="Следить"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent" />
@@ -59,6 +71,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="210dp"
         tools:context=".MapsActivity" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

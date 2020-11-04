@@ -8,51 +8,66 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fenix.app.com.fenix.app.service.MapService;
-import com.fenix.app.com.fenix.app.service.PusherService;
+import com.fenix.app.dto.AlienDto;
+import com.fenix.app.service.MapService;
+import com.fenix.app.service.PusherService;
 import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.TextViewUtil;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.pusher.client.channel.PusherEvent;
 import com.pusher.client.channel.SubscriptionEventListener;
 import com.pusher.client.connection.ConnectionEventListener;
 import com.pusher.client.connection.ConnectionStateChange;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MapsActivity extends AppCompatActivity implements
         GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationChangeListener,
-        ConnectionEventListener, SubscriptionEventListener {
+        ConnectionEventListener, SubscriptionEventListener,
+        AdapterView.OnItemSelectedListener {
 
     //#region Constants
+
     private static final float MY_ZOOM = 17;
     private static final float MY_FOLLOW_DISTANCE = 0.25f;
+
     //#endregion
 
     //#region Services
 
     private MapService mapService = new MapService(this);
     private PusherService pusherService = new PusherService(this);
+
     //#endregion
 
     //#region Variables
-    private Marker alienMarker;
+
+    public List<AlienDto> aliens = new ArrayList<>();
+
     private LatLng myLocation;
     private boolean myLocationFollow = false;
+
     //#endregion
 
     //#region Controls
 
+    //#region Aliens
+
     //#region alienButton
     private Button alienButton;
-    private View.OnClickListener alienButtonListener = new View.OnClickListener() {
+    private final View.OnClickListener alienButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
 
             Toast.makeText(MapsActivity.this, "New Alien cumming!", Toast.LENGTH_SHORT).show();
@@ -60,12 +75,36 @@ public class MapsActivity extends AppCompatActivity implements
             aliensTextView.append("New Alien cumming!\n");
             TextViewUtil.ScrollToBottom(aliensTextView);
 
+            if (aliens.size() == 0) {
+                aliens.add(new AlienDto() {{
+                    name = "my";
+                    location = myLocation;
+                }});
+            } else if (aliens.size() == 1) {
+                aliens.add(new AlienDto() {{
+                    name = "alien 1";
+                    location = new LatLng(0, 0);
+                }});
+            } else {
+                aliens.add(new AlienDto() {{
+                    name = "alien 2";
+                    location = new LatLng(10, 10);
+                }});
+            }
+            aliensSpinnerAdapter.clear();
+            aliensSpinnerAdapter.addAll(aliens);
+
             Log.i("Alien", "New Alien cumming!");
         }
     };
     //#endregion
 
     private TextView aliensTextView;
+
+    //#region aliensSpinner
+    Spinner aliensSpinner;
+    ArrayAdapter<AlienDto> aliensSpinnerAdapter;
+    //#endregion
 
     //#endregion
 
@@ -115,13 +154,20 @@ public class MapsActivity extends AppCompatActivity implements
         // Connect to Pusher-channel
         pusherService.Bind("map", "location");
 
-        // Button
+        // alienButton
         alienButton = (Button) findViewById(R.id.alienButton);
         alienButton.setOnClickListener(alienButtonListener);
 
-        // TextView
+        // aliensTextView
         aliensTextView = findViewById(R.id.aliensTextView);
         aliensTextView.setMovementMethod(new ScrollingMovementMethod());
+
+        // aliensSpinner
+        aliensSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+        aliensSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        aliensSpinner = findViewById(R.id.aliensSpinner);
+        aliensSpinner.setAdapter(aliensSpinnerAdapter);
+        aliensSpinner.setOnItemSelectedListener(this);
 
         // myButton
         myButton = (Button) findViewById(R.id.myButton);
@@ -189,6 +235,20 @@ public class MapsActivity extends AppCompatActivity implements
                 "\nmessage: " + message +
                 "\nException: " + e
         );
+    }
+
+    //#endregion
+
+    //#region Alien Spinner
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.i("AlienSpinner", "Item Selected");
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        Log.i("AlienSpinner", "Nothing selected");
     }
 
     //#endregion

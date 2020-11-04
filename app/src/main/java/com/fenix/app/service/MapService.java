@@ -1,4 +1,4 @@
-package com.fenix.app.com.fenix.app.service;
+package com.fenix.app.service;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
