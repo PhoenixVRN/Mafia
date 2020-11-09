@@ -41,6 +41,6 @@ curl -H 'Content-Type: application/json' -d '{"data":"{\"message\":\"hello world
     }
 
     public void Push(String channelName, String eventName, Object data) {
-        pusherServer.trigger(channelName, eventName, data);
+        // pusherServer.trigger(channelName, eventName, data);
     }
 }

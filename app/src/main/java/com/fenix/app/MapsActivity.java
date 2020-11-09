@@ -203,6 +203,8 @@ public class MapsActivity extends AppCompatActivity implements
     public void onMyLocationClick(@NonNull Location location) {
         my.location = new LatLng(location.getLatitude(), location.getLongitude());
 
+        pusherService.Push(P_CHANNEL, P_EVENT, "test");
+
         Toast.makeText(this, "Current location:\n" + my.location, Toast.LENGTH_LONG).show();
         Log.i("Map", "My location click:" + my.location);
     }
@@ -214,7 +216,8 @@ public class MapsActivity extends AppCompatActivity implements
 
         if (my.location == null || LocationUtil.distance(my.location, latLng) >= MY_FOLLOW_DISTANCE) {
             my.location = latLng;
-            pusherService.Push(P_CHANNEL, P_EVENT, my);
+
+            pusherService.Push(P_CHANNEL, P_EVENT, "test");
 
             if (myLocationFollow) {
                 mapService.MoveCameraToMe(MY_ZOOM);
