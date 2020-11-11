@@ -77,6 +77,8 @@ public class MapsActivity extends AppCompatActivity implements
 
             Toast.makeText(MapsActivity.this, "New Alien cumming!", Toast.LENGTH_SHORT).show();
 
+            pusherService.Push(P_CHANNEL, P_EVENT, "test");
+
             aliensTextView.append("New Alien cumming!\n");
             TextViewUtil.ScrollToBottom(aliensTextView);
 
@@ -194,6 +196,7 @@ public class MapsActivity extends AppCompatActivity implements
     public boolean onMyLocationButtonClick() {
 
         Log.i("Alien", "Find my location click!");
+
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
@@ -202,8 +205,6 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public void onMyLocationClick(@NonNull Location location) {
         my.location = new LatLng(location.getLatitude(), location.getLongitude());
-
-        pusherService.Push(P_CHANNEL, P_EVENT, null);
 
         Toast.makeText(this, "Current location:\n" + my.location, Toast.LENGTH_LONG).show();
         Log.i("Map", "My location click:" + my.location);

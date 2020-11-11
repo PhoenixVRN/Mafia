@@ -3,6 +3,10 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
 
+    applicationVariants.all { variant ->
+        variant.getRuntimeConfiguration().exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+
     defaultConfig {
         applicationId "com.fenix.app"
         minSdkVersion 23
@@ -37,10 +41,13 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
+    implementation 'commons-codec:commons-codec:1.11'
 
     /* pusher.com integration */
     implementation 'com.pusher:pusher-java-client:2.2.1'
     implementation 'com.pusher:pusher-http-java:1.0.0'
+
 
     /* Testing */
     testImplementation 'junit:junit:4.12'
