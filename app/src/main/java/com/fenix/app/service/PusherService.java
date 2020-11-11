@@ -33,14 +33,10 @@ public class PusherService {
 
     public void Push(String channelName, String eventName, Object data) {
         if (pusherServer == null) {
- //           "https://42507c1d16edfe393a0e:98348bffb60515ab1adc@api-eu.pusher.com/apps/1093272"
-            pusherServer = new PusherServer("1093272","42507c1d16edfe393a0e", "98348bffb60515ab1adc");
+            // "https://42507c1d16edfe393a0e:98348bffb60515ab1adc@api-eu.pusher.com/apps/1093272"
+            pusherServer = new PusherServer("1093272", "42507c1d16edfe393a0e", "98348bffb60515ab1adc");
             pusherServer.setCluster("eu");
         }
-/*
-curl -H 'Content-Type: application/json' -d '{"data":"{\"message\":\"hello world\"}","name":"my-event","channel":"my-channel"}' \
-"https://api-eu.pusher.com/apps/1093272/events?body_md5=2c99321eeba901356c4c7998da9be9e0&auth_version=1.0&auth_key=42507c1d16edfe393a0e&auth_timestamp=1604519453&auth_signature=1d92a803abc6d6f230a929a24dadacd4f1431287b79e1cdc1ae4ed0eec462ef1&"
-*/
 
         pusherServer.trigger(channelName, eventName, data);
     }

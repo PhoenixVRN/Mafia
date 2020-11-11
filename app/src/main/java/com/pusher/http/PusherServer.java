@@ -31,6 +31,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,7 +80,9 @@ public class PusherServer {
 
     private String host = "api.pusherapp.com";
     private String scheme = "http";
-    private int requestTimeout = 4000; // milliseconds
+
+    private static int requestTimeout = 4000; // milliseconds
+    private static ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private CloseableHttpClient client;
     private Gson dataMarshaller;
@@ -85,8 +92,9 @@ public class PusherServer {
      * <p>
      * The parameters to use are found on your dashboard at https://app.pusher.com and are specific per App.
      * <p>
-     * @param appId The ID of the App you will to interact with.
-     * @param key The App Key, the same key you give to websocket clients to identify your app when they connect to Pusher.
+     *
+     * @param appId  The ID of the App you will to interact with.
+     * @param key    The App Key, the same key you give to websocket clients to identify your app when they connect to Pusher.
      * @param secret The App Secret. Used to sign requests to the API, this should be treated as sensitive and not distributed.
      */
     public PusherServer(final String appId, final String key, final String secret) {
@@ -112,8 +120,7 @@ public class PusherServer {
             this.secret = m.group(3);
             this.host = m.group(4);
             this.appId = m.group(5);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("URL '" + url + "' does not match pattern '<scheme>://<key>:<secret>@<host>[:<port>]/apps/<appId>'");
         }
 
@@ -203,20 +210,26 @@ public class PusherServer {
      * then call {@link #configureHttpClient(HttpClientBuilder)} to have this configuration
      * applied to all subsequent calls.
      *
-     * @see #configureHttpClient(HttpClientBuilder)
-     *
      * @return an {@link HttpClientBuilder} with the default settings applied
+     * @see #configureHttpClient(HttpClientBuilder)
      */
     public static HttpClientBuilder defaultHttpClientBuilder() {
         HttpClientBuilder builder = HttpClientBuilder.create();
-        PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
-        DefaultConnectionReuseStrategy defaultConnectionReuseStrategy = new DefaultConnectionReuseStrategy();
-        DefaultConnectionKeepAliveStrategy defaultConnectionKeepAliveStrategy = new DefaultConnectionKeepAliveStrategy();
+
+        final PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
+        final DefaultConnectionReuseStrategy defaultConnectionReuseStrategy = new DefaultConnectionReuseStrategy();
+        final DefaultConnectionKeepAliveStrategy defaultConnectionKeepAliveStrategy = new DefaultConnectionKeepAliveStrategy();
+        final RequestConfig requestConfig = RequestConfig.custom()
+                .setSocketTimeout(requestTimeout)
+                .setConnectionRequestTimeout(requestTimeout)
+                .setConnectTimeout(requestTimeout)
+                .build();
 
         return builder
                 .setConnectionManager(poolingHttpClientConnectionManager)
                 .setConnectionReuseStrategy(defaultConnectionReuseStrategy)
                 .setKeepAliveStrategy(defaultConnectionKeepAliveStrategy)
+                .setDefaultRequestConfig(requestConfig)
                 .disableRedirectHandling();
     }
 
@@ -242,16 +255,14 @@ public class PusherServer {
      * );
      * </pre>
      *
-     * @see #defaultHttpClientBuilder()
-     *
      * @param builder an {@link HttpClientBuilder} with which to configure
-     * the internal HTTP client
+     *                the internal HTTP client
+     * @see #defaultHttpClientBuilder()
      */
     public void configureHttpClient(final HttpClientBuilder builder) {
         try {
             if (client != null) client.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // Not a lot useful we can do here
         }
 
@@ -294,50 +305,50 @@ public class PusherServer {
      * Note that if you do not wish to create classes specifically for the purpose of specifying
      * the message payload, use Map&lt;String, Object&gt;. These maps will nest just fine.
      *
-     * @param channel the channel name on which to trigger the event
+     * @param channel   the channel name on which to trigger the event
      * @param eventName the name given to the event
-     * @param data an object which will be serialised to create the event body
+     * @param data      an object which will be serialised to create the event body
      * @return a {@link Result} object encapsulating the success state and response to the request
      */
-    public Result trigger(final String channel, final String eventName, final Object data) {
+    public Future<Result> trigger(final String channel, final String eventName, final Object data) {
         return trigger(channel, eventName, data, null);
     }
 
     /**
      * Publish identical messages to multiple channels.
      *
-     * @param channels the channel names on which to trigger the event
+     * @param channels  the channel names on which to trigger the event
      * @param eventName the name given to the event
-     * @param data an object which will be serialised to create the event body
+     * @param data      an object which will be serialised to create the event body
      * @return a {@link Result} object encapsulating the success state and response to the request
      */
-    public Result trigger(final List<String> channels, final String eventName, final Object data) {
+    public Future<Result> trigger(final List<String> channels, final String eventName, final Object data) {
         return trigger(channels, eventName, data, null);
     }
 
     /**
      * Publish a message to a single channel, excluding the specified socketId from receiving the message.
      *
-     * @param channel the channel name on which to trigger the event
+     * @param channel   the channel name on which to trigger the event
      * @param eventName the name given to the event
-     * @param data an object which will be serialised to create the event body
-     * @param socketId a socket id which should be excluded from receiving the event
+     * @param data      an object which will be serialised to create the event body
+     * @param socketId  a socket id which should be excluded from receiving the event
      * @return a {@link Result} object encapsulating the success state and response to the request
      */
-    public Result trigger(final String channel, final String eventName, final Object data, final String socketId) {
+    public Future<Result> trigger(final String channel, final String eventName, final Object data, final String socketId) {
         return trigger(Collections.singletonList(channel), eventName, data, socketId);
     }
 
     /**
      * Publish identical messages to multiple channels, excluding the specified socketId from receiving the message.
      *
-     * @param channels the channel names on which to trigger the event
+     * @param channels  the channel names on which to trigger the event
      * @param eventName the name given to the event
-     * @param data an object which will be serialised to create the event body
-     * @param socketId a socket id which should be excluded from receiving the event
+     * @param data      an object which will be serialised to create the event body
+     * @param socketId  a socket id which should be excluded from receiving the event
      * @return a {@link Result} object encapsulating the success state and response to the request
      */
-    public Result trigger(final List<String> channels, final String eventName, final Object data, final String socketId) {
+    public Future<Result> trigger(final List<String> channels, final String eventName, final Object data, final String socketId) {
         Prerequisites.nonNull("channels", channels);
         Prerequisites.nonNull("eventName", eventName);
         Prerequisites.nonNull("data", data);
@@ -353,22 +364,22 @@ public class PusherServer {
 
     /**
      * Publish a batch of different events with a single API call.
-     *
+     * <p>
      * The batch is limited to 10 events on our multi-tenant clusters.
      *
      * @param batch a list of events to publish
      * @return a {@link Result} object encapsulating the success state and response to the request
      */
-    public Result trigger(final List<Event> batch) {
+    public Future<Result> trigger(final List<Event> batch) {
         final List<Event> eventsWithSerialisedBodies = new ArrayList<Event>(batch.size());
         for (final Event e : batch) {
             eventsWithSerialisedBodies.add(
-                new Event(
-                    e.getChannel(),
-                    e.getName(),
-                    serialise(e.getData()),
-                    e.getSocketId()
-                )
+                    new Event(
+                            e.getChannel(),
+                            e.getName(),
+                            serialise(e.getData()),
+                            e.getSocketId()
+                    )
             );
         }
         final String body = BODY_SERIALISER.toJson(new EventBatch(eventsWithSerialisedBodies));
@@ -388,7 +399,7 @@ public class PusherServer {
      * @param path the path (e.g. /channels) to query
      * @return a {@link Result} object encapsulating the success state and response to the request
      */
-    public Result get(final String path) {
+    public Future<Result> get(final String path) {
         return get(path, Collections.<String, String>emptyMap());
     }
 
@@ -404,11 +415,11 @@ public class PusherServer {
      * the channel list for your app, simply pass "/channels". Do not include the "/apps/[appId]"
      * at the beginning of the path.
      *
-     * @param path the path (e.g. /channels) to query
+     * @param path       the path (e.g. /channels) to query
      * @param parameters query parameters to submit with the request
      * @return a {@link Result} object encapsulating the success state and response to the request
      */
-    public Result get(final String path, final Map<String, String> parameters) {
+    public Future<Result> get(final String path, final Map<String, String> parameters) {
         final String fullPath = "/apps/" + appId + path;
         final URI uri = SignatureUtil.uri("GET", scheme, host, fullPath, null, key, secret, parameters);
 
@@ -430,7 +441,7 @@ public class PusherServer {
      * @param body the body to submit
      * @return a {@link Result} object encapsulating the success state and response to the request
      */
-    public Result post(final String path, final String body) {
+    public Future<Result> post(final String path, final String body) {
         final String fullPath = "/apps/" + appId + path;
         final URI uri = SignatureUtil.uri("POST", scheme, host, fullPath, body, key, secret, Collections.<String, String>emptyMap());
 
@@ -443,26 +454,29 @@ public class PusherServer {
         return httpCall(request);
     }
 
-    Result httpCall(final HttpRequestBase request) {
-        final RequestConfig config = RequestConfig.custom()
-                .setSocketTimeout(requestTimeout)
-                .setConnectionRequestTimeout(requestTimeout)
-                .setConnectTimeout(requestTimeout)
-                .build();
-        request.setConfig(config);
+    Future<Result> httpCall(final HttpRequestBase request) {
+        FutureTask<Result> future =
+                new FutureTask<>(new Callable<Result>() {
+                    public Result call() {
+                        try {
+                            final HttpResponse response = client.execute(request);
 
-        try {
-            final HttpResponse response = client.execute(request);
+                            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            response.getEntity().writeTo(baos);
+                            final String responseBody = new String(baos.toByteArray(), "UTF-8");
 
-            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            response.getEntity().writeTo(baos);
-            final String responseBody = new String(baos.toByteArray(), "UTF-8");
+                            return Result.fromHttpCode(response.getStatusLine().getStatusCode(), responseBody);
+                        } catch (final IOException e) {
+                            e.printStackTrace();
+                            return Result.fromException(e);
+                        }
+                    }
+                });
 
-            return Result.fromHttpCode(response.getStatusLine().getStatusCode(), responseBody);
-        }
-        catch (final IOException e) {
-            return Result.fromException(e);
-        }
+
+        executor = Executors.newSingleThreadExecutor();
+        executor.execute(future);
+        return future;
     }
 
     /**
@@ -470,8 +484,8 @@ public class PusherServer {
      * will return a java.net.URI which includes all of the appropriate query parameters which sign the request.
      *
      * @param method the HTTP method, e.g. GET, POST
-     * @param path the HTTP path, e.g. /channels
-     * @param body the HTTP request body, if there is one (otherwise pass null)
+     * @param path   the HTTP path, e.g. /channels
+     * @param body   the HTTP request body, if there is one (otherwise pass null)
      * @return a URI object which includes the necessary query params for request authentication
      */
     public URI signedUri(final String method, final String path, final String body) {
@@ -484,9 +498,9 @@ public class PusherServer {
      * <p>
      * Note that any further query parameters you wish to be add must be specified here, as they form part of the signature.
      *
-     * @param method the HTTP method, e.g. GET, POST
-     * @param path the HTTP path, e.g. /channels
-     * @param body the HTTP request body, if there is one (otherwise pass null)
+     * @param method     the HTTP method, e.g. GET, POST
+     * @param path       the HTTP path, e.g. /channels
+     * @param body       the HTTP request body, if there is one (otherwise pass null)
      * @param parameters HTTP query parameters to be included in the request
      * @return a URI object which includes the necessary query params for request authentication
      */
@@ -504,7 +518,7 @@ public class PusherServer {
      * The return value is the complete body which should be returned to a client requesting authorisation.
      *
      * @param socketId the socket id of the connection to authenticate
-     * @param channel the name of the channel which the socket id should be authorised to join
+     * @param channel  the name of the channel which the socket id should be authorised to join
      * @return an authentication string, suitable for return to the requesting client
      */
     public String authenticate(final String socketId, final String channel) {
@@ -530,8 +544,8 @@ public class PusherServer {
      * The return value is the complete body which should be returned to a client requesting authorisation.
      *
      * @param socketId the socket id of the connection to authenticate
-     * @param channel the name of the channel which the socket id should be authorised to join
-     * @param user a {@link PresenceUser} object which represents the channel data to be associated with the user
+     * @param channel  the name of the channel which the socket id should be authorised to join
+     * @param user     a {@link PresenceUser} object which represents the channel data to be associated with the user
      * @return an authentication string, suitable for return to the requesting client
      */
     public String authenticate(final String socketId, final String channel, final PresenceUser user) {
@@ -560,9 +574,9 @@ public class PusherServer {
     /**
      * Check the signature on a webhook received from Pusher
      *
-     * @param xPusherKeyHeader the X-Pusher-Key header as received in the webhook request
+     * @param xPusherKeyHeader       the X-Pusher-Key header as received in the webhook request
      * @param xPusherSignatureHeader the X-Pusher-Signature header as received in the webhook request
-     * @param body the webhook body
+     * @param body                   the webhook body
      * @return enum representing the possible validities of the webhook request
      */
     public Validity validateWebhookSignature(final String xPusherKeyHeader, final String xPusherSignatureHeader, final String body) {
