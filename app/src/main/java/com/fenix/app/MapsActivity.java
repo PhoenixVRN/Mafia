@@ -3,6 +3,7 @@ package com.fenix.app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -71,13 +73,22 @@ public class MapsActivity extends AppCompatActivity implements
     //#region Aliens
 
     //#region alienButton
+
+  //  public void onButttonClick(View v) {
+        //       @SuppressLint("WrongViewCast") EditText num1 = (EditText)findViewById(R.id.textViewSet);
+
+//
+ //       @SuppressLint("WrongViewCast") EditText num1 = (EditText)findViewById(R.id.textViewSet);
+
+ //   }
     private Button alienButton;
     private final View.OnClickListener alienButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
 
             Toast.makeText(MapsActivity.this, "New Alien cumming!", Toast.LENGTH_SHORT).show();
-
-            pusherService.Push(P_CHANNEL, P_EVENT, "test");
+//            String num1 = "GSGSGSGGS";
+            String numText = String.valueOf(num1.getText());
+            pusherService.Push(P_CHANNEL, P_EVENT,numText);
 
             aliensTextView.append("New Alien cumming!\n");
             TextViewUtil.ScrollToBottom(aliensTextView);
@@ -107,6 +118,7 @@ public class MapsActivity extends AppCompatActivity implements
     //#endregion
 
     private TextView aliensTextView;
+    private TextView num1;
 
     //#region aliensSpinner
     Spinner aliensSpinner;
@@ -188,6 +200,9 @@ public class MapsActivity extends AppCompatActivity implements
         mySwitch = (Switch) findViewById(R.id.mySwitch);
         mySwitch.setOnCheckedChangeListener(mySwitchListener);
 
+        // Инициализируем блок "ВВода пуша"
+        num1 = findViewById(R.id.textViewSet);
+
     }
 
     //#region Map events
@@ -235,6 +250,7 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public void onEvent(PusherEvent event) {
         Log.i("Pusher", "Received event with data: " + event.toString());
+        aliensTextView.append(event.getData());
     }
 
     @Override
