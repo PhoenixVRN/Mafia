@@ -172,19 +172,18 @@ public class MapsActivity extends AppCompatActivity implements
     }
 
     /* Adding alien actor */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     protected void tryAddAlien(final ActorDto alien) {
 
         long alreadyLinked = aliens.stream()
                 .filter(s -> s.getName().equals(alien.getName()))
                 .count();
 
-        if (alreadyLinked == 1)
+        if (alreadyLinked > 0)
             return;
 
         aliens.add(alien);
 
-        this.runOnUiThread(()->{
+        this.runOnUiThread(() -> {
             aliensSpinnerAdapter.clear();
             aliensSpinnerAdapter.addAll(aliens);
         });
