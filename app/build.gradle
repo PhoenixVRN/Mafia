@@ -34,6 +34,10 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -44,13 +48,14 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     implementation 'commons-codec:commons-codec:1.11'
-/*    compileOnly 'org.projectlombok:lombok:1.18.16'
-    annotationProcessor 'org.projectlombok:lombok:1.18.16'*/
+
+    /* lombok */
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
     /* pusher.com integration */
     implementation 'com.pusher:pusher-java-client:2.2.1'
     implementation 'com.pusher:pusher-http-java:1.0.0'
-
 
     /* Testing */
     testImplementation 'junit:junit:4.12'

@@ -1,9 +1,7 @@
 package com.fenix.app;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,12 +17,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.LocationUtil;
-import com.fenix.app.util.TextViewUtil;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -36,6 +37,7 @@ import com.pusher.client.connection.ConnectionStateChange;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
         GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationChangeListener,
         ConnectionEventListener, SubscriptionEventListener,
@@ -72,23 +74,10 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region myPushButton
     private Button myPushButton;
-    private final View.OnClickListener myPushButtonListener = new View.OnClickListener() {
-        public void onClick(View v) {
+    private final View.OnClickListener myPushButtonListener = v -> {
+        Log.i("My", "myPushButton click");
 
-            Log.i("My", "myPushButton click");
-
-            pusherService.Push(P_CHANNEL, P_EVENT, my);
-
-            if (aliens.size() == 0) {
-                aliens.add(new ActorDto("alien 1", new LatLng(-10, -10)));
-            } else if (aliens.size() == 1) {
-                aliens.add(new ActorDto("alien 2", new LatLng(0, 0)));
-            } else {
-                aliens.add(new ActorDto("alien 3", new LatLng(10, 10)));
-            }
-            aliensSpinnerAdapter.clear();
-            aliensSpinnerAdapter.addAll(aliens);
-        }
+        pusherService.Push(P_CHANNEL, P_EVENT, my);
     };
     //#endregion
 
@@ -112,21 +101,12 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region myAreaButton
     private Button myAreaButton;
-    private View.OnClickListener myAreaButtonListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            mapService.MoveCameraToMe(MY_ZOOM);
-        }
-    };
+    private View.OnClickListener myAreaButtonListener = v -> mapService.MoveCameraToMe(MY_ZOOM);
     //#endregion
 
     //#region mySwitch
     private Switch mySwitch;
-    private CompoundButton.OnCheckedChangeListener mySwitchListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-            myLocationFollow = b;
-        }
-    };
+    private CompoundButton.OnCheckedChangeListener mySwitchListener = (compoundButton, b) -> myLocationFollow = b;
     //#endregion
 
     //#endregion
@@ -137,7 +117,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region aliensSpinner
     Spinner aliensSpinner;
-    ArrayAdapter<ActorDto> aliensSpinnerAdapter;
+    ArrayAdapter aliensSpinnerAdapter;
     //#endregion
 
     //#endregion
@@ -175,8 +155,7 @@ public class MapsActivity extends AppCompatActivity implements
         myAreaButton.setOnClickListener(myAreaButtonListener);
 
         // aliensSpinner
-        aliens.add(my);
-        aliensSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, aliens);
+        aliensSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
         aliensSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         aliensSpinner = findViewById(R.id.aliensSpinner);
         aliensSpinner.setAdapter(aliensSpinnerAdapter);
@@ -190,6 +169,25 @@ public class MapsActivity extends AppCompatActivity implements
         aliensTextView = findViewById(R.id.aliensTextView);
         aliensTextView.setMovementMethod(new ScrollingMovementMethod());
 
+    }
+
+    /* Adding alien actor */
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    protected void tryAddAlien(final ActorDto alien) {
+
+        long alreadyLinked = aliens.stream()
+                .filter(s -> s.getName().equals(alien.getName()))
+                .count();
+
+        if (alreadyLinked == 1)
+            return;
+
+        aliens.add(alien);
+
+        this.runOnUiThread(()->{
+            aliensSpinnerAdapter.clear();
+            aliensSpinnerAdapter.addAll(aliens);
+        });
     }
 
     //#region Map events
@@ -240,6 +238,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         String json = event.getData();
         ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
+        tryAddAlien(dto);
 
         aliensTextView.append(dto + "\n");
     }
