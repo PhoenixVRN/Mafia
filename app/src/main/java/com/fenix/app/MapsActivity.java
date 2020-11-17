@@ -3,9 +3,10 @@ package com.fenix.app;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +14,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fenix.app.dto.AlienDto;
+import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.PusherService;
+import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.TextViewUtil;
 import com.google.android.gms.maps.GoogleMap;
@@ -58,91 +59,67 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region Variables
 
-    public List<AlienDto> aliens = new ArrayList<>();
+    public List<ActorDto> aliens = new ArrayList<>();
 
-    private AlienDto my = new AlienDto() {{
-        name = "MY_NAME";
-        location = null;
-    }};
+    private ActorDto my = new ActorDto("MY_NAME", null);
     private boolean myLocationFollow = false;
 
     //#endregion
 
     //#region Controls
 
-    //#region Aliens
+    //#region My
 
-    //#region alienButton
-
-  //  public void onButttonClick(View v) {
-        //       @SuppressLint("WrongViewCast") EditText num1 = (EditText)findViewById(R.id.textViewSet);
-
-//
- //       @SuppressLint("WrongViewCast") EditText num1 = (EditText)findViewById(R.id.textViewSet);
-
- //   }
-    private Button alienButton;
-    private final View.OnClickListener alienButtonListener = new View.OnClickListener() {
+    //#region myPushButton
+    private Button myPushButton;
+    private final View.OnClickListener myPushButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
 
-            Toast.makeText(MapsActivity.this, "New Alien cumming!", Toast.LENGTH_SHORT).show();
-//            String num1 = "GSGSGSGGS";
-            String numText = String.valueOf(num1.getText());
-            pusherService.Push(P_CHANNEL, P_EVENT,numText);
+            Log.i("My", "myPushButton click");
 
-            aliensTextView.append("New Alien cumming!\n");
-            TextViewUtil.ScrollToBottom(aliensTextView);
+            pusherService.Push(P_CHANNEL, P_EVENT, my);
 
             if (aliens.size() == 0) {
-                aliens.add(new AlienDto() {{
-                    name = "alien 1";
-                    location = new LatLng(-10, -10);
-                }});
+                aliens.add(new ActorDto("alien 1", new LatLng(-10, -10)));
             } else if (aliens.size() == 1) {
-                aliens.add(new AlienDto() {{
-                    name = "alien 2";
-                    location = new LatLng(0, 0);
-                }});
+                aliens.add(new ActorDto("alien 2", new LatLng(0, 0)));
             } else {
-                aliens.add(new AlienDto() {{
-                    name = "alien 3";
-                    location = new LatLng(10, 10);
-                }});
+                aliens.add(new ActorDto("alien 3", new LatLng(10, 10)));
             }
             aliensSpinnerAdapter.clear();
             aliensSpinnerAdapter.addAll(aliens);
-
-            Log.i("Alien", "New Alien cumming!");
         }
     };
     //#endregion
 
-    private TextView aliensTextView;
-    private TextView num1;
+    //#region myNameTextView
+    private TextView myNameTextView;
+    private final TextWatcher myNameTextViewWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
 
-    //#region aliensSpinner
-    Spinner aliensSpinner;
-    ArrayAdapter<AlienDto> aliensSpinnerAdapter;
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            my.setName(s.toString());
+        }
+    };
     //#endregion
 
-    //#endregion
-
-    //#region My
-
-    /**
-     * Map around me
-     */
-    private Button myButton;
-    private View.OnClickListener myButtonListener = new View.OnClickListener() {
+    //#region myAreaButton
+    private Button myAreaButton;
+    private View.OnClickListener myAreaButtonListener = new View.OnClickListener() {
         public void onClick(View v) {
             mapService.MoveCameraToMe(MY_ZOOM);
         }
     };
+    //#endregion
 
-
-    /**
-     * Follow my location
-     */
+    //#region mySwitch
     private Switch mySwitch;
     private CompoundButton.OnCheckedChangeListener mySwitchListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
@@ -150,6 +127,18 @@ public class MapsActivity extends AppCompatActivity implements
             myLocationFollow = b;
         }
     };
+    //#endregion
+
+    //#endregion
+
+    //#region Aliens
+
+    private TextView aliensTextView;
+
+    //#region aliensSpinner
+    Spinner aliensSpinner;
+    ArrayAdapter<ActorDto> aliensSpinnerAdapter;
+    //#endregion
 
     //#endregion
 
@@ -173,35 +162,33 @@ public class MapsActivity extends AppCompatActivity implements
         // Connect to Pusher-channel
         pusherService.Bind(P_CHANNEL, P_EVENT);
 
-        // alienButton
-        alienButton = (Button) findViewById(R.id.alienButton);
-        alienButton.setOnClickListener(alienButtonListener);
+        // myPushButton
+        myPushButton = (Button) findViewById(R.id.myPushButton);
+        myPushButton.setOnClickListener(myPushButtonListener);
 
-        // aliensTextView
-        aliensTextView = findViewById(R.id.aliensTextView);
-        aliensTextView.setMovementMethod(new ScrollingMovementMethod());
+        // myNameTextView
+        myNameTextView = findViewById(R.id.myNameTextView);
+        myNameTextView.addTextChangedListener(myNameTextViewWatcher);
+
+        // myAreaButton
+        myAreaButton = (Button) findViewById(R.id.myAreaButton);
+        myAreaButton.setOnClickListener(myAreaButtonListener);
 
         // aliensSpinner
-        aliens.add(new AlienDto() {{
-            name = "MY_NAME";
-            location = null;
-        }});
+        aliens.add(my);
         aliensSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, aliens);
         aliensSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         aliensSpinner = findViewById(R.id.aliensSpinner);
         aliensSpinner.setAdapter(aliensSpinnerAdapter);
         aliensSpinner.setOnItemSelectedListener(this);
 
-        // myButton
-        myButton = (Button) findViewById(R.id.myButton);
-        myButton.setOnClickListener(myButtonListener);
-
         // mySwitch
         mySwitch = (Switch) findViewById(R.id.mySwitch);
         mySwitch.setOnCheckedChangeListener(mySwitchListener);
 
-        // Инициализируем блок "ВВода пуша"
-        num1 = findViewById(R.id.textViewSet);
+        // aliensTextView
+        aliensTextView = findViewById(R.id.aliensTextView);
+        aliensTextView.setMovementMethod(new ScrollingMovementMethod());
 
     }
 
@@ -219,10 +206,10 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        my.location = new LatLng(location.getLatitude(), location.getLongitude());
+        my.setLocation(new LatLng(location.getLatitude(), location.getLongitude()));
 
-        Toast.makeText(this, "Current location:\n" + my.location, Toast.LENGTH_LONG).show();
-        Log.i("Map", "My location click:" + my.location);
+        Toast.makeText(this, "Current location:\n" + my.getLocation(), Toast.LENGTH_LONG).show();
+        Log.i("Map", "My location click:" + my.getLocation());
     }
 
     @Override
@@ -230,8 +217,8 @@ public class MapsActivity extends AppCompatActivity implements
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        if (my.location == null || LocationUtil.distance(my.location, latLng) >= MY_FOLLOW_DISTANCE) {
-            my.location = latLng;
+        if (my.getLocation() == null || LocationUtil.distance(my.getLocation(), latLng) >= MY_FOLLOW_DISTANCE) {
+            my.setLocation(latLng);
 
             //pusherService.Push(P_CHANNEL, P_EVENT, "test");
 
@@ -239,7 +226,7 @@ public class MapsActivity extends AppCompatActivity implements
                 mapService.MoveCameraToMe(MY_ZOOM);
             }
 
-            Log.i("Map", "Changed location: " + my.location);
+            Log.i("Map", "Changed location: " + my.getLocation());
         }
     }
 
@@ -250,7 +237,11 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public void onEvent(PusherEvent event) {
         Log.i("Pusher", "Received event with data: " + event.toString());
-        aliensTextView.append(event.getData());
+
+        String json = event.getData();
+        ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
+
+        aliensTextView.append(dto + "\n");
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.fenix.app;
 
+import com.fenix.app.dto.ActorDto;
+import com.fenix.app.util.JsonUtil;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -21,7 +24,14 @@ public class ExampleUnitTest {
 
     }
 
-
+    @Test
+    public void TestParse()
+    {
+        String json = "\"{\\\"location\\\":{\\\"latitude\\\":51.5859045,\\\"longitude\\\":38.9942308},\\\"name\\\":\\\"MY_NAME\\\"}\"";
+                //"{\"location\":{\"latitude\":51.5859061,\"longitude\":38.9942357},\"name\":\"MY_NAME\"}";
+        ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
+        System.out.println(dto.toString());
+    }
 
     @Test
     public void addition_isCorrect() {
