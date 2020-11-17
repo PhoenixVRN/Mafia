@@ -31,10 +31,7 @@ public class MapService implements OnMapReadyCallback {
     /**
      * Add a marker and move the camera
      */
-    public Marker MarkerToMyLocation(String title) {
-        Location location = map.getMyLocation();
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
+    public Marker MarkerToLocation(String title, LatLng latLng) {
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
@@ -51,6 +48,16 @@ public class MapService implements OnMapReadyCallback {
         map.moveCamera(cu);
 
         return marker;
+    }
+
+    /**
+     * Add a marker and move the camera yo my
+     */
+    public Marker MarkerToMyLocation(String title) {
+        Location location = map.getMyLocation();
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        return MarkerToLocation(title, latLng);
     }
 
     /**

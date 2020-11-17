@@ -171,7 +171,9 @@ public class MapsActivity extends AppCompatActivity implements
 
     }
 
-    /* Adding alien actor */
+    /**
+     * Adding alien actor
+     */
     protected void tryAddAlien(final ActorDto alien) {
 
         long alreadyLinked = aliens.stream()
@@ -183,10 +185,10 @@ public class MapsActivity extends AppCompatActivity implements
 
         aliens.add(alien);
 
-        this.runOnUiThread(() -> {
-            aliensSpinnerAdapter.clear();
-            aliensSpinnerAdapter.addAll(aliens);
-        });
+        mapService.MarkerToLocation(alien.getName(), alien.getLocation());
+
+        aliensSpinnerAdapter.clear();
+        aliensSpinnerAdapter.addAll(aliens);
     }
 
     //#region Map events
@@ -233,13 +235,16 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onEvent(PusherEvent event) {
-        Log.i("Pusher", "Received event with data: " + event.toString());
+        this.runOnUiThread(() -> {
+            Log.i("Pusher", "Received event with data: " + event.toString());
 
-        String json = event.getData();
-        ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
-        tryAddAlien(dto);
+            String json = event.getData();
+            ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
 
-        aliensTextView.append(dto + "\n");
+            tryAddAlien(dto);
+
+            aliensTextView.append(dto + "\n");
+        });
     }
 
     @Override
