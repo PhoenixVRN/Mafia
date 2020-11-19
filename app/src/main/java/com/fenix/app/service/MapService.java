@@ -32,6 +32,9 @@ public class MapService implements OnMapReadyCallback {
      * Add a marker and move the camera
      */
     public Marker MarkerToLocation(String title, LatLng latLng) {
+        if (latLng == null)
+            return null;
+
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));

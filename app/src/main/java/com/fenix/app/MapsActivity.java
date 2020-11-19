@@ -63,9 +63,9 @@ public class MapsActivity extends AppCompatActivity implements
 
     public List<ActorDto> aliens = new ArrayList<>();
 
-    private ActorDto my = new ActorDto("MY_NAME", null);
+    private ActorDto my = new ActorDto("John", null);
     private boolean myLocationFollow = false;
-
+    private ActorDto target = null;
     //#endregion
 
     //#region Controls
@@ -191,6 +191,12 @@ public class MapsActivity extends AppCompatActivity implements
         aliensSpinnerAdapter.addAll(aliens);
     }
 
+    public void tryFindOnMap (ActorDto alien){
+        if (target != null && target.getName() .equals(alien.getName())){
+            mapService.MarkerToLocation(alien.getName(),alien.getLocation());
+        }
+    }
+
     //#region Map events
 
     @Override
@@ -242,7 +248,9 @@ public class MapsActivity extends AppCompatActivity implements
             ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
 
             tryAddAlien(dto);
-
+            tryFindOnMap(dto);
+            if (dto.getName().equals("John")){
+               return; }
             aliensTextView.append(dto + "\n");
         });
     }
@@ -268,12 +276,14 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.i("AlienSpinner", "Item Selected");
+        target = aliens.get(position);
+        Log.i("AlienSpinner", target.getName());
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         Log.i("AlienSpinner", "Nothing selected");
+        target = null;
     }
 
     //#endregion
