@@ -20,18 +20,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapService implements OnMapReadyCallback {
 
+    public static final float LOCAL_ZOOM = 17;
+
     public GoogleMap map;
 
     private AppCompatActivity activity;
 
-    public MapService(AppCompatActivity activity){
+    public MapService(AppCompatActivity activity) {
         this.activity = activity;
     }
 
     /**
-     * Add a marker and move the camera
+     * Add a marker and move the camera if need
      */
-    public Marker MarkerToLocation(String title, LatLng latLng) {
+    public Marker MarkerToLocation(String title, LatLng latLng, boolean moveCamera) {
         if (latLng == null)
             return null;
 
@@ -44,11 +46,10 @@ public class MapService implements OnMapReadyCallback {
 
         Marker marker = map.addMarker(options);
 
-        //map.moveCamera(CameraUpdateFactory.newLatLng(location));
-
-        CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(latLng, 10);
-        map.addMarker(options);
-        map.moveCamera(cu);
+        if (moveCamera) {
+            CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(latLng, LOCAL_ZOOM);
+            map.moveCamera(cu);
+        }
 
         return marker;
     }
@@ -60,7 +61,7 @@ public class MapService implements OnMapReadyCallback {
         Location location = map.getMyLocation();
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        return MarkerToLocation(title, latLng);
+        return MarkerToLocation(title, latLng, true);
     }
 
     /**
@@ -72,7 +73,7 @@ public class MapService implements OnMapReadyCallback {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         float currentZoom = map.getCameraPosition().zoom;
-        if(currentZoom > zoom) {
+        if (currentZoom > zoom) {
             zoom = currentZoom;
         }
 

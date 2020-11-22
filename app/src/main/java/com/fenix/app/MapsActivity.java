@@ -29,6 +29,7 @@ import com.fenix.app.util.LocationUtil;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.pusher.client.channel.PusherEvent;
 import com.pusher.client.channel.SubscriptionEventListener;
 import com.pusher.client.connection.ConnectionEventListener;
@@ -45,7 +46,6 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region Constants
 
-    private static final float MY_ZOOM = 17;
     private static final float MY_FOLLOW_DISTANCE = 0.25f;
     private static final String P_CHANNEL = "map";
     private static final String P_EVENT = "location";
@@ -64,8 +64,11 @@ public class MapsActivity extends AppCompatActivity implements
     public List<ActorDto> aliens = new ArrayList<>();
 
     private ActorDto my = new ActorDto("John", null);
-    private boolean myLocationFollow = false;
+
     private ActorDto target = null;
+    private boolean targetFollow = false;
+    private Marker targetMarker = null;
+
     //#endregion
 
     //#region Controls
@@ -101,12 +104,12 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region myAreaButton
     private Button myAreaButton;
-    private View.OnClickListener myAreaButtonListener = v -> mapService.MoveCameraToMe(MY_ZOOM);
+    private View.OnClickListener myAreaButtonListener = v -> mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
     //#endregion
 
     //#region mySwitch
     private Switch mySwitch;
-    private CompoundButton.OnCheckedChangeListener mySwitchListener = (compoundButton, b) -> myLocationFollow = b;
+    private CompoundButton.OnCheckedChangeListener mySwitchListener = (compoundButton, b) -> targetFollow = b;
     //#endregion
 
     //#endregion
@@ -185,15 +188,22 @@ public class MapsActivity extends AppCompatActivity implements
 
         aliens.add(alien);
 
-        mapService.MarkerToLocation(alien.getName(), alien.getLocation());
-
         aliensSpinnerAdapter.clear();
         aliensSpinnerAdapter.addAll(aliens);
     }
 
-    public void tryFindOnMap (ActorDto alien){
-        if (target != null && target.getName() .equals(alien.getName())){
-            mapService.MarkerToLocation(alien.getName(),alien.getLocation());
+    /**
+     * Finding alien o map
+     */
+    public void tryFindOnMap(ActorDto alien) {
+        if (target != null && target.getName().equals(alien.getName())) {
+
+            // Remove previous marker
+            if (targetMarker != null)
+                targetMarker.remove();
+
+            // Save new marker
+            targetMarker = mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow);
         }
     }
 
@@ -227,9 +237,9 @@ public class MapsActivity extends AppCompatActivity implements
 
             //pusherService.Push(P_CHANNEL, P_EVENT, "test");
 
-            if (myLocationFollow) {
-                mapService.MoveCameraToMe(MY_ZOOM);
-            }
+/*            if (targetFollow) {
+                mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
+            }*/
 
             Log.i("Map", "Changed location: " + my.getLocation());
         }
@@ -247,10 +257,12 @@ public class MapsActivity extends AppCompatActivity implements
             String json = event.getData();
             ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
 
+            // Sync aliens list
             tryAddAlien(dto);
+
+            // Mark alien on map
             tryFindOnMap(dto);
-            if (dto.getName().equals("John")){
-               return; }
+
             aliensTextView.append(dto + "\n");
         });
     }
