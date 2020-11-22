@@ -26,6 +26,7 @@ import com.fenix.app.service.MapService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.LocationUtil;
+import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -64,6 +65,7 @@ public class MapsActivity extends AppCompatActivity implements
     public List<ActorDto> aliens = new ArrayList<>();
 
     private ActorDto my = new ActorDto("John", null);
+    private boolean myRegistered = false;
 
     private ActorDto target = null;
     private boolean targetFollow = false;
@@ -75,12 +77,20 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region My
 
-    //#region myPushButton
-    private Button myPushButton;
+    //#region myRegButton
+    private Button myRegButton;
     private final View.OnClickListener myPushButtonListener = v -> {
-        Log.i("My", "myPushButton click");
+        Log.i("My", "myRegButton click");
 
+        // Set my name
+        my.setName(this.myNameTextView.getText().toString());
+
+        // I'am is registered now
+        myRegistered = true;
+
+        // Send them all my dto
         pusherService.Push(P_CHANNEL, P_EVENT, my);
+
     };
     //#endregion
 
@@ -97,7 +107,6 @@ public class MapsActivity extends AppCompatActivity implements
 
         @Override
         public void afterTextChanged(Editable s) {
-            my.setName(s.toString());
         }
     };
     //#endregion
@@ -115,8 +124,6 @@ public class MapsActivity extends AppCompatActivity implements
     //#endregion
 
     //#region Aliens
-
-    private TextView aliensTextView;
 
     //#region aliensSpinner
     Spinner aliensSpinner;
@@ -146,8 +153,8 @@ public class MapsActivity extends AppCompatActivity implements
         pusherService.Bind(P_CHANNEL, P_EVENT);
 
         // myPushButton
-        myPushButton = (Button) findViewById(R.id.myPushButton);
-        myPushButton.setOnClickListener(myPushButtonListener);
+        myRegButton = (Button) findViewById(R.id.myRegButton);
+        myRegButton.setOnClickListener(myPushButtonListener);
 
         // myNameTextView
         myNameTextView = findViewById(R.id.myNameTextView);
@@ -167,11 +174,6 @@ public class MapsActivity extends AppCompatActivity implements
         // mySwitch
         mySwitch = (Switch) findViewById(R.id.mySwitch);
         mySwitch.setOnCheckedChangeListener(mySwitchListener);
-
-        // aliensTextView
-        aliensTextView = findViewById(R.id.aliensTextView);
-        aliensTextView.setMovementMethod(new ScrollingMovementMethod());
-
     }
 
     /**
@@ -235,11 +237,8 @@ public class MapsActivity extends AppCompatActivity implements
         if (my.getLocation() == null || LocationUtil.distance(my.getLocation(), latLng) >= MY_FOLLOW_DISTANCE) {
             my.setLocation(latLng);
 
-            //pusherService.Push(P_CHANNEL, P_EVENT, "test");
-
-/*            if (targetFollow) {
-                mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
-            }*/
+            if (myRegistered)
+                pusherService.Push(P_CHANNEL, P_EVENT, my);
 
             Log.i("Map", "Changed location: " + my.getLocation());
         }
@@ -257,13 +256,15 @@ public class MapsActivity extends AppCompatActivity implements
             String json = event.getData();
             ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
 
+            // Check alien name with myself
+            if (Strings.isEmptyOrWhitespace(dto.getName()) || my.getName().equals(dto.getName()))
+                return;
+
             // Sync aliens list
             tryAddAlien(dto);
 
             // Mark alien on map
             tryFindOnMap(dto);
-
-            aliensTextView.append(dto + "\n");
         });
     }
 

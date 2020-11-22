@@ -42,7 +42,7 @@ public class MapService implements OnMapReadyCallback {
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 
         if (!Strings.isEmptyOrWhitespace(title))
-            options.title("title");
+            options.title(title);
 
         Marker marker = map.addMarker(options);
 

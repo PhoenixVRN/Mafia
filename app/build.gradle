@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     implementation 'commons-codec:commons-codec:1.11'
+    implementation 'org.jetbrains:annotations:15.0'
 
     /* lombok */
     compileOnly 'org.projectlombok:lombok:1.18.16'

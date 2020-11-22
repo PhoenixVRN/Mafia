@@ -2,6 +2,8 @@ package com.fenix.app.dto;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import org.jetbrains.annotations.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,7 +11,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class ActorDto {
 
-    private String name;
+    @NotNull
+    private String name = "";
     private LatLng location;
 
     @Override
