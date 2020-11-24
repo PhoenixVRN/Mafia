@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
 
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.MapService;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.SneakyThrows;
+import lombok.var;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
@@ -81,6 +83,8 @@ public class MapsActivity extends AppCompatActivity implements
     //#region myRegButton
     private Button myRegButton;
     private final View.OnClickListener myPushButtonListener = v -> {
+        Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
+        startActivity(intent);
         Log.i("My", "myRegButton click");
 
         // Set my name
@@ -146,7 +150,15 @@ public class MapsActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
  //       setContentView(R.layout.activity_log_scr);
  //       Thread.sleep(10000);
+        var tred = new Thread(()->{
+            MapsActivity.this.runOnUiThread(()->{
+                Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
+                startActivity(intent);
+            });
+        });
+        tred.start();
         setContentView(R.layout.activity_maps);
+
   //      Thread.sleep(10000);
   //      setContentView(R.layout.activity_log_scr);
 
