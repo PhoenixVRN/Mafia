@@ -144,9 +144,11 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_scr);
-        Thread.sleep(10000);
+ //       setContentView(R.layout.activity_log_scr);
+ //       Thread.sleep(10000);
         setContentView(R.layout.activity_maps);
+  //      Thread.sleep(10000);
+  //      setContentView(R.layout.activity_log_scr);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
