@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "468205916424",
+    "firebase_url": "https://underworldar-dd38b.firebaseio.com",
+    "project_id": "underworldar-dd38b",
+    "storage_bucket": "underworldar-dd38b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468205916424:android:84ba482db30c75220d1cbd",
+        "android_client_info": {
+          "package_name": "com.fenix.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468205916424-goh21hbotdvn4cp262fuhfhh7q4duvl0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fenix.app",
+            "certificate_hash": "98ce4c018662e5fc2d194eb519af653e2119bc75"
+          }
+        },
+        {
+          "client_id": "468205916424-abkqdfo5an92qb6gqktkjbk2lcipd8f2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4jpLdoblmIZgugBXJE_Fv22SdlHqeEcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468205916424-abkqdfo5an92qb6gqktkjbk2lcipd8f2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,6 +37,8 @@ import com.pusher.client.connection.ConnectionStateChange;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.SneakyThrows;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
@@ -139,9 +140,12 @@ public class MapsActivity extends AppCompatActivity implements
      *
      * @param savedInstanceState - previous state
      */
+    @SneakyThrows
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_log_scr);
+        Thread.sleep(10000);
         setContentView(R.layout.activity_maps);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

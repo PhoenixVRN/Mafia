@@ -15,8 +15,14 @@ public class ActorDto {
     private String name = "";
     private LatLng location;
 
+    public ActorDto(String john, Object o) {
+    }
+
     @Override
     public String toString() {
         return name;
+    }
+
+    public void setName(String toString) {
     }
 }

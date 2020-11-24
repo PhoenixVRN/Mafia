@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
 
 android {
     compileSdkVersion 29
@@ -33,6 +35,8 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/io.netty.versions.properties'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -49,6 +53,12 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     implementation 'commons-codec:commons-codec:1.11'
     implementation 'org.jetbrains:annotations:15.0'
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 
     /* lombok */
     compileOnly 'org.projectlombok:lombok:1.18.16'
@@ -56,7 +66,7 @@ dependencies {
 
     /* pusher.com integration */
     implementation 'com.pusher:pusher-java-client:2.2.1'
-    implementation 'com.pusher:pusher-http-java:1.0.0'
+    implementation 'com.pusher:pusher-http-java:1.2.0'
 
     /* Testing */
     testImplementation 'junit:junit:4.12'
