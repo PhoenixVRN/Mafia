@@ -150,13 +150,13 @@ public class MapsActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
  //       setContentView(R.layout.activity_log_scr);
  //       Thread.sleep(10000);
-//        var tred = new Thread(()->{
-//            MapsActivity.this.runOnUiThread(()->{
+        var tred = new Thread(()->{
+            MapsActivity.this.runOnUiThread(()->{
                 Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
                 startActivity(intent);
- //           });
- //       });
-//        tred.start();
+            });
+        });
+        tred.start();
         setContentView(R.layout.activity_maps);
 
   //      Thread.sleep(10000);
