@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,15 +10,22 @@
     tools:context=".ScrActivity">
 
 
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="359dp"
         android:layout_height="98dp"
+        android:layout_above="@+id/null"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="519dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="566dp"
         android:fontFamily="@font/metal_mania"
         android:gravity="center"
         android:text="UnderworldAR"
-
         android:textColor="@android:color/white"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,40 +36,47 @@
 
     <LinearLayout
 
-        android:layout_width="406dp"
+        android:layout_width="match_parent"
 
-        android:layout_height="61dp"
-        android:layout_marginTop="25dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="664dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="7dp"
+        android:gravity="center"
         android:orientation="horizontal"
         android:weightSum="2"
-        android:gravity="center"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <Button
-            android:id="@+id/butSignIn"
+            android:id="@+id/btnSignIn"
             android:layout_width="165dp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/btn_sig"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
+            android:background="@drawable/btn_sig"
             android:fontFamily="serif"
             android:text="Войти"
+            android:textColor="@android:color/white"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/butRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:background="@drawable/btn_sig"
             android:layout_marginStart="12dp"
             android:layout_weight="1"
+            android:background="@drawable/btn_sig"
             android:fontFamily="serif"
             android:text="Зарегистрироваться"
+            android:textColor="@android:color/white"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -79,4 +93,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.034" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
