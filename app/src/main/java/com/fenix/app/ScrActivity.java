@@ -1,9 +1,11 @@
 package com.fenix.app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
@@ -49,8 +52,56 @@ public class ScrActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         users = db.getReference("Users");
         btnRegister.setOnClickListener(view -> sowRegisterWindow());
+        btnSignIn.setOnClickListener(view -> {
+            showSignWindow();
+        });
 
 
+    }
+
+    private void showSignWindow() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Войти");
+        dialog.setMessage("Введите данные для входа");
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View sing_in_window = inflater.inflate(R.layout.sing_in_window, null);
+        dialog.setView(sing_in_window);
+
+        final MaterialEditText email = sing_in_window.findViewById(R.id.emailFild);
+        final MaterialEditText pass = sing_in_window.findViewById(R.id.passlFild);
+
+
+        dialog.setNegativeButton("Отменить", (dialogInterface, i) -> dialogInterface.dismiss());
+
+        AlertDialog.Builder builder = dialog.setPositiveButton("Войти",
+                (dialogInterface, which) -> {
+                    if (TextUtils.isEmpty(email.getText().toString())) {
+                        Snackbar.make(root, "Введите вашу почту", Snackbar.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (pass.getText().toString().length() < 5) {
+                        Snackbar.make(root, "Введите пароль, который более 5 символов", Snackbar.LENGTH_SHORT).show();
+                        return;
+                    }
+                    auth.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
+                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+ //                                   startActivity(new Intent(ScrActivity.this, MapsActivity.this));
+                                    finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                           Snackbar.make(root, "Ошибка авторизации. "+ e.getMessage(),Snackbar.LENGTH_SHORT).show();
+                        }
+                    });
+
+                });
+        dialog.show();
     }
 
     private void sowRegisterWindow() {
@@ -62,10 +113,10 @@ public class ScrActivity extends AppCompatActivity {
         View register_window = inflater.inflate(R.layout.registor_window, null);
         dialog.setView(register_window);
 
-       final MaterialEditText email = register_window.findViewById(R.id.emailFild);
-       final MaterialEditText pass = register_window.findViewById(R.id.passlFild);
-       final MaterialEditText name = register_window.findViewById(R.id.namelFild);
-       final MaterialEditText phone = register_window.findViewById(R.id.phonelFild);
+        final MaterialEditText email = register_window.findViewById(R.id.emailFild);
+        final MaterialEditText pass = register_window.findViewById(R.id.passlFild);
+        final MaterialEditText name = register_window.findViewById(R.id.namelFild);
+        final MaterialEditText phone = register_window.findViewById(R.id.phonelFild);
 
         dialog.setNegativeButton("Отменить", (dialogInterface, i) -> dialogInterface.dismiss());
 
@@ -96,7 +147,7 @@ public class ScrActivity extends AppCompatActivity {
                                 user.setPass(pass.getText().toString());
                                 user.setPhone(phone.getText().toString());
 
-                                users.child(user.getEmail())
+                                users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user)
                                         .addOnSuccessListener(aVoid -> Snackbar.make(root, "Пользователь добавлен!", Snackbar.LENGTH_SHORT).show());
                             });
