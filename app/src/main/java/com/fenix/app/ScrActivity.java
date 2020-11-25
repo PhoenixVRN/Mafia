@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -18,11 +19,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import Models.User2;
+import lombok.var;
 
 
 public class ScrActivity extends AppCompatActivity {
@@ -86,13 +89,9 @@ public class ScrActivity extends AppCompatActivity {
                         return;
                     }
                     auth.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
-                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-
-                                @Override
-                                public void onSuccess(AuthResult authResult) {
- //                                   startActivity(new Intent(ScrActivity.this, MapsActivity.this));
-                                    finish();
-                                }
+                            .addOnSuccessListener(authResult -> {
+//                                   startActivity(new Intent(ScrActivity.this, MapsActivity.this));
+                                finish();
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -120,7 +119,7 @@ public class ScrActivity extends AppCompatActivity {
 
         dialog.setNegativeButton("Отменить", (dialogInterface, i) -> dialogInterface.dismiss());
 
-        AlertDialog.Builder builder = dialog.setPositiveButton("Добавить",
+        dialog.setPositiveButton("Добавить",
                 (dialogInterface, which) -> {
                     if (TextUtils.isEmpty(email.getText().toString())) {
                         Snackbar.make(root, "Введите вашу почту", Snackbar.LENGTH_SHORT).show();
@@ -134,12 +133,12 @@ public class ScrActivity extends AppCompatActivity {
                         Snackbar.make(root, "Введите ваш телефон", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
-                    if (pass.getText().toString().length() < 5) {
+                    if (pass.getText().toString().length() < 6 && pass.getText().toString().length() >10) {
                         Snackbar.make(root, "Введите пароль, который более 5 символов", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
                     // Регистрация пользователя
-                    auth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
+                    var result = auth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
                             .addOnSuccessListener(authResult -> {
                                 User2 user = new User2();
                                 user.setEmail(email.getText().toString());
@@ -149,8 +148,21 @@ public class ScrActivity extends AppCompatActivity {
 
                                 users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user)
-                                        .addOnSuccessListener(aVoid -> Snackbar.make(root, "Пользователь добавлен!", Snackbar.LENGTH_SHORT).show());
+                                        .addOnSuccessListener(aVoid -> {
+                                            Snackbar.make(root, "Пользователь добавлен!", Snackbar.LENGTH_SHORT).show();
+                                        });
+                            })
+                            .addOnCanceledListener(() -> {
+                                Log.e("createUserWithEmailAndPassword", "Cancel");
+                            })
+                            .addOnFailureListener((exception) -> {
+                                if (exception instanceof FirebaseAuthWeakPasswordException) {
+                                    var caughtException = (FirebaseAuthWeakPasswordException) exception;
+                                    Log.e("createUserWithEmailAndPassword", caughtException.getReason());
+                                } else
+                                    Log.e("createUserWithEmailAndPassword", exception.toString());
                             });
+
                 });
         dialog.show();
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
+    android:id="@+id/sing_in_window"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardElevation="10dp">
@@ -14,9 +14,9 @@
         android:orientation="vertical">
 
         <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/emailFild"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/emailFild"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:text=""
@@ -24,14 +24,15 @@
             android:textColorHint="@color/colorPrimaryDark"
             android:textSize="20sp"
 
-            app:met_floatingLabel="highlight"
             app:met_baseColor="#0056d3"
+            app:met_floatingLabel="highlight"
             app:met_primaryColor="#982360"
-            app:met_singleLineEllipsis="true"/>
+            app:met_singleLineEllipsis="true" />
+
         <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/passlFild"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/passlFild"
             android:hint="Пароль"
             android:inputType="textPassword"
             android:text=""
@@ -39,11 +40,10 @@
             android:textColorHint="@color/colorPrimaryDark"
             android:textSize="20sp"
 
-            app:met_floatingLabel="highlight"
             app:met_baseColor="#0056d3"
+            app:met_floatingLabel="highlight"
             app:met_primaryColor="#982360"
-            app:met_singleLineEllipsis="true"/>
-
+            app:met_singleLineEllipsis="true" />
 
 
     </LinearLayout>
