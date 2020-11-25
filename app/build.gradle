@@ -55,10 +55,14 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    //noinspection GradleDynamicVersion,GradleCompatible
+    implementation 'com.android.support:cardview-v7:28+'
+    implementation 'com.google.firebase:firebase-database:19.5.1'
 
     /* lombok */
     compileOnly 'org.projectlombok:lombok:1.18.16'
@@ -69,7 +73,7 @@ dependencies {
     implementation 'com.pusher:pusher-http-java:1.2.0'
 
     /* Testing */
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
