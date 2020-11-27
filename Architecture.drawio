@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-11-27T11:14:16.262Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36" etag="FwjfmL9Swxn2SDW07tbT" version="13.10.3" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2020-11-27T17:33:10.494Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36" etag="NgyniG6tODA2Ai3-erCX" version="13.10.4" type="github" pages="4">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
     <mxGraphModel dx="1422" dy="834" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -10,13 +10,13 @@
         <mxCell id="Fx4dPaJW4BiNulloLPie-3" value="Серверы Push" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="240" y="240" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="Fx4dPaJW4BiNulloLPie-4" value="Серверы backend" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="Fx4dPaJW4BiNulloLPie-4" value="Серверы backend" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#82b366;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="280" y="400" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Fx4dPaJW4BiNulloLPie-5" value="Серверы API" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="480" y="240" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="Fx4dPaJW4BiNulloLPie-6" value="Серверы БД" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="Fx4dPaJW4BiNulloLPie-6" value="Серверы БД" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#82b366;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="440" y="400" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="Fx4dPaJW4BiNulloLPie-7" value="" style="endArrow=none;dashed=1;html=1;" parent="1" edge="1">
