@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.fenix.app.dto.ActorDto;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -46,7 +47,13 @@ public class ScrActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scr);
         Button remus = (Button) findViewById(R.id.button_close);
-        remus.setOnClickListener(remove_Listener);
+        remus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.exit(0);
+
+            }
+        });
 
         btnSignIn = findViewById(R.id.btnSignIn);
         btnRegister = findViewById(R.id.butRegister);
@@ -133,14 +140,14 @@ public class ScrActivity extends AppCompatActivity {
                         Snackbar.make(root, "Введите ваш телефон", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
-                    if (pass.getText().toString().length() < 6 && pass.getText().toString().length() >10) {
+                    if (pass.getText().toString().length() < 5 && pass.getText().toString().length() >10) {
                         Snackbar.make(root, "Введите пароль, который более 5 символов", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
                     // Регистрация пользователя
                     var result = auth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
                             .addOnSuccessListener(authResult -> {
-                                User2 user = new User2();
+                                ActorDto user = new ActorDto();
                                 user.setEmail(email.getText().toString());
                                 user.setName(name.getText().toString());
                                 user.setPass(pass.getText().toString());

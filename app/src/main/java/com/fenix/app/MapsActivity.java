@@ -53,7 +53,7 @@ public class MapsActivity extends AppCompatActivity implements
     private static final float MY_FOLLOW_DISTANCE = 0.25f;
     private static final String P_CHANNEL = "map";
     private static final String P_EVENT = "location";
-    private static final String name = "Jana";
+//    private static final String name;
 
     //#endregion
 
@@ -68,7 +68,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     public List<ActorDto> aliens = new ArrayList<>();
 
-    private ActorDto my = new ActorDto("John", null);
+    private ActorDto my = new ActorDto();
     private boolean myRegistered = false;
 
     private ActorDto target = null;

@@ -6,23 +6,26 @@ import org.jetbrains.annotations.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 @AllArgsConstructor
 public class ActorDto {
 
     @NotNull
-    private String name = "";
+
+    private String name, email, pass, phone;;
     private LatLng location;
 
-    public ActorDto(String john, Object o) {
-    }
+ //   public ActorDto(String john, Object o) {
+  //  }
 
-    @Override
-    public String toString() {
-        return name;
-    }
+//    @Override
+ //   public String toString() {
+ //       return name;
+//    }
 
-    public void setName(String toString) {
-    }
+ //   public void setName(String toString) {
+//    }
 }
