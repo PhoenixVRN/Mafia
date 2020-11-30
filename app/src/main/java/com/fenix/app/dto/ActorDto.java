@@ -15,8 +15,9 @@ public class ActorDto {
 
     @NotNull
 
-    private String name, email, pass, phone;;
+    private String  id, name, email, pass, phone;;
     private LatLng location;
+    private int hp, endurance, moral;
 
  //   public ActorDto(String john, Object o) {
   //  }

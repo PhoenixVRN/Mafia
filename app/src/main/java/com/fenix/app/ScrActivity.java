@@ -25,7 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import Models.User2;
+
 import lombok.var;
 
 
@@ -36,24 +36,13 @@ public class ScrActivity extends AppCompatActivity {
     FirebaseDatabase db;
     DatabaseReference users;
     RelativeLayout root;
-    private final View.OnClickListener remove_Listener = v -> {
-        this.finish();
-        //       Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
-        //      startActivity(intent);
-    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scr);
-        Button remus = (Button) findViewById(R.id.button_close);
-        remus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.exit(0);
 
-            }
-        });
 
         btnSignIn = findViewById(R.id.btnSignIn);
         btnRegister = findViewById(R.id.butRegister);
@@ -97,8 +86,15 @@ public class ScrActivity extends AppCompatActivity {
                     }
                     auth.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
                             .addOnSuccessListener(authResult -> {
-//                                   startActivity(new Intent(ScrActivity.this, MapsActivity.this));
-                                finish();
+//
+//                                try {
+//                                    Intent intent = new Intent(ScrActivity.this, MapsActivity.class);
+//                                    startActivity(intent);
+//                                }catch (Throwable e){
+//                                    Log.e("FireBase", e.toString());
+//                                }
+
+                               finish();
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
