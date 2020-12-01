@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,10 +14,9 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.fenix.app.dto.ActorDto;
+import com.fenix.app.service.ContextService;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
@@ -94,11 +92,11 @@ public class ScrActivity extends AppCompatActivity {
 //                                    Log.e("FireBase", e.toString());
 //                                }
 
-                               finish();
+                                finish();
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                           Snackbar.make(root, "Ошибка авторизации. "+ e.getMessage(),Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(root, "Ошибка авторизации. " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
                     });
 
@@ -136,24 +134,29 @@ public class ScrActivity extends AppCompatActivity {
                         Snackbar.make(root, "Введите ваш телефон", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
-                    if (pass.getText().toString().length() < 5 && pass.getText().toString().length() >10) {
+                    if (pass.getText().toString().length() < 5 && pass.getText().toString().length() > 10) {
                         Snackbar.make(root, "Введите пароль, который более 5 символов", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
                     // Регистрация пользователя
-                    var result = auth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
+                    auth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
                             .addOnSuccessListener(authResult -> {
                                 ActorDto user = new ActorDto();
                                 user.setEmail(email.getText().toString());
                                 user.setName(name.getText().toString());
                                 user.setPass(pass.getText().toString());
                                 user.setPhone(phone.getText().toString());
+                                ContextService.Context.setActor(user);
+                                ContextService.Context.setActor2(user);
 
                                 users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user)
                                         .addOnSuccessListener(aVoid -> {
                                             Snackbar.make(root, "Пользователь добавлен!", Snackbar.LENGTH_SHORT).show();
+                                            Intent hero = new Intent(ScrActivity.this, HeroPick.class);
+                                            startActivity(hero);
                                         });
+
                             })
                             .addOnCanceledListener(() -> {
                                 Log.e("createUserWithEmailAndPassword", "Cancel");

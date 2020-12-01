@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 
 import com.fenix.app.dto.ActorDto;
+import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.util.JsonUtil;
@@ -83,20 +84,23 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region myRegButton
     private Button myRegButton;
-    private final View.OnClickListener myPushButtonListener = v -> {
+    private final View.OnClickListener myPushButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
 //        Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
 //        startActivity(intent);
-        Log.i("My", "myRegButton click");
+            Log.i("My", "myRegButton click");
 
-        // Set my name
-        my.setName(this.myNameTextView.getText().toString());
+            // Set my name
+            my.setName(MapsActivity.this.myNameTextView.getText().toString());
 
-        // I'am is registered now
-        myRegistered = true;
+            // I'am is registered now
+            myRegistered = true;
 
-        // Send them all my dto
-        pusherService.Push(P_CHANNEL, P_EVENT, my);
+            // Send them all my dto
+            pusherService.Push(P_CHANNEL, P_EVENT, my);
 
+        }
     };
     //#endregion
 
@@ -119,7 +123,12 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region myAreaButton
     private Button myAreaButton;
-    private View.OnClickListener myAreaButtonListener = v -> mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
+    private View.OnClickListener myAreaButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
+        }
+    };
     //#endregion
 
     //#region mySwitch
@@ -151,13 +160,13 @@ public class MapsActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
  //       setContentView(R.layout.activity_log_scr);
  //       Thread.sleep(10000);
-        var tred = new Thread(()->{
-            MapsActivity.this.runOnUiThread(()->{
+ //       var tred = new Thread(()->{
+ //           MapsActivity.this.runOnUiThread(()->{
                 Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
                 startActivity(intent);
-            });
-        });
-        tred.start();
+//            });
+//        });
+//        tred.start();
         setContentView(R.layout.activity_maps);
 
   //      Thread.sleep(10000);

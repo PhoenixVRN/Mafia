@@ -18,8 +18,14 @@ public class ActorDto {
     private String  id, name, email, pass, phone;;
     private LatLng location;
     private int hp, endurance, moral;
+    private int tipClass; // 1- вампир, 2- оборотень, 3 человек.
 
- //   public ActorDto(String john, Object o) {
+    public void setSetClass(int i) {
+        this.tipClass = i;
+    }
+
+
+    //   public ActorDto(String john, Object o) {
   //  }
 
 //    @Override
