@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-11-27T18:20:07.526Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36" etag="lx8YgSLaPpTShdWGKj2x" version="13.10.4" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2020-12-02T17:18:37.636Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36" etag="Gd1n9Wf8UQRN6SyBO_HZ" version="13.10.5" type="github" pages="5">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
-    <mxGraphModel dx="1422" dy="834" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -44,7 +44,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="97xaNG5euA9EuqIPgSee" name="DataFlowDiagram">
-    <mxGraphModel dx="1422" dy="834" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="g2Xse3lWouedzLYd1xVx-0" />
         <mxCell id="g2Xse3lWouedzLYd1xVx-1" parent="g2Xse3lWouedzLYd1xVx-0" />
@@ -127,7 +127,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="oQFGNTKlK_gTyuHEj95E" name="DeviceComponents">
-    <mxGraphModel dx="1422" dy="834" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="CBAD-ejrL_S0z0rzkbWA-0" />
         <mxCell id="CBAD-ejrL_S0z0rzkbWA-1" parent="CBAD-ejrL_S0z0rzkbWA-0" />
@@ -285,7 +285,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="adiRfwW66rgFSuOgqzJK" name="PushChannelModel">
-    <mxGraphModel dx="2249" dy="834" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2249" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="Go9VpVeZ4K3Pj2w4HcUq-0" />
         <mxCell id="Go9VpVeZ4K3Pj2w4HcUq-1" parent="Go9VpVeZ4K3Pj2w4HcUq-0" />
@@ -373,6 +373,14 @@
         <mxCell id="Go9VpVeZ4K3Pj2w4HcUq-20" value="Участник 1 пушит в канал X2_Y2, слушает каналы: X2_Y2, X3_Y2&lt;br&gt;Участник 2 пушит в канал X3_Y2, слушает каналы X2_Y2, X3_Y2, X2_Y3, X3_Y4" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="Go9VpVeZ4K3Pj2w4HcUq-1" vertex="1">
           <mxGeometry x="-80" y="720" width="880" height="40" as="geometry" />
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="WnjGiDhiPae-3RGZ-pjq" name="Page-5">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="6uT2mX7eiB3Dk5ahXdoX-0" />
+        <mxCell id="6uT2mX7eiB3Dk5ahXdoX-1" parent="6uT2mX7eiB3Dk5ahXdoX-0" />
       </root>
     </mxGraphModel>
   </diagram>
