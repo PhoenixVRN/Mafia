@@ -6,8 +6,10 @@ import org.jetbrains.annotations.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class ActorDto {
 
@@ -15,14 +17,9 @@ public class ActorDto {
     private String name = "";
     private LatLng location;
 
-    public ActorDto(String john, Object o) {
-    }
-
     @Override
     public String toString() {
         return name;
     }
 
-    public void setName(String toString) {
-    }
 }

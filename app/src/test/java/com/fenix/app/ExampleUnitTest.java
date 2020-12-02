@@ -1,9 +1,12 @@
 package com.fenix.app;
 
 import com.fenix.app.dto.ActorDto;
+import com.fenix.app.service.MongoService;
 import com.fenix.app.util.JsonUtil;
 
 import org.junit.Test;
+
+import lombok.var;
 
 import static org.junit.Assert.*;
 
@@ -36,5 +39,12 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
+    }
+
+    @Test
+    public void mongoTest(){
+        var service = new MongoService("fenix");
+        var collection = service.getDocuments("actors");
+        System.out.println(collection.countDocuments());
     }
 }
