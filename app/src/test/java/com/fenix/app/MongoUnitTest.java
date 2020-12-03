@@ -27,7 +27,7 @@ public class MongoUnitTest {
 
         var service = new MongoService("fenix");
         var collection = service.getDocuments("actors");
-        System.out.println(collection.countDocuments());
+        System.out.println(collection.count());
 
         System.out.println("\n\n\n");
     }
@@ -48,13 +48,13 @@ public class MongoUnitTest {
         var json = JsonUtil.Serialize(actor);
         var document = Document.parse(json);
 
-        System.out.println(collection.countDocuments());
+        System.out.println(collection.count());
         System.out.println(document.get("_id"));
 
         System.out.println(json);
         collection.insertOne(document);
 
-        System.out.println(collection.countDocuments());
+        System.out.println(collection.count());
         System.out.println(document.get("_id"));
 
         actor.setName("test 2");
@@ -76,7 +76,7 @@ public class MongoUnitTest {
         var collection = service.getDocuments("actors");
 
         collection.deleteOne(Filters.eq("name", "test 2"));
-        System.out.println(collection.countDocuments());
+        System.out.println(collection.count());
 
         System.out.println("\n\n\n");
     }

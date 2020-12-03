@@ -45,6 +45,6 @@ public class ExampleUnitTest {
     public void mongoTest(){
         var service = new MongoService("fenix");
         var collection = service.getDocuments("actors");
-        System.out.println(collection.countDocuments());
+        System.out.println(collection.count());
     }
 }
