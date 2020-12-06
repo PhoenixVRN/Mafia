@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-12-06T15:42:11.851Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36" etag="bfqoUKbO8UJ6jmUlzIVi" version="13.10.6" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2020-12-06T17:52:16.227Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36" etag="ysfmcFr58Zw6QLAdRuN8" version="13.10.6" type="github" pages="6">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
     <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -649,6 +649,12 @@
         </mxCell>
         <mxCell id="k5pLi5itu1GefDaAHn9p-9" value="АТАКА" style="rounded=1;whiteSpace=wrap;html=1;fontSize=20;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="BgBHuLuoObRP8i8i-NTh-1">
           <mxGeometry x="435" y="569" width="90" height="31" as="geometry" />
+        </mxCell>
+        <mxCell id="k5pLi5itu1GefDaAHn9p-10" value="" style="endArrow=classic;html=1;fontSize=20;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="BgBHuLuoObRP8i8i-NTh-1" source="Hm_d3M4xLWDzhG0KbaTB-8" target="Hm_d3M4xLWDzhG0KbaTB-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="340" as="sourcePoint" />
+            <mxPoint x="440" y="290" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
