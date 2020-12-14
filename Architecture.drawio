@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-12-06T17:52:16.227Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36" etag="ysfmcFr58Zw6QLAdRuN8" version="13.10.6" type="github" pages="6">
+<mxfile host="app.diagrams.net" modified="2020-12-14T14:54:42.921Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="0bus5zGONP-aVNPlCrH3" version="13.10.4" type="github" pages="7">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
-    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1024" dy="531" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -655,6 +655,65 @@
             <mxPoint x="390" y="340" as="sourcePoint" />
             <mxPoint x="440" y="290" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="9xEUzZMBHfouTKUW9tr0" name="Armor">
+    <mxGraphModel dx="1024" dy="531" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="tvuUzRKQsJGqX-wF9Gs5-0" />
+        <mxCell id="tvuUzRKQsJGqX-wF9Gs5-1" parent="tvuUzRKQsJGqX-wF9Gs5-0" />
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-0" value="&lt;font style=&quot;font-size: 21px&quot;&gt;Броня&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="240" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-1" value="Тяжёлая" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="80" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-2" value="Средняя" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="240" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-3" value="Лёгкая" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="400" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-4" value="&lt;ul style=&quot;font-size: 10px&quot;&gt;&lt;li&gt;шлем&lt;/li&gt;&lt;li&gt;кираса&lt;/li&gt;&lt;li&gt;рукавицы&lt;/li&gt;&lt;li&gt;сапоги&lt;/li&gt;&lt;li&gt;штаны&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="80" y="240" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-5" value="&lt;ul style=&quot;font-size: 10px&quot;&gt;&lt;li&gt;шлем&lt;/li&gt;&lt;li&gt;куртка&lt;/li&gt;&lt;li&gt;перчатки&lt;/li&gt;&lt;li&gt;сапоги&lt;/li&gt;&lt;li&gt;штаны&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="240" y="240" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-6" value="&lt;ul style=&quot;font-size: 10px&quot;&gt;&lt;li&gt;тюбетейка&lt;/li&gt;&lt;li&gt;мантия&lt;/li&gt;&lt;li&gt;нарукавники&lt;/li&gt;&lt;li&gt;сапоги&lt;/li&gt;&lt;li&gt;штаны&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="400" y="240" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-7" value="" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="tvuUzRKQsJGqX-wF9Gs5-1" source="B6_OuXqonMBwsMnvJUXf-0" target="B6_OuXqonMBwsMnvJUXf-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="240" y="103" as="sourcePoint" />
+            <mxPoint x="440" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-8" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="tvuUzRKQsJGqX-wF9Gs5-1" source="B6_OuXqonMBwsMnvJUXf-0" target="B6_OuXqonMBwsMnvJUXf-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="257.20000000000005" y="112.81999999999994" as="sourcePoint" />
+            <mxPoint x="150" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-9" value="" style="endArrow=classic;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.58;entryY=0.007;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="tvuUzRKQsJGqX-wF9Gs5-1" source="B6_OuXqonMBwsMnvJUXf-0" target="B6_OuXqonMBwsMnvJUXf-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="110" as="sourcePoint" />
+            <mxPoint x="310" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-10" value="&lt;ol&gt;&lt;li&gt;резит физическому/магическому урону&lt;/li&gt;&lt;li&gt;бонус к физическому или магическому урону&lt;/li&gt;&lt;li&gt;бонус к способности инвиза&lt;/li&gt;&lt;li&gt;слоты для установки рун(усиление характеристик)&lt;/li&gt;&lt;/ol&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="80" y="340" width="440" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-11" value="&lt;ol&gt;&lt;li&gt;50/5&lt;/li&gt;&lt;li&gt;30/0&lt;/li&gt;&lt;li&gt;-50&lt;/li&gt;&lt;li&gt;3 слота&lt;/li&gt;&lt;/ol&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="80" y="450" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-12" value="&lt;ol&gt;&lt;li&gt;25/25&lt;/li&gt;&lt;li&gt;50/20&lt;/li&gt;&lt;li&gt;30&lt;/li&gt;&lt;li&gt;3 слота&lt;/li&gt;&lt;/ol&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="240" y="450" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B6_OuXqonMBwsMnvJUXf-13" value="&lt;ol&gt;&lt;li&gt;0/50&lt;/li&gt;&lt;li&gt;20/50&lt;/li&gt;&lt;li&gt;0&lt;/li&gt;&lt;li&gt;3 слота&lt;/li&gt;&lt;/ol&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="tvuUzRKQsJGqX-wF9Gs5-1">
+          <mxGeometry x="400" y="450" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
