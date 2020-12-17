@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-12-17T05:30:52.529Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="Kq1pHFXnW1CgveTL5KhI" version="14.0.1" type="github" pages="8">
+<mxfile host="app.diagrams.net" modified="2020-12-17T08:40:07.343Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="l6p-_k9TgnbRZAT53u5T" version="14.0.1" type="github" pages="8">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
     <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -936,6 +936,15 @@
         </mxCell>
         <mxCell id="xomxHlAQG0SZGkXaE-QJ-7" value="Cache" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="560" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-8" value="Components for crafting" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+          <mxGeometry x="80" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-9" value="Active skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+          <mxGeometry x="240" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-10" value="Passive skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+          <mxGeometry x="400" y="240" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
