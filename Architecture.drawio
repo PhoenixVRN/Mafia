@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-12-17T11:10:53.039Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="hf3lo7c8QAPeYFtxfgOC" version="14.0.1" type="github" pages="9">
+<mxfile host="app.diagrams.net" modified="2020-12-17T11:13:44.475Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="fM95XgONv94jeug1p5Cm" version="14.0.1" type="github" pages="9">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
-    <mxGraphModel dx="1170" dy="452" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -909,57 +909,57 @@
     </mxGraphModel>
   </diagram>
   <diagram id="z5KlZj3VQe16CgrURkZ0" name="AllClass">
-    <mxGraphModel dx="1170" dy="452" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="789NhNEb6Mc-SwvMDLKA-0" />
         <mxCell id="789NhNEb6Mc-SwvMDLKA-1" parent="789NhNEb6Mc-SwvMDLKA-0" />
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-0" value="Person" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-0" value="Person" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="80" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-1" value="Weapon" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-1" value="Weapon" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="240" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-2" value="Armor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-2" value="Armor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="400" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-3" value="Runes" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-3" value="Runes" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="560" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-4" value="Citadel" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-4" value="Citadel" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="80" y="140" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-5" value="Outpost" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-5" value="Outpost" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="240" y="140" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-6" value="Observation tower" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-6" value="Observation tower" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="400" y="140" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-7" value="Cache" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-7" value="Cache" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="560" y="140" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-8" value="Components for crafting" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-8" value="Components for crafting" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="80" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-9" value="Active combat skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-9" value="Active combat skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="240" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-10" value="Passive combat skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-10" value="Passive combat skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="400" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="SP-nok38J--XESxSuXqC-0" value="Bug" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="SP-nok38J--XESxSuXqC-0" value="Bug" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="560" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="WWxcnDwTpAR0-nhFOnaN-0" value="Active live skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="WWxcnDwTpAR0-nhFOnaN-0" value="Active live skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="80" y="340" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="WWxcnDwTpAR0-nhFOnaN-1" value="Passive live skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
+        <mxCell id="WWxcnDwTpAR0-nhFOnaN-1" value="Passive live skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
           <mxGeometry x="240" y="340" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="lMIRyv5gP9-BKVLWL--N" name="Person">
-    <mxGraphModel dx="1170" dy="452" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="E-SWezOqebRKNO-POqzc-0" />
         <mxCell id="E-SWezOqebRKNO-POqzc-1" parent="E-SWezOqebRKNO-POqzc-0" />
@@ -1038,10 +1038,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="1eKbO44jTE4XEzoUr5I5-0" value="Active skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="E-SWezOqebRKNO-POqzc-1" vertex="1">
+        <mxCell id="1eKbO44jTE4XEzoUr5I5-0" value="Active battel skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="E-SWezOqebRKNO-POqzc-1" vertex="1">
           <mxGeometry x="250" y="410" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="HBerTWtbR6MWhMBiCpF2-0" value="Passive skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="E-SWezOqebRKNO-POqzc-1" vertex="1">
+        <mxCell id="HBerTWtbR6MWhMBiCpF2-0" value="Passive battel skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="E-SWezOqebRKNO-POqzc-1" vertex="1">
           <mxGeometry x="440" y="410" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="HBerTWtbR6MWhMBiCpF2-1" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontStyle=1" parent="E-SWezOqebRKNO-POqzc-1" edge="1">
