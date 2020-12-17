@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-12-17T19:45:19.982Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 YaBrowser/20.11.3.183 Yowser/2.5 Safari/537.36" etag="2rxFqdjZGvHaKqbPI_fy" version="14.0.4" type="github" pages="12">
+<mxfile host="app.diagrams.net" modified="2020-12-17T19:49:25.867Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="c0Y_oOvrlkzXwfpfG117" version="14.0.4" type="github" pages="12">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
-    <mxGraphModel dx="2062" dy="1108" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -604,7 +604,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="15v3J22-hIdhxXihDnmQ" name="Боевая модель">
-    <mxGraphModel dx="1071" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="BgBHuLuoObRP8i8i-NTh-0" />
         <mxCell id="BgBHuLuoObRP8i8i-NTh-1" parent="BgBHuLuoObRP8i8i-NTh-0" />
@@ -676,7 +676,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="9xEUzZMBHfouTKUW9tr0" name="Armor">
-    <mxGraphModel dx="1071" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="tvuUzRKQsJGqX-wF9Gs5-0" />
         <mxCell id="tvuUzRKQsJGqX-wF9Gs5-1" parent="tvuUzRKQsJGqX-wF9Gs5-0" />
@@ -909,7 +909,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="z5KlZj3VQe16CgrURkZ0" name="AllClass">
-    <mxGraphModel dx="1071" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="789NhNEb6Mc-SwvMDLKA-0" />
         <mxCell id="789NhNEb6Mc-SwvMDLKA-1" parent="789NhNEb6Mc-SwvMDLKA-0" />
@@ -959,7 +959,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="lMIRyv5gP9-BKVLWL--N" name="Person">
-    <mxGraphModel dx="2062" dy="1108" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="E-SWezOqebRKNO-POqzc-0" />
         <mxCell id="E-SWezOqebRKNO-POqzc-1" parent="E-SWezOqebRKNO-POqzc-0" />
@@ -1408,7 +1408,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="6wL3qcYuV4c5d5wyGSim" name="Weapon">
-    <mxGraphModel dx="1422" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" page="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-0" />
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-1" parent="d6gtWamQYHOKPJOxVCJQ-0" />
@@ -1467,7 +1467,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="kUppnDMGEHlKLHAfOTq7" name="Active battel skils">
-    <mxGraphModel dx="1071" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="ET7L16hp85r2HrzmqvfS-0" />
         <mxCell id="ET7L16hp85r2HrzmqvfS-1" parent="ET7L16hp85r2HrzmqvfS-0" />
