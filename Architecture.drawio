@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-12-17T11:13:44.475Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="fM95XgONv94jeug1p5Cm" version="14.0.1" type="github" pages="9">
+<mxfile host="app.diagrams.net" modified="2020-12-17T11:21:34.851Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="oyeGEVQL_rg9CylUKEbg" version="14.0.1" type="github" pages="10">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
     <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -1085,6 +1085,17 @@
               <mxPoint x="414" y="530" />
             </Array>
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="6wL3qcYuV4c5d5wyGSim" name="Weapon">
+    <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="d6gtWamQYHOKPJOxVCJQ-0" />
+        <mxCell id="d6gtWamQYHOKPJOxVCJQ-1" parent="d6gtWamQYHOKPJOxVCJQ-0" />
+        <mxCell id="d6gtWamQYHOKPJOxVCJQ-2" value="Weapon" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
+          <mxGeometry x="354" y="40" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
