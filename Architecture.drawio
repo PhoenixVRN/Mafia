@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-12-17T11:21:34.851Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="oyeGEVQL_rg9CylUKEbg" version="14.0.1" type="github" pages="10">
+<mxfile host="app.diagrams.net" modified="2020-12-17T12:17:11.417Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="tB4oorEirWeaXj8Jphgy" version="14.0.1" type="github" pages="11">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
     <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -913,46 +913,46 @@
       <root>
         <mxCell id="789NhNEb6Mc-SwvMDLKA-0" />
         <mxCell id="789NhNEb6Mc-SwvMDLKA-1" parent="789NhNEb6Mc-SwvMDLKA-0" />
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-0" value="Person" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-0" value="Person" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="80" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-1" value="Weapon" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-1" value="Weapon" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="240" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-2" value="Armor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-2" value="Armor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="400" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-3" value="Runes" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-3" value="Runes" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="560" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-4" value="Citadel" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-4" value="Citadel" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="80" y="140" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-5" value="Outpost" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-5" value="Outpost" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="240" y="140" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-6" value="Observation tower" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-6" value="Observation tower" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="400" y="140" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-7" value="Cache" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-7" value="Cache" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="560" y="140" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-8" value="Components for crafting" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-8" value="Components for crafting" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="80" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-9" value="Active combat skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-9" value="Active combat skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="240" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="xomxHlAQG0SZGkXaE-QJ-10" value="Passive combat skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="xomxHlAQG0SZGkXaE-QJ-10" value="Passive combat skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="400" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="SP-nok38J--XESxSuXqC-0" value="Bug" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="SP-nok38J--XESxSuXqC-0" value="Bug" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="560" y="240" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="WWxcnDwTpAR0-nhFOnaN-0" value="Active live skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="WWxcnDwTpAR0-nhFOnaN-0" value="Active live skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="80" y="340" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="WWxcnDwTpAR0-nhFOnaN-1" value="Passive live skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="789NhNEb6Mc-SwvMDLKA-1">
+        <mxCell id="WWxcnDwTpAR0-nhFOnaN-1" value="Passive live skills" style="rounded=0;whiteSpace=wrap;html=1;" parent="789NhNEb6Mc-SwvMDLKA-1" vertex="1">
           <mxGeometry x="240" y="340" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
@@ -1096,6 +1096,38 @@
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-1" parent="d6gtWamQYHOKPJOxVCJQ-0" />
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-2" value="Weapon" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
           <mxGeometry x="354" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="kUppnDMGEHlKLHAfOTq7" name="Active battel skils">
+    <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="ET7L16hp85r2HrzmqvfS-0" />
+        <mxCell id="ET7L16hp85r2HrzmqvfS-1" parent="ET7L16hp85r2HrzmqvfS-0" />
+        <mxCell id="v7j4YTa3HS5-1GUJ9z_C-0" value="Active combat skills" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="ET7L16hp85r2HrzmqvfS-1">
+          <mxGeometry x="260" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="v7j4YTa3HS5-1GUJ9z_C-1" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;Object:Stan&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Дистанция:&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;мин = 0 м.&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;макс = 100 м.&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Цель = одиночная/АОЕ&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Радиус АОЕ = 30 м.&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Время стана = 5 сек.&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Кулдаун = 10 сек.&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Расходник:&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;HP/Str/man = 10&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Флаг снятия стана = int&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="ET7L16hp85r2HrzmqvfS-1">
+          <mxGeometry x="370" y="150" width="160" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="v7j4YTa3HS5-1GUJ9z_C-2" value="Стринг:&lt;br&gt;Название&amp;nbsp;&lt;br&gt;&amp;nbsp;Описание скила" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ET7L16hp85r2HrzmqvfS-1">
+          <mxGeometry x="570" y="150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="v7j4YTa3HS5-1GUJ9z_C-4" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="ET7L16hp85r2HrzmqvfS-1" target="v7j4YTa3HS5-1GUJ9z_C-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="530" y="180" as="sourcePoint" />
+            <mxPoint x="440" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v7j4YTa3HS5-1GUJ9z_C-5" value="Картинка" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ET7L16hp85r2HrzmqvfS-1">
+          <mxGeometry x="570" y="230" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="v7j4YTa3HS5-1GUJ9z_C-8" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="ET7L16hp85r2HrzmqvfS-1" target="v7j4YTa3HS5-1GUJ9z_C-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="532" y="260" as="sourcePoint" />
+            <mxPoint x="440" y="230" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
