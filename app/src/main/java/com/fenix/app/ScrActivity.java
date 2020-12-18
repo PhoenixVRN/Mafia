@@ -1,28 +1,28 @@
 package com.fenix.app;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.fenix.app.dto.ActorDto;
+import com.fenix.app.service.ContextService;
+import com.fenix.app.service.MongoService;
 import com.fenix.app.util.JsonUtil;
+import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.material.snackbar.Snackbar;
 import com.mongodb.client.MongoCollection;
-import com.rengwuxian.materialedittext.MaterialEditText;
-import com.fenix.app.service.MongoService;
-import com.fenix.app.util.ThreadUtil;
 import com.mongodb.client.model.Filters;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
-import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.bson.Document;
 
@@ -30,38 +30,6 @@ import lombok.var;
 
 
 public class ScrActivity extends AppCompatActivity {
-    private Button remuv;
-    private final View.OnClickListener remove_Listener = v -> {
-
-        Log.i(">>>>>>>>>>>>>>>>>>>> mongo", "begin");
-
-        var service = new MongoService("fenix");
-
-        Log.i(">>>>>>>>>>>>>>>>>>>> mongo", "get collection");
-
-        var collection = service.getDocuments("actors");
-
-        ThreadUtil
-                .Do(() -> {
-                    Log.i(">>>>>>>>>>>>>>>>>>>> mongo", Long.toString(collection.count()));
-
-                })
-                .then((res) -> {
-                    ThreadUtil.Do(() -> Log.i(">>>>>>>>>>>>>>>>>>>> mongo", collection.find(Filters.eq("name", "test do not remove")).first().toJson()));
-                })
-                .then((res) -> {
-                    this.finish();
-                })
-                .error((ex) -> {
-                    Log.e(">>>>>>>>>>>>>>>>>>>> mongo", ex.toString());
-                });
-
-        Log.i(">>>>>>>>>>>>>>>>>>>> mongo", "complete");
-
-        // this.finish();
-        //       Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
-        //      startActivity(intent);
-    };
 
     private final MongoService mongoService = new MongoService("fenix");
     private final MongoCollection<Document> actorsCollection = mongoService.getDocuments("actors");
@@ -111,39 +79,49 @@ public class ScrActivity extends AppCompatActivity {
         final MaterialEditText email = sing_in_window.findViewById(R.id.emailFild);
         final MaterialEditText pass = sing_in_window.findViewById(R.id.passlFild);
 
-
         dialog.setNegativeButton("Отменить", (dialogInterface, i) -> dialogInterface.dismiss());
 
-        AlertDialog.Builder builder = dialog.setPositiveButton("Войти",
+        dialog.setPositiveButton("Войти",
                 (dialogInterface, which) -> {
                     if (TextUtils.isEmpty(email.getText().toString())) {
                         Snackbar.make(root, "Введите вашу почту", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
 
-                    if (pass.getText().toString().length() < 5) {
-                        Snackbar.make(root, "Введите пароль, который более 5 символов", Snackbar.LENGTH_SHORT).show();
+                    if (TextUtils.isEmpty(pass.getText().toString())) {
+                        Snackbar.make(root, "Введите пароль", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
-/*
-                    auth.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
-                            .addOnSuccessListener(authResult -> {
-//
-//                                try {
-//                                    Intent intent = new Intent(ScrActivity.this, MapsActivity.class);
-//                                    startActivity(intent);
-//                                }catch (Throwable e){
-//                                    Log.e("FireBase", e.toString());
-//                                }
 
-                                finish();
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Snackbar.make(root, "Ошибка авторизации. " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
-                        }
-                    });
-*/
+                    // Проверка и загрузка профиля пользователя
+                    ThreadUtil
+                            .Do(() -> {
+                                String emailString = email.getText().toString().toLowerCase();
+                                String passString = pass.getText().toString();
+
+                                var actorDocument = actorsCollection.find(Filters
+                                        .and(
+                                                Filters.eq("email", emailString),
+                                                Filters.eq("pass", passString))
+                                ).limit(1).first();
+
+                                // Пользователь не найден?
+                                if (actorDocument == null) {
+                                    Snackbar.make(root, "Ошибка авторизации, проверьте введенную почту и пароль ", Snackbar.LENGTH_SHORT).show();
+                                    throw new RuntimeException("Incorrect login or password");
+                                }
+
+                                // Пользователь вошёл в игру
+                                var actorDto = JsonUtil.Parse(ActorDto.class, actorDocument.toJson());
+                                ContextService.Context.setActor(actorDto);
+
+                                Log.i("showSignWindow", "Logon completed");
+                                Intent intent = new Intent(ScrActivity.this, MapsActivity.class);
+                                startActivity(intent);
+                            })
+                            .error(ex -> {
+                                Log.e("showSignWindow", ex.toString());
+                            });
                 });
         dialog.show();
     }
@@ -225,49 +203,14 @@ public class ScrActivity extends AppCompatActivity {
                                     actor.setPhone(phoneString);
                                     actor.setPass(passString);
                                     ThreadUtil.Await(() -> actorsCollection.insertOne(Document.parse(JsonUtil.Serialize(actor))));
+
+                                    Log.i("showRegisterWindow", "User " + nameString + " added!");
+                                    Snackbar.make(root, "Пользователь добавлен!", Snackbar.LENGTH_SHORT).show();
                                 }
-                            })
-                            .then((res) -> {
-                                Snackbar.make(root, "Пользователь добавлен!", Snackbar.LENGTH_SHORT).show();
-                                Intent hero = new Intent(ScrActivity.this, HeroPick.class);
-                                startActivity(hero);
                             })
                             .error((ex) -> {
                                 Log.e("showRegisterWindow", ex.toString());
                             });
-
-
-/*
-                    auth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
-                            .addOnSuccessListener(authResult -> {
-                                ActorDto user = new ActorDto();
-                                user.setEmail(email.getText().toString());
-                                user.setName(name.getText().toString());
-                                user.setPass(pass.getText().toString());
-                                user.setPhone(phone.getText().toString());
-                                ContextService.Context.setActor(user);
-                                ContextService.Context.setActor2(user);
-
-                                users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(user)
-                                        .addOnSuccessListener(aVoid -> {
-                                            Snackbar.make(root, "Пользователь добавлен!", Snackbar.LENGTH_SHORT).show();
-                                            Intent hero = new Intent(ScrActivity.this, HeroPick.class);
-                                            startActivity(hero);
-                                        });
-
-                            })
-                            .addOnCanceledListener(() -> {
-                                Log.e("createUserWithEmailAndPassword", "Cancel");
-                            })
-                            .addOnFailureListener((exception) -> {
-                                if (exception instanceof FirebaseAuthWeakPasswordException) {
-                                    var caughtException = (FirebaseAuthWeakPasswordException) exception;
-                                    Log.e("createUserWithEmailAndPassword", caughtException.getReason());
-                                } else
-                                    Log.e("createUserWithEmailAndPassword", exception.toString());
-                            });
-*/
                 });
         dialog.show();
     }

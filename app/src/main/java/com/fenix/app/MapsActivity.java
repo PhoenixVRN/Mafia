@@ -158,9 +158,11 @@ public class MapsActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Login
-        Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
-        startActivity(intent);
+        // Login if not authorised
+        if (ContextService.Context.getActor() == null) {
+            Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
+            startActivity(intent);
+        }
 
         // Init view
         setContentView(R.layout.activity_maps);
