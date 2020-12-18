@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/logs"
     android:id="@+id/root_element"
-    tools:context=".ScrActivity">
+    tools:context=".LogonActivity">
 
 
     <TextView

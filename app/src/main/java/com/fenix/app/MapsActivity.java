@@ -42,7 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.SneakyThrows;
-import lombok.var;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
@@ -160,7 +159,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         // Login if not authorised
         if (ContextService.Context.getActor() == null) {
-            Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
+            Intent intent = new Intent(MapsActivity.this, LogonActivity.class);
             startActivity(intent);
         }
 

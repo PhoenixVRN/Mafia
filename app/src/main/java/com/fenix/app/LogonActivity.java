@@ -29,7 +29,7 @@ import org.bson.Document;
 import lombok.var;
 
 
-public class ScrActivity extends AppCompatActivity {
+public class LogonActivity extends AppCompatActivity {
 
     private final MongoService mongoService = new MongoService("fenix");
     private final MongoCollection<Document> actorsCollection = mongoService.getDocuments("actors");
@@ -38,13 +38,13 @@ public class ScrActivity extends AppCompatActivity {
 
     private Button btnSignIn;
     private final View.OnClickListener btnSignInListener = v -> {
-        Log.i("ScrActivity", "btnSignIn click");
+        Log.i("LogonActivity", "btnSignIn click");
         showSignWindow();
     };
 
     private Button btnRegister;
     private final View.OnClickListener btnRegisterListener = v -> {
-        Log.i("ScrActivity", "btnRegister click");
+        Log.i("LogonActivity", "btnRegister click");
         showRegisterWindow();
     };
 
@@ -54,7 +54,7 @@ public class ScrActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Init view
-        setContentView(R.layout.activity_scr);
+        setContentView(R.layout.activity_logon);
         root = findViewById(R.id.root_element);
 
         // btnSignIn
@@ -116,7 +116,7 @@ public class ScrActivity extends AppCompatActivity {
                                 ContextService.Context.setActor(actorDto);
 
                                 Log.i("showSignWindow", "Logon completed");
-                                Intent intent = new Intent(ScrActivity.this, MapsActivity.class);
+                                Intent intent = new Intent(LogonActivity.this, MapsActivity.class);
                                 startActivity(intent);
                             })
                             .error(ex -> {
