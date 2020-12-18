@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class ActorDto {
 
@@ -20,6 +21,7 @@ public class ActorDto {
     private int hp, endurance, moral;
     private int tipClass; // 1- вампир, 2- оборотень, 3 человек.
 
+<<<<<<< HEAD
     public void setSetClass(int i) {
         this.tipClass = i;
     }
@@ -35,4 +37,11 @@ public class ActorDto {
 
  //   public void setName(String toString) {
 //    }
+=======
+    @Override
+    public String toString() {
+        return name;
+    }
+
+>>>>>>> develop
 }
