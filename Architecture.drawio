@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-12-17T19:49:25.867Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="c0Y_oOvrlkzXwfpfG117" version="14.0.4" type="github" pages="12">
+<mxfile host="app.diagrams.net" modified="2020-12-18T14:18:06.781Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 YaBrowser/20.11.3.183 Yowser/2.5 Safari/537.36" etag="Kb0HYQ0YJoGMerP3q7l3" version="14.0.5" type="github" pages="12">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
-    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2062" dy="1108" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -909,7 +909,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="z5KlZj3VQe16CgrURkZ0" name="AllClass">
-    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1422" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="789NhNEb6Mc-SwvMDLKA-0" />
         <mxCell id="789NhNEb6Mc-SwvMDLKA-1" parent="789NhNEb6Mc-SwvMDLKA-0" />
@@ -959,7 +959,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="lMIRyv5gP9-BKVLWL--N" name="Person">
-    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1422" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="E-SWezOqebRKNO-POqzc-0" />
         <mxCell id="E-SWezOqebRKNO-POqzc-1" parent="E-SWezOqebRKNO-POqzc-0" />
@@ -1408,29 +1408,29 @@
     </mxGraphModel>
   </diagram>
   <diagram id="6wL3qcYuV4c5d5wyGSim" name="Weapon">
-    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" page="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1185" dy="658" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-0" />
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-1" parent="d6gtWamQYHOKPJOxVCJQ-0" />
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-2" value="Weapon" style="rounded=0;whiteSpace=wrap;html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
           <mxGeometry x="354" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="H4_IiA6H1j0GbuLtNGTC-5" value="&lt;p style=&quot;margin: 4px 0px 0px ; text-align: center&quot;&gt;&lt;b&gt;Object:Type&lt;/b&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;(distance)&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;short distance = 0 to a&amp;nbsp;&lt;br&gt;Medium distance&amp;nbsp;= 0 to b&lt;br&gt;Long distance = 0 to c&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;0&amp;lt;a&amp;lt;b&amp;lt;c&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
+        <mxCell id="H4_IiA6H1j0GbuLtNGTC-5" value="&lt;p style=&quot;margin: 4px 0px 0px ; text-align: center&quot;&gt;&lt;b&gt;Object:Type&lt;/b&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;(distance)&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;short distance = 0 to a&amp;nbsp;&lt;br&gt;Medium distance&amp;nbsp;= 0 to b&lt;br&gt;Long distance = 0 to c&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;0&amp;lt;a&amp;lt;b&amp;lt;c&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
           <mxGeometry x="180" y="320" width="160" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="H4_IiA6H1j0GbuLtNGTC-6" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;Object:Description&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;String = описание класса оружия&lt;br&gt;String= история&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
+        <mxCell id="H4_IiA6H1j0GbuLtNGTC-6" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;Object:Description&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;String = описание класса оружия&lt;br&gt;String= история&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
           <mxGeometry x="474" y="175" width="226" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="H4_IiA6H1j0GbuLtNGTC-7" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;exitX=0.001;exitY=0.423;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitPerimeter=0;" edge="1" parent="d6gtWamQYHOKPJOxVCJQ-1" source="KA0PhiVHnt-eI4eArD1y-0">
+        <mxCell id="H4_IiA6H1j0GbuLtNGTC-7" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;exitX=0.001;exitY=0.423;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitPerimeter=0;" parent="d6gtWamQYHOKPJOxVCJQ-1" source="KA0PhiVHnt-eI4eArD1y-0" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="440" y="540" as="sourcePoint" />
             <mxPoint x="414" y="100" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="414" y="400" />
+              <mxPoint x="414" y="370" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="H4_IiA6H1j0GbuLtNGTC-10" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="d6gtWamQYHOKPJOxVCJQ-1" source="H4_IiA6H1j0GbuLtNGTC-5">
+        <mxCell id="H4_IiA6H1j0GbuLtNGTC-10" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="d6gtWamQYHOKPJOxVCJQ-1" source="H4_IiA6H1j0GbuLtNGTC-5" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="370" y="180" as="sourcePoint" />
             <mxPoint x="414" y="100" as="targetPoint" />
@@ -1439,7 +1439,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="H4_IiA6H1j0GbuLtNGTC-11" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="d6gtWamQYHOKPJOxVCJQ-1" source="H4_IiA6H1j0GbuLtNGTC-6" target="d6gtWamQYHOKPJOxVCJQ-2">
+        <mxCell id="H4_IiA6H1j0GbuLtNGTC-11" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="d6gtWamQYHOKPJOxVCJQ-1" source="H4_IiA6H1j0GbuLtNGTC-6" target="d6gtWamQYHOKPJOxVCJQ-2" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="480" y="280" as="sourcePoint" />
             <mxPoint x="490" y="360" as="targetPoint" />
@@ -1448,7 +1448,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="H4_IiA6H1j0GbuLtNGTC-12" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="d6gtWamQYHOKPJOxVCJQ-1" target="d6gtWamQYHOKPJOxVCJQ-2">
+        <mxCell id="H4_IiA6H1j0GbuLtNGTC-12" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="d6gtWamQYHOKPJOxVCJQ-1" target="d6gtWamQYHOKPJOxVCJQ-2" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="340" y="220" as="sourcePoint" />
             <mxPoint x="590" y="350" as="targetPoint" />
@@ -1457,11 +1457,39 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="H4_IiA6H1j0GbuLtNGTC-13" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;Object:Stats&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Int = оптимальная дистанция (м)&lt;br&gt;Int&amp;nbsp;= урон за выстрел/удар (health per hit)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Int = скорострельность/скорость атаки (hit per sec)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Int = точность (%)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Int = бронепробиваемость (?условные ед?)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
+        <mxCell id="H4_IiA6H1j0GbuLtNGTC-13" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;Object:Stats&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Int = оптимальная дистанция (м)&lt;br&gt;Int&amp;nbsp;= урон за выстрел/удар (health per hit)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Int = скорострельность/скорость атаки (hit per sec)&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Int = точность (%)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;Int = бронепробиваемость (?условные ед?)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
           <mxGeometry x="30" y="175" width="310" height="115" as="geometry" />
         </mxCell>
-        <mxCell id="KA0PhiVHnt-eI4eArD1y-0" value="Object" style="html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
-          <mxGeometry x="480" y="380" width="110" height="50" as="geometry" />
+        <mxCell id="KA0PhiVHnt-eI4eArD1y-0" value="Weapon rune" style="html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
+          <mxGeometry x="480" y="350" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hIHkTMmPaSrGo1FzVPOu-0" value="modified damage" style="html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
+          <mxGeometry x="480" y="440" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hIHkTMmPaSrGo1FzVPOu-1" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="d6gtWamQYHOKPJOxVCJQ-1" source="hIHkTMmPaSrGo1FzVPOu-0" target="d6gtWamQYHOKPJOxVCJQ-2">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="200" y="220" as="sourcePoint" />
+            <mxPoint x="360" y="220" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="414" y="465" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hIHkTMmPaSrGo1FzVPOu-2" value="modified damage" style="html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
+          <mxGeometry x="230" y="530" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hIHkTMmPaSrGo1FzVPOu-3" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="d6gtWamQYHOKPJOxVCJQ-1" source="hIHkTMmPaSrGo1FzVPOu-2" target="d6gtWamQYHOKPJOxVCJQ-2">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="200" y="430" as="sourcePoint" />
+            <mxPoint x="360" y="430" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="414" y="555" />
+              <mxPoint x="414" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hIHkTMmPaSrGo1FzVPOu-4" value="позже выложу отдельные ветки мод урона, скрапа для крафта и примеры&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
+          <mxGeometry x="500" y="580" width="120" height="100" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
