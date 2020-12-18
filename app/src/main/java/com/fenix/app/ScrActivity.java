@@ -85,8 +85,8 @@ public class ScrActivity extends AppCompatActivity {
 
     private void showSignWindow() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Войти");
-        dialog.setMessage("Введите данные для входа");
+        dialog.setTitle("Р’РѕР№С‚Рё");
+        dialog.setMessage("Р’РІРµРґРёС‚Рµ РґР°РЅРЅС‹Рµ РґР»СЏ РІС…РѕРґР°");
 
         LayoutInflater inflater = LayoutInflater.from(this);
         View sing_in_window = inflater.inflate(R.layout.sing_in_window, null);
@@ -96,17 +96,17 @@ public class ScrActivity extends AppCompatActivity {
         final MaterialEditText pass = sing_in_window.findViewById(R.id.passlFild);
 
 
-        dialog.setNegativeButton("Отменить", (dialogInterface, i) -> dialogInterface.dismiss());
+        dialog.setNegativeButton("РћС‚РјРµРЅРёС‚СЊ", (dialogInterface, i) -> dialogInterface.dismiss());
 
-        AlertDialog.Builder builder = dialog.setPositiveButton("Войти",
+        AlertDialog.Builder builder = dialog.setPositiveButton("Р’РѕР№С‚Рё",
                 (dialogInterface, which) -> {
                     if (TextUtils.isEmpty(email.getText().toString())) {
-                        Snackbar.make(root, "Введите вашу почту", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(root, "Р’РІРµРґРёС‚Рµ РІР°С€Сѓ РїРѕС‡С‚Сѓ", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
 
                     if (pass.getText().toString().length() < 5) {
-                        Snackbar.make(root, "Введите пароль, который более 5 символов", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(root, "Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ, РєРѕС‚РѕСЂС‹Р№ Р±РѕР»РµРµ 5 СЃРёРјРІРѕР»РѕРІ", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
                     auth.signInWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
@@ -123,7 +123,7 @@ public class ScrActivity extends AppCompatActivity {
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Snackbar.make(root, "Ошибка авторизации. " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(root, "РћС€РёР±РєР° Р°РІС‚РѕСЂРёР·Р°С†РёРё. " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                         }
                     });
 
@@ -133,8 +133,8 @@ public class ScrActivity extends AppCompatActivity {
 
     private void sowRegisterWindow() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Зарегистрироваться");
-        dialog.setMessage("Введите все данные для регистрации");
+        dialog.setTitle("Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊСЃСЏ");
+        dialog.setMessage("Р’РІРµРґРёС‚Рµ РІСЃРµ РґР°РЅРЅС‹Рµ РґР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё");
 
         LayoutInflater inflater = LayoutInflater.from(this);
         View register_window = inflater.inflate(R.layout.registor_window, null);
@@ -145,27 +145,27 @@ public class ScrActivity extends AppCompatActivity {
         final MaterialEditText name = register_window.findViewById(R.id.namelFild);
         final MaterialEditText phone = register_window.findViewById(R.id.phonelFild);
 
-        dialog.setNegativeButton("Отменить", (dialogInterface, i) -> dialogInterface.dismiss());
+        dialog.setNegativeButton("РћС‚РјРµРЅРёС‚СЊ", (dialogInterface, i) -> dialogInterface.dismiss());
 
-        dialog.setPositiveButton("Добавить",
+        dialog.setPositiveButton("Р”РѕР±Р°РІРёС‚СЊ",
                 (dialogInterface, which) -> {
                     if (TextUtils.isEmpty(email.getText().toString())) {
-                        Snackbar.make(root, "Введите вашу почту", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(root, "Р’РІРµРґРёС‚Рµ РІР°С€Сѓ РїРѕС‡С‚Сѓ", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
                     if (TextUtils.isEmpty(name.getText().toString())) {
-                        Snackbar.make(root, "Введите ваше имя", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(root, "Р’РІРµРґРёС‚Рµ РІР°С€Рµ РёРјСЏ", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
                     if (TextUtils.isEmpty(phone.getText().toString())) {
-                        Snackbar.make(root, "Введите ваш телефон", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(root, "Р’РІРµРґРёС‚Рµ РІР°С€ С‚РµР»РµС„РѕРЅ", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
                     if (pass.getText().toString().length() < 5 && pass.getText().toString().length() > 10) {
-                        Snackbar.make(root, "Введите пароль, который более 5 символов", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(root, "Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ, РєРѕС‚РѕСЂС‹Р№ Р±РѕР»РµРµ 5 СЃРёРјРІРѕР»РѕРІ", Snackbar.LENGTH_SHORT).show();
                         return;
                     }
-                    // Регистрация пользователя
+                    // Р РµРіРёСЃС‚СЂР°С†РёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
                     auth.createUserWithEmailAndPassword(email.getText().toString(), pass.getText().toString())
                             .addOnSuccessListener(authResult -> {
                                 ActorDto user = new ActorDto();
@@ -179,7 +179,7 @@ public class ScrActivity extends AppCompatActivity {
                                 users.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                         .setValue(user)
                                         .addOnSuccessListener(aVoid -> {
-                                            Snackbar.make(root, "Пользователь добавлен!", Snackbar.LENGTH_SHORT).show();
+                                            Snackbar.make(root, "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РґРѕР±Р°РІР»РµРЅ!", Snackbar.LENGTH_SHORT).show();
                                             Intent hero = new Intent(ScrActivity.this, HeroPick.class);
                                             startActivity(hero);
                                         });
