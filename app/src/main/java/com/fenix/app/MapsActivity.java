@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 
 import com.fenix.app.dto.ActorDto;
@@ -87,8 +88,6 @@ public class MapsActivity extends AppCompatActivity implements
     private final View.OnClickListener myPushButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//        Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
-//        startActivity(intent);
             Log.i("My", "myRegButton click");
 
             // Set my name
@@ -158,19 +157,13 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
- //       setContentView(R.layout.activity_log_scr);
- //       Thread.sleep(10000);
- //       var tred = new Thread(()->{
- //           MapsActivity.this.runOnUiThread(()->{
-                Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
-                startActivity(intent);
-//            });
-//        });
-//        tred.start();
-        setContentView(R.layout.activity_maps);
 
-  //      Thread.sleep(10000);
-  //      setContentView(R.layout.activity_log_scr);
+        // Login
+        Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
+        startActivity(intent);
+
+        // Init view
+        setContentView(R.layout.activity_maps);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

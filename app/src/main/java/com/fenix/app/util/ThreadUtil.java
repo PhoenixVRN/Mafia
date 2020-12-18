@@ -2,6 +2,7 @@ package com.fenix.app.util;
 
 import com.crawlink.Promise;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -36,6 +37,18 @@ public final class ThreadUtil {
                 p.reject(ex);
             }
             p.resolve(null);
+        }).start();
+        return p;
+    }
+
+    public static Promise Do(Callable  callable) {
+        Promise p = new Promise();
+        new Thread(() -> {
+            try {
+                p.resolve(callable.call());
+            } catch (Throwable ex) {
+                p.reject(ex);
+            }
         }).start();
         return p;
     }

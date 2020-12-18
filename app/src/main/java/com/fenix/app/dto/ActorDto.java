@@ -8,40 +8,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ActorDto {
 
     @NotNull
+    private String  name, email, pass, phone;
 
-    private String  id, name, email, pass, phone;;
-    private LatLng location;
-    private int hp, endurance, moral;
-    private int tipClass; // 1- вампир, 2- оборотень, 3 человек.
+    private LatLng location = null;
 
-<<<<<<< HEAD
-    public void setSetClass(int i) {
-        this.tipClass = i;
-    }
-
-
-    //   public ActorDto(String john, Object o) {
-  //  }
-
-//    @Override
- //   public String toString() {
- //       return name;
-//    }
-
- //   public void setName(String toString) {
-//    }
-=======
     @Override
     public String toString() {
         return name;
     }
 
->>>>>>> develop
+
 }
