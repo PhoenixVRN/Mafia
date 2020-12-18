@@ -25,9 +25,11 @@ import android.content.Intent;
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
+import com.fenix.app.service.MongoService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.LocationUtil;
+import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -60,8 +62,8 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region Services
 
-    private MapService mapService = new MapService(this);
-    private PusherService pusherService = new PusherService(this);
+    private MapService mapService;
+    private PusherService pusherService;
 
     //#endregion
 
@@ -145,7 +147,6 @@ public class MapsActivity extends AppCompatActivity implements
      *
      * @param savedInstanceState - previous state
      */
-    @SneakyThrows
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,13 +154,21 @@ public class MapsActivity extends AppCompatActivity implements
         // Login if not authorised
         my = ContextService.Context.getActor();
         if (my == null) {
-            Intent intent = new Intent(MapsActivity.this, LogonActivity.class);
-            startActivity(intent);
+            ThreadUtil.Do(() -> {
+                Intent intent = new Intent(MapsActivity.this, LogonActivity.class);
+                startActivity(intent);
+            }).error(ex -> {
+                throw new RuntimeException(ex.toString());
+            });
             return;
         }
 
         // Init view
         setContentView(R.layout.activity_maps);
+
+        // Services
+        mapService = new MapService(this);
+        pusherService = new PusherService(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

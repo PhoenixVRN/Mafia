@@ -31,8 +31,8 @@ import lombok.var;
 
 public class LogonActivity extends AppCompatActivity {
 
-    private final MongoService mongoService = new MongoService("fenix");
-    private final MongoCollection<Document> actorsCollection = mongoService.getDocuments("actors");
+    private MongoService mongoService;
+    private MongoCollection<Document> actorsCollection;
 
     private RelativeLayout root;
 
@@ -52,6 +52,14 @@ public class LogonActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Services
+        ThreadUtil.Do(() -> {
+            mongoService = new MongoService("fenix");
+            actorsCollection = mongoService.getDocuments("actors");
+        }).error(ex -> {
+            throw new RuntimeException(ex.toString());
+        });
 
         // Init view
         setContentView(R.layout.activity_logon);
