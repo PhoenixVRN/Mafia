@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 public class ContextDto {
-  private   ActorDto actor;
-  private  ActorDto actor2;
+    private ActorDto actor = null;
 }
