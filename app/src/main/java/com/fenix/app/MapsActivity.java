@@ -19,9 +19,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 
 import com.fenix.app.dto.ActorDto;
+import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.util.JsonUtil;
@@ -40,7 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.SneakyThrows;
-import lombok.var;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
@@ -53,6 +54,7 @@ public class MapsActivity extends AppCompatActivity implements
     private static final float MY_FOLLOW_DISTANCE = 0.25f;
     private static final String P_CHANNEL = "map";
     private static final String P_EVENT = "location";
+//    private static final String name;
 
     //#endregion
 
@@ -67,9 +69,8 @@ public class MapsActivity extends AppCompatActivity implements
 
     public List<ActorDto> aliens = new ArrayList<>();
 
-    private ActorDto my = new ActorDto("John", null);
+    private ActorDto my = null;
     private boolean myRegistered = false;
-
     private ActorDto target = null;
     private boolean targetFollow = false;
     private Marker targetMarker = null;
@@ -82,20 +83,15 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region myRegButton
     private Button myRegButton;
-    private final View.OnClickListener myPushButtonListener = v -> {
-        Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
-        startActivity(intent);
-        Log.i("My", "myRegButton click");
+    private final View.OnClickListener myPushButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Log.i("My", "myRegButton click");
 
-        // Set my name
-        my.setName(this.myNameTextView.getText().toString());
+            // Send them all my dto
+            pusherService.Push(P_CHANNEL, P_EVENT, my);
 
-        // I'am is registered now
-        myRegistered = true;
-
-        // Send them all my dto
-        pusherService.Push(P_CHANNEL, P_EVENT, my);
-
+        }
     };
     //#endregion
 
@@ -118,7 +114,12 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region myAreaButton
     private Button myAreaButton;
-    private View.OnClickListener myAreaButtonListener = v -> mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
+    private View.OnClickListener myAreaButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
+        }
+    };
     //#endregion
 
     //#region mySwitch
@@ -148,19 +149,17 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
- //       setContentView(R.layout.activity_log_scr);
- //       Thread.sleep(10000);
-        var tred = new Thread(()->{
-            MapsActivity.this.runOnUiThread(()->{
-                Intent intent = new Intent(MapsActivity.this, ScrActivity.class);
-                startActivity(intent);
-            });
-        });
-        tred.start();
-        setContentView(R.layout.activity_maps);
 
-  //      Thread.sleep(10000);
-  //      setContentView(R.layout.activity_log_scr);
+        // Login if not authorised
+        my = ContextService.Context.getActor();
+        if (my == null) {
+            Intent intent = new Intent(MapsActivity.this, LogonActivity.class);
+            startActivity(intent);
+            return;
+        }
+
+        // Init view
+        setContentView(R.layout.activity_maps);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -176,6 +175,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         // myNameTextView
         myNameTextView = findViewById(R.id.myNameTextView);
+        myNameTextView.setText(my.getName());
         myNameTextView.addTextChangedListener(myNameTextViewWatcher);
 
         // myAreaButton
