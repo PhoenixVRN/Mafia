@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-12-18T14:18:06.781Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 YaBrowser/20.11.3.183 Yowser/2.5 Safari/537.36" etag="Kb0HYQ0YJoGMerP3q7l3" version="14.0.5" type="github" pages="12">
+<mxfile host="app.diagrams.net" modified="2020-12-20T09:50:19.580Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="80IC6zQUmOJqm3rKC-xZ" version="14.1.1" type="github" pages="13">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
-    <mxGraphModel dx="2062" dy="1108" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1071" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -44,7 +44,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="97xaNG5euA9EuqIPgSee" name="DataFlowDiagram">
-    <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1071" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="g2Xse3lWouedzLYd1xVx-0" />
         <mxCell id="g2Xse3lWouedzLYd1xVx-1" parent="g2Xse3lWouedzLYd1xVx-0" />
@@ -1408,7 +1408,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="6wL3qcYuV4c5d5wyGSim" name="Weapon">
-    <mxGraphModel dx="1185" dy="658" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1071" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-0" />
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-1" parent="d6gtWamQYHOKPJOxVCJQ-0" />
@@ -1463,10 +1463,10 @@
         <mxCell id="KA0PhiVHnt-eI4eArD1y-0" value="Weapon rune" style="html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
           <mxGeometry x="480" y="350" width="110" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="hIHkTMmPaSrGo1FzVPOu-0" value="modified damage" style="html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
+        <mxCell id="hIHkTMmPaSrGo1FzVPOu-0" value="modified damage" style="html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
           <mxGeometry x="480" y="440" width="110" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="hIHkTMmPaSrGo1FzVPOu-1" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="d6gtWamQYHOKPJOxVCJQ-1" source="hIHkTMmPaSrGo1FzVPOu-0" target="d6gtWamQYHOKPJOxVCJQ-2">
+        <mxCell id="hIHkTMmPaSrGo1FzVPOu-1" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="d6gtWamQYHOKPJOxVCJQ-1" source="hIHkTMmPaSrGo1FzVPOu-0" target="d6gtWamQYHOKPJOxVCJQ-2" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="200" y="220" as="sourcePoint" />
             <mxPoint x="360" y="220" as="targetPoint" />
@@ -1475,10 +1475,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="hIHkTMmPaSrGo1FzVPOu-2" value="modified damage" style="html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
+        <mxCell id="hIHkTMmPaSrGo1FzVPOu-2" value="modified damage" style="html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
           <mxGeometry x="230" y="530" width="110" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="hIHkTMmPaSrGo1FzVPOu-3" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="d6gtWamQYHOKPJOxVCJQ-1" source="hIHkTMmPaSrGo1FzVPOu-2" target="d6gtWamQYHOKPJOxVCJQ-2">
+        <mxCell id="hIHkTMmPaSrGo1FzVPOu-3" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="d6gtWamQYHOKPJOxVCJQ-1" source="hIHkTMmPaSrGo1FzVPOu-2" target="d6gtWamQYHOKPJOxVCJQ-2" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="200" y="430" as="sourcePoint" />
             <mxPoint x="360" y="430" as="targetPoint" />
@@ -1488,14 +1488,14 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="hIHkTMmPaSrGo1FzVPOu-4" value="позже выложу отдельные ветки мод урона, скрапа для крафта и примеры&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="d6gtWamQYHOKPJOxVCJQ-1">
+        <mxCell id="hIHkTMmPaSrGo1FzVPOu-4" value="позже выложу отдельные ветки мод урона, скрапа для крафта и примеры&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
           <mxGeometry x="500" y="580" width="120" height="100" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="kUppnDMGEHlKLHAfOTq7" name="Active battel skils">
-    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1071" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="ET7L16hp85r2HrzmqvfS-0" />
         <mxCell id="ET7L16hp85r2HrzmqvfS-1" parent="ET7L16hp85r2HrzmqvfS-0" />
@@ -1522,6 +1522,77 @@
             <mxPoint x="532" y="260" as="sourcePoint" />
             <mxPoint x="440" y="230" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="HS8hxFGFwDK_zL3rWG4W" name="statistics and characteristics">
+    <mxGraphModel dx="1071" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="RqaPvkKgmKZcXFj2Uj8I-0" />
+        <mxCell id="RqaPvkKgmKZcXFj2Uj8I-1" parent="RqaPvkKgmKZcXFj2Uj8I-0" />
+        <mxCell id="SlR6_OFMiqClG7pItjVY-0" value="сила" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="40" y="36" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-1" value="статы" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="55" y="10" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-2" value="интеллект" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="40" y="136" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-3" value="ловкость" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="40" y="86" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-4" value="атака:" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="304" y="36" width="110" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-5" value="характеристика" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="374" y="10" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-6" value="Урон" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="304" y="110" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-7" value="Скор. атаки" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="304" y="60" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-8" value="защита:" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="414" y="36" width="110" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-9" value="Физ. защита" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="414" y="110" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-10" value="Броня" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="414" y="60" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-19" value="&lt;strike&gt;Скор. передв.&lt;/strike&gt;" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="304" y="210" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-20" value="Дальн. атаки" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="304" y="160" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-21" value="Сопр. эффект" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="414" y="210" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-22" value="Сопр. магии" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="414" y="160" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-27" value="Восст. маны" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="304" y="310" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-28" value="Доп. урон закл." style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="304" y="260" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-29" value="Восст. здоровья" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="414" y="310" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-30" value="Уклонение" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="414" y="260" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-31" value="Скрытность" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="414" y="370" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SlR6_OFMiqClG7pItjVY-32" value="Обзор" style="html=1;" vertex="1" parent="RqaPvkKgmKZcXFj2Uj8I-1">
+          <mxGeometry x="304" y="370" width="110" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
