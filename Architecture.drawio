@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-12-21T10:43:00.650Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="Yt_GX3I2DKwi4fHbJHk1" version="14.1.1" type="github" pages="14">
+<mxfile host="app.diagrams.net" modified="2020-12-21T18:23:07.975Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="4PNF6ITenmgZ3RYVqvYu" version="14.1.1" type="github" pages="14">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
     <mxGraphModel dx="1123" dy="598" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -44,7 +44,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="97xaNG5euA9EuqIPgSee" name="DataFlowDiagram">
-    <mxGraphModel dx="1071" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1123" dy="598" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="g2Xse3lWouedzLYd1xVx-0" />
         <mxCell id="g2Xse3lWouedzLYd1xVx-1" parent="g2Xse3lWouedzLYd1xVx-0" />
@@ -127,7 +127,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="oQFGNTKlK_gTyuHEj95E" name="DeviceComponents">
-    <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1123" dy="598" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="CBAD-ejrL_S0z0rzkbWA-0" />
         <mxCell id="CBAD-ejrL_S0z0rzkbWA-1" parent="CBAD-ejrL_S0z0rzkbWA-0" />
@@ -285,7 +285,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="adiRfwW66rgFSuOgqzJK" name="PushChannelModel">
-    <mxGraphModel dx="1898" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1950" dy="598" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="Go9VpVeZ4K3Pj2w4HcUq-0" />
         <mxCell id="Go9VpVeZ4K3Pj2w4HcUq-1" parent="Go9VpVeZ4K3Pj2w4HcUq-0" />
@@ -377,7 +377,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="WnjGiDhiPae-3RGZ-pjq" name="Page-5">
-    <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1123" dy="598" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="6uT2mX7eiB3Dk5ahXdoX-0" />
         <mxCell id="6uT2mX7eiB3Dk5ahXdoX-1" parent="6uT2mX7eiB3Dk5ahXdoX-0" />
@@ -690,7 +690,7 @@
         <mxCell id="77H21xQUsgebJCPwNua5-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;" parent="BgBHuLuoObRP8i8i-NTh-1" source="77H21xQUsgebJCPwNua5-2" target="77H21xQUsgebJCPwNua5-6" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="LOvuUnh8KKQHRyoHA1b--2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="BgBHuLuoObRP8i8i-NTh-1" source="77H21xQUsgebJCPwNua5-2" target="77H21xQUsgebJCPwNua5-8">
+        <mxCell id="LOvuUnh8KKQHRyoHA1b--2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="BgBHuLuoObRP8i8i-NTh-1" source="77H21xQUsgebJCPwNua5-2" target="77H21xQUsgebJCPwNua5-8" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="77H21xQUsgebJCPwNua5-2" value="&lt;span style=&quot;color: rgb(0 , 0 , 0) ; font-family: &amp;#34;helvetica&amp;#34; ; font-size: 12px ; font-style: normal ; font-weight: 400 ; letter-spacing: normal ; text-align: center ; text-indent: 0px ; text-transform: none ; word-spacing: 0px ; background-color: rgb(248 , 249 , 250) ; display: inline ; float: none&quot;&gt;Метод расчёта, стак и&amp;nbsp; внесение новых значений в аргументы статы.&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" parent="BgBHuLuoObRP8i8i-NTh-1" vertex="1">
@@ -708,7 +708,7 @@
         <mxCell id="77H21xQUsgebJCPwNua5-8" value="&lt;font style=&quot;font-size: 12px&quot;&gt;использование счётчика времени действия с последующим изменением стат.&amp;nbsp;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" parent="BgBHuLuoObRP8i8i-NTh-1" vertex="1">
           <mxGeometry x="350" y="1190" width="136" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="U3Fd_02MzUk7d9INIs5s-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="BgBHuLuoObRP8i8i-NTh-1" source="77H21xQUsgebJCPwNua5-10" target="U3Fd_02MzUk7d9INIs5s-0">
+        <mxCell id="U3Fd_02MzUk7d9INIs5s-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="BgBHuLuoObRP8i8i-NTh-1" source="77H21xQUsgebJCPwNua5-10" target="U3Fd_02MzUk7d9INIs5s-0" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="77H21xQUsgebJCPwNua5-10" value="визуальный таймер" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" parent="BgBHuLuoObRP8i8i-NTh-1" vertex="1">
@@ -720,17 +720,17 @@
             <mxPoint x="440" y="1230" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="U3Fd_02MzUk7d9INIs5s-0" value="удаление иконки" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="BgBHuLuoObRP8i8i-NTh-1">
+        <mxCell id="U3Fd_02MzUk7d9INIs5s-0" value="удаление иконки" style="rounded=0;whiteSpace=wrap;html=1;" parent="BgBHuLuoObRP8i8i-NTh-1" vertex="1">
           <mxGeometry x="683" y="1195" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="LOvuUnh8KKQHRyoHA1b--0" value="как реализовать стак эффектов?" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d80073;strokeColor=#A50040;fontColor=#ffffff;" vertex="1" parent="BgBHuLuoObRP8i8i-NTh-1">
+        <mxCell id="LOvuUnh8KKQHRyoHA1b--0" value="как реализовать стак эффектов?" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d80073;strokeColor=#A50040;fontColor=#ffffff;" parent="BgBHuLuoObRP8i8i-NTh-1" vertex="1">
           <mxGeometry x="610" y="800" width="140" height="110" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="9xEUzZMBHfouTKUW9tr0" name="Armor">
-    <mxGraphModel dx="1155" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1123" dy="598" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="tvuUzRKQsJGqX-wF9Gs5-0" />
         <mxCell id="tvuUzRKQsJGqX-wF9Gs5-1" parent="tvuUzRKQsJGqX-wF9Gs5-0" />
@@ -963,7 +963,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="z5KlZj3VQe16CgrURkZ0" name="AllClass">
-    <mxGraphModel dx="1422" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1123" dy="598" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="789NhNEb6Mc-SwvMDLKA-0" />
         <mxCell id="789NhNEb6Mc-SwvMDLKA-1" parent="789NhNEb6Mc-SwvMDLKA-0" />
@@ -1013,7 +1013,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="lMIRyv5gP9-BKVLWL--N" name="Person">
-    <mxGraphModel dx="1422" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1123" dy="598" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="E-SWezOqebRKNO-POqzc-0" />
         <mxCell id="E-SWezOqebRKNO-POqzc-1" parent="E-SWezOqebRKNO-POqzc-0" />
@@ -1144,7 +1144,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="cqG2Bna4Gscshh8aUX93" name="Armor_2.0">
-    <mxGraphModel dx="1139" dy="1775" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1123" dy="1767" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="vbvMfX8ybgh2GYAviwmP-0" />
         <mxCell id="vbvMfX8ybgh2GYAviwmP-1" parent="vbvMfX8ybgh2GYAviwmP-0" />
@@ -1462,15 +1462,12 @@
     </mxGraphModel>
   </diagram>
   <diagram id="6wL3qcYuV4c5d5wyGSim" name="Weapon">
-    <mxGraphModel dx="1071" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1123" dy="598" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-0" />
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-1" parent="d6gtWamQYHOKPJOxVCJQ-0" />
         <mxCell id="d6gtWamQYHOKPJOxVCJQ-2" value="Weapon" style="rounded=0;whiteSpace=wrap;html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
           <mxGeometry x="354" y="40" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="H4_IiA6H1j0GbuLtNGTC-5" value="&lt;p style=&quot;margin: 4px 0px 0px ; text-align: center&quot;&gt;&lt;b&gt;Object:Type&lt;/b&gt;&lt;br&gt;&lt;b&gt;&lt;u&gt;(distance)&lt;/u&gt;&lt;/b&gt;&lt;br&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;short distance = 0 to a&amp;nbsp;&lt;br&gt;Medium distance&amp;nbsp;= 0 to b&lt;br&gt;Long distance = 0 to c&lt;/p&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;0&amp;lt;a&amp;lt;b&amp;lt;c&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
-          <mxGeometry x="180" y="320" width="160" height="110" as="geometry" />
         </mxCell>
         <mxCell id="H4_IiA6H1j0GbuLtNGTC-6" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;Object:Description&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;String = описание класса оружия&lt;br&gt;String= история&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" parent="d6gtWamQYHOKPJOxVCJQ-1" vertex="1">
           <mxGeometry x="474" y="175" width="226" height="90" as="geometry" />
@@ -1481,15 +1478,6 @@
             <mxPoint x="414" y="100" as="targetPoint" />
             <Array as="points">
               <mxPoint x="414" y="370" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="H4_IiA6H1j0GbuLtNGTC-10" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="d6gtWamQYHOKPJOxVCJQ-1" source="H4_IiA6H1j0GbuLtNGTC-5" edge="1">
-          <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="370" y="180" as="sourcePoint" />
-            <mxPoint x="414" y="100" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="414" y="375" />
             </Array>
           </mxGeometry>
         </mxCell>
