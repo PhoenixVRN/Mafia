@@ -1,6 +1,9 @@
 package com.fenix.app.dto;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,17 +22,45 @@ public class PersonDto {
 
     private LatLng location = null;
 
-    private ArmorDto armorDtoHead = new ArmorDto();
-    private ArmorDto armorDtoTorso = new ArmorDto();
-    private ArmorDto armorDtoLegs = new ArmorDto();
-    private ArmorDto armorDtoBoots = new ArmorDto();
-    private ArmorDto armorDtoGloves = new ArmorDto();
+    /**
+     * Голова
+     */
+    private ArmorDto armorHead = new ArmorDto();
 
-    private Weapon weaponHeadLeft = new Weapon();
-    private Weapon weaponHeadRight = new Weapon();
+    /**
+     * Тело
+     */
+    private ArmorDto armorTorso = new ArmorDto();
+
+    /**
+     * Ноги
+     */
+    private ArmorDto armorLegs = new ArmorDto();
+
+    /**
+     * Обувь
+     */
+    private ArmorDto armorBoots = new ArmorDto();
+
+    /**
+     * Перчатки
+     */
+    private ArmorDto armorGloves = new ArmorDto();
+
+    /**
+     * Оружие в левой руке
+     */
+    private WeaponDto weaponHeadLeft = new WeaponDto();
+
+    /**
+     * Оружие в левой руке
+     */
+    private WeaponDto weaponHeadRight = new WeaponDto();
 
 
-
-
+    /**
+     * Мешок со ВСЕЙ хернёй
+     */
+    private List<Object> bag = new ArrayList<>();
 
 }

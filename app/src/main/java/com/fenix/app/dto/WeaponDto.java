@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 
-public class Weapon {
+public class WeaponDto {
     private String nameWeapon; // Название Оружия "Метла"
     private String classificationWeaponStrings; // Классификация оружия "Метла поганая двухручная"
     private int levelWeapon; //Уровень брони (обычная, клёвая, пиздатая, ахуенная) в зависимости будет название писатся разным цветом.
