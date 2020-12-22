@@ -26,6 +26,7 @@ import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.MongoService;
+import com.fenix.app.service.PersonService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.LocationUtil;
@@ -64,6 +65,8 @@ public class MapsActivity extends AppCompatActivity implements
 
     private MapService mapService;
     private PusherService pusherService;
+    private MongoService mongoService;
+    private PersonService personService;
 
     //#endregion
 
@@ -167,8 +170,15 @@ public class MapsActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_maps);
 
         // Services
-        mapService = new MapService(this);
-        pusherService = new PusherService(this);
+        // Services
+        ThreadUtil.Do(() -> {
+            mapService = new MapService(this);
+            pusherService = new PusherService(this);
+            mongoService = new MongoService("fenix");
+            personService = new PersonService(mongoService);
+        }).error(ex -> {
+            throw new RuntimeException(ex.toString());
+        });
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
