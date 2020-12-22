@@ -1,5 +1,4 @@
 package com.fenix.app.dto;
-import org.jetbrains.annotations.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,8 +39,8 @@ public class Weapon {
 
     private int slotsRunes; //количество слотов под руны
 
-    Runes runes = new Runes();
-    Runes runes2 = new Runes();
-    Runes runes3 = new Runes();
+    RuneDto runeDto = new RuneDto();
+    RuneDto runeDto2 = new RuneDto();
+    RuneDto runeDto3 = new RuneDto();
 
 }

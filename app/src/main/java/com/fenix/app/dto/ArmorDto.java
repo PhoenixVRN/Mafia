@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 
-public class Armor {
+public class ArmorDto {
     @NotNull
     private String nameArmor; // Название Брони
     private String classificationArmorStrings; // Классификация брони "лёгкая броня"
@@ -37,9 +37,9 @@ public class Armor {
 
     private int slotsRunes; //количество слотов под руны
 
-    Runes runes = new Runes();
-    Runes runes2 = new Runes();
-    Runes runes3 = new Runes();
+    RuneDto runeDto = new RuneDto();
+    RuneDto runeDto2 = new RuneDto();
+    RuneDto runeDto3 = new RuneDto();
 
 
 }
