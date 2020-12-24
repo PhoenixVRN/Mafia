@@ -1,4 +1,6 @@
 package com.fenix.app.dto;
+import com.fenix.app.data.GenInf;
+
 import org.jetbrains.annotations.NotNull;
 
 import lombok.Data;
@@ -7,14 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ArmorDto {
-    @NotNull
-    private String nameArmor; // Название Брони
+   GenInf genInf = new GenInf(); // название, уровень, описание
 
     @NotNull
     private String classificationArmorStrings; // Классификация брони "лёгкая броня"
-    private int levelArmor; //Уровень брони (обычная, клёвая, пиздатая, ахуенная) в зависимости будет название писатся разным цветом.
+//    private int levelArmor; //Уровень брони (обычная, клёвая, пиздатая, ахуенная) в зависимости будет название писатся разным цветом.
 
-    private String descriptionArmor; // Описание брони "Броня из кожи девственниц отлично подходит для похода в Ашан"
+//    private String descriptionArmor; // Описание брони "Броня из кожи девственниц отлично подходит для похода в Ашан"
     private int classificationArmor; // 1 - Легкая, 2 - средняя, 3 тяжёлая
     private int affiliationArmor; // 1 - голова, 2 - грудь, 3 ноги, 4- руки, 5 - обувь.
 

@@ -1,4 +1,6 @@
 package com.fenix.app.dto;
+import com.fenix.app.data.GenInf;
+
 import org.jetbrains.annotations.NotNull;
 
 import lombok.Data;
@@ -10,9 +12,7 @@ import lombok.NoArgsConstructor;
 
 
 public class RuneDto {
-    public String nameRune; // название руны
-    public String descriptionRune; // описание руны
-    private int levelRune; //уровень руны, чисто для визуализации цвета.
+    GenInf genInf = new GenInf(); // название, уровень, описание
 
     private String descriptionMutableRune; // Описание изменений
     private String mutableVariableRune; //Изменяемая переменная, например восстановления здоровья.

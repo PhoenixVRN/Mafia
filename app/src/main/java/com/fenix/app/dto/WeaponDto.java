@@ -1,5 +1,7 @@
 package com.fenix.app.dto;
 
+import com.fenix.app.data.GenInf;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,10 +10,13 @@ import lombok.NoArgsConstructor;
 
 
 public class WeaponDto {
-    private String nameWeapon; // Название Оружия "Метла"
+    GenInf genInf = new GenInf(); // название, уровень, описание
+    
+//    private String nameWeapon; // Название Оружия "Метла"
+//    private int levelWeapon; //Уровень брони (обычная, клёвая, пиздатая, ахуенная) в зависимости будет название писатся разным цветом.
+//    private String descriptionWeapon; // Описание оружия "Метла из говна и палок, ахуенна против пауков и алкашей"
+
     private String classificationWeaponStrings; // Классификация оружия "Метла поганая двухручная"
-    private int levelWeapon; //Уровень брони (обычная, клёвая, пиздатая, ахуенная) в зависимости будет название писатся разным цветом.
-    private String descriptionWeapon; // Описание оружия "Метла из говна и палок, ахуенна против пауков и алкашей"
     private int classificationWeapon; // 1 - одноручное, 2 - двуручное,
 
     private int optimalDistance; //Оптимальная дистанция
