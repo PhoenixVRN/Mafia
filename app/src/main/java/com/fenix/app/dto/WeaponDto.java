@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 public class WeaponDto {
     GenInf genInf = new GenInf(); // название, уровень, описание
-    
+
 //    private String nameWeapon; // Название Оружия "Метла"
 //    private int levelWeapon; //Уровень брони (обычная, клёвая, пиздатая, ахуенная) в зависимости будет название писатся разным цветом.
 //    private String descriptionWeapon; // Описание оружия "Метла из говна и палок, ахуенна против пауков и алкашей"

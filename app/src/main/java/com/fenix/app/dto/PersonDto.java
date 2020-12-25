@@ -20,7 +20,11 @@ public class PersonDto {
     private int agility;
     private int mana;
 
-    private LatLng location = null;
+
+    private int AllPhDefenc;
+    private int AllMagefenc;
+
+        private LatLng location = null;
 
     /**
      * Голова
