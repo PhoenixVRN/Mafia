@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-12-25T16:08:12.065Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="fr6j13RDi4JIiQMMMBBR" version="14.1.2" type="github" pages="14">
+<mxfile host="app.diagrams.net" modified="2020-12-25T16:09:27.721Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="gX_8u3pABAniOOHJtb9d" version="14.1.2" type="github" pages="14">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
     <mxGraphModel dx="831" dy="582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -647,6 +647,12 @@
         </mxCell>
         <mxCell id="CXLga-QqeqMIZfEwQiLB-26" value="&lt;h1&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 12px ; font-weight: 400&quot;&gt;Увидел на экране активный объект&lt;br&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 12px ; font-weight: 400&quot;&gt;Выбрал или по маркеру, либо открыл контекстное меню для выбора объекта.&lt;br&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/h1&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="6uT2mX7eiB3Dk5ahXdoX-1" vertex="1">
           <mxGeometry x="850" y="790" width="650" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="29y6XhFmf5g5m99Q8RFK-0" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="6uT2mX7eiB3Dk5ahXdoX-1" source="q3W72I_o-alBJphKKr2T-32" target="CXLga-QqeqMIZfEwQiLB-0">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="430" as="sourcePoint" />
+            <mxPoint x="460" y="380" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
