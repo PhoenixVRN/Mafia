@@ -171,46 +171,49 @@ public class MapsActivity extends AppCompatActivity implements
 
         // Services
         // Services
-        ThreadUtil.Do(() -> {
-            mapService = new MapService(this);
-            pusherService = new PusherService(this);
-            mongoService = new MongoService("fenix");
-            personService = new PersonService(mongoService);
-        }).error(ex -> {
-            throw new RuntimeException(ex.toString());
-        });
+        ThreadUtil
+                .Do(() -> {
+                    mapService = new MapService(this);
+                    pusherService = new PusherService(this);
+                    mongoService = new MongoService("fenix");
+                    personService = new PersonService(mongoService);
+                })
+                .then(res -> {
+                    // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                            .findFragmentById(R.id.map);
+                    mapFragment.getMapAsync(mapService);
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(mapService);
+                    // Connect to Pusher-channel
+                    pusherService.Bind(P_CHANNEL, P_EVENT);
 
-        // Connect to Pusher-channel
-        pusherService.Bind(P_CHANNEL, P_EVENT);
+                    // myPushButton
+                    myRegButton = (Button) findViewById(R.id.myRegButton);
+                    myRegButton.setOnClickListener(myPushButtonListener);
 
-        // myPushButton
-        myRegButton = (Button) findViewById(R.id.myRegButton);
-        myRegButton.setOnClickListener(myPushButtonListener);
+                    // myNameTextView
+                    myNameTextView = findViewById(R.id.myNameTextView);
+                    myNameTextView.setText(my.getName());
+                    myNameTextView.addTextChangedListener(myNameTextViewWatcher);
 
-        // myNameTextView
-        myNameTextView = findViewById(R.id.myNameTextView);
-        myNameTextView.setText(my.getName());
-        myNameTextView.addTextChangedListener(myNameTextViewWatcher);
+                    // myAreaButton
+                    myAreaButton = (Button) findViewById(R.id.myAreaButton);
+                    myAreaButton.setOnClickListener(myAreaButtonListener);
 
-        // myAreaButton
-        myAreaButton = (Button) findViewById(R.id.myAreaButton);
-        myAreaButton.setOnClickListener(myAreaButtonListener);
+                    // aliensSpinner
+                    aliensSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+                    aliensSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    aliensSpinner = findViewById(R.id.aliensSpinner);
+                    aliensSpinner.setAdapter(aliensSpinnerAdapter);
+                    aliensSpinner.setOnItemSelectedListener(this);
 
-        // aliensSpinner
-        aliensSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
-        aliensSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        aliensSpinner = findViewById(R.id.aliensSpinner);
-        aliensSpinner.setAdapter(aliensSpinnerAdapter);
-        aliensSpinner.setOnItemSelectedListener(this);
-
-        // mySwitch
-        mySwitch = (Switch) findViewById(R.id.mySwitch);
-        mySwitch.setOnCheckedChangeListener(mySwitchListener);
+                    // mySwitch
+                    mySwitch = (Switch) findViewById(R.id.mySwitch);
+                    mySwitch.setOnCheckedChangeListener(mySwitchListener);
+                })
+                .error(ex -> {
+                    throw new RuntimeException(ex.toString());
+                });
     }
 
     /**
