@@ -16,6 +16,8 @@ public class ActorDto {
 
     private LatLng location = null;
 
+    private PersonDto person = null;
+
     @Override
     public String toString() {
         return name;

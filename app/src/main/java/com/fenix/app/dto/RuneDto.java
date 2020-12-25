@@ -1,7 +1,5 @@
 package com.fenix.app.dto;
-import com.fenix.app.data.GenInf;
-
-import org.jetbrains.annotations.NotNull;
+import com.fenix.app.data.GeneralInfo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +9,7 @@ import lombok.NoArgsConstructor;
 
 
 
-public class RuneDto {
-    GenInf genInf = new GenInf(); // название, уровень, описание
+public class RuneDto extends GeneralInfo {
 
     private String descriptionMutableRune; // Описание изменений
     private String mutableVariableRune; //Изменяемая переменная, например восстановления здоровья.

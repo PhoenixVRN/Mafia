@@ -13,7 +13,7 @@ public class ArmorDtoTest {
         var armor = new ArmorDto();
 
         try {
-            armor.setNameArmor(null);
+            armor.setName(null);
             throw new RuntimeException("bad NullPointerException Not Found");
         } catch (NullPointerException ex) {
             System.out.println("good NullPointerException");

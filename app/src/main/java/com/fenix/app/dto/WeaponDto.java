@@ -1,6 +1,6 @@
 package com.fenix.app.dto;
 
-import com.fenix.app.data.GenInf;
+import com.fenix.app.data.GeneralInfo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 
-public class WeaponDto {
-    GenInf genInf = new GenInf(); // название, уровень, описание
+public class WeaponDto extends GeneralInfo {
 
 //    private String nameWeapon; // Название Оружия "Метла"
 //    private int levelWeapon; //Уровень брони (обычная, клёвая, пиздатая, ахуенная) в зависимости будет название писатся разным цветом.

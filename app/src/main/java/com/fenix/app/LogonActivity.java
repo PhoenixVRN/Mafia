@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fenix.app.dto.ActorDto;
+import com.fenix.app.dto.PersonDto;
 import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.util.JsonUtil;
@@ -121,6 +122,12 @@ public class LogonActivity extends AppCompatActivity {
 
                                 // Пользователь вошёл в игру
                                 var actorDto = JsonUtil.Parse(ActorDto.class, actorDocument.toJson());
+
+                                // Проверяю наличие профиля
+                                if (actorDto.getPerson() == null)
+                                    actorDto.setPerson(new PersonDto());
+
+                                // Устанавливаю пользовательский контекст
                                 ContextService.Context.setActor(actorDto);
 
                                 Log.i("showSignWindow", "Logon completed");
