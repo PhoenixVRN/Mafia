@@ -22,7 +22,7 @@ public class WeaponDto {
     private int optimalDistance; //Оптимальная дистанция
     private int correktDistance;
 
-    private int physicalDamage;
+    private int physicalDamage = 50;
     private int magicaDamage;
     private int rof;
     private int accuracy;

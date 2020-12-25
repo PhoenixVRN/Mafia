@@ -16,13 +16,14 @@ public class PersonDto {
     private String rang;
     private String bio;
 
-    private int streng;
-    private int agility;
-    private int mana;
+    private int hp = 1000;
+    private int streng = 100; // а если задонатите на карту 6762 8013 9005 0249 00  я накину ещё Хилсов)
+    private int agility = 100;
+    private int mana = 100;
 
 
-    private int AllPhDefenc;
-    private int AllMagefenc;
+    private int AllPhDefenc = 10;
+    private int AllMagefenc = 10;
 
         private LatLng location = null;
 
