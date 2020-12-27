@@ -2,10 +2,13 @@ package com.fenix.app.service;
 
 import com.fenix.app.dto.PersonDto;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import lombok.var;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PersonServiceTest {
 
     MongoService mongoService = new MongoService("fenix");

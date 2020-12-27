@@ -8,7 +8,9 @@ import com.mongodb.client.model.Filters;
 import org.bson.BSON;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import lombok.var;
 
@@ -19,10 +21,11 @@ import static org.junit.Assert.assertEquals;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MongoUnitTest {
 
     @Test
-    public void mongoCountTest(){
+    public void t001_mongoCountTest() {
         System.out.println("**********   Count Test   **********");
 
         var service = new MongoService("fenix");
@@ -36,7 +39,7 @@ public class MongoUnitTest {
      * https://mongodb.github.io/mongo-java-driver/4.1/driver/tutorials/databases-collections/
      */
     @Test
-    public void mongoAddUpdateTest(){
+    public void t002_mongoAddUpdateTest() {
         System.out.println("**********   Add / Update Test   **********");
 
         var service = new MongoService("fenix");
@@ -59,7 +62,7 @@ public class MongoUnitTest {
 
         actor.setName("test 2");
         var json2 = JsonUtil.Serialize(actor);
-        var document2 = Document.parse(json);
+        var document2 = Document.parse(json2);
 
         System.out.println(json2);
         var result = collection.replaceOne(Filters.eq("_id", document.get("_id")), document2);
@@ -69,7 +72,7 @@ public class MongoUnitTest {
     }
 
     @Test
-    public void mongoRemoveTest(){
+    public void t003_mongoRemoveTest() {
         System.out.println("**********   Remove Test   **********");
 
         var service = new MongoService("fenix");
