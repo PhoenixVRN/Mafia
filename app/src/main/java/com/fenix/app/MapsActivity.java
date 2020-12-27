@@ -36,15 +36,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import com.pusher.client.channel.PusherEvent;
 import com.pusher.client.channel.SubscriptionEventListener;
 import com.pusher.client.connection.ConnectionEventListener;
 import com.pusher.client.connection.ConnectionStateChange;
 
+import org.bson.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.SneakyThrows;
+import lombok.var;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
@@ -65,7 +70,10 @@ public class MapsActivity extends AppCompatActivity implements
 
     private MapService mapService;
     private PusherService pusherService;
+
     private MongoService mongoService;
+    private MongoCollection<Document> actorsCollection;
+
     private PersonService personService;
 
     //#endregion
@@ -96,6 +104,12 @@ public class MapsActivity extends AppCompatActivity implements
             // Send them all my dto
             pusherService.Push(P_CHANNEL, P_EVENT, my);
 
+            // Save current state to DB
+            var json = JsonUtil.Serialize(my);
+            var doc = Document.parse(json);
+            ThreadUtil.Do(() -> {
+                actorsCollection.replaceOne(Filters.eq("name", my.getName()), doc);
+            });
         }
     };
     //#endregion
@@ -175,7 +189,11 @@ public class MapsActivity extends AppCompatActivity implements
                 .Do(() -> {
                     mapService = new MapService(this);
                     pusherService = new PusherService(this);
+
                     mongoService = new MongoService("fenix");
+                    actorsCollection = mongoService.getDocuments("actors");
+                    //TODO Сделать генерик для разных сущностей по примеру PersonService
+
                     personService = new PersonService(mongoService);
                 })
                 .then(res -> {

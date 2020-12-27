@@ -1,5 +1,7 @@
 package com.fenix.app.dto;
 
+import com.fenix.app.data.GeneralInfo;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,17 +9,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 
-public class WeaponDto {
-    private String nameWeapon; // Название Оружия "Метла"
+public class WeaponDto extends GeneralInfo {
+
+//    private String nameWeapon; // Название Оружия "Метла"
+//    private int levelWeapon; //Уровень брони (обычная, клёвая, пиздатая, ахуенная) в зависимости будет название писатся разным цветом.
+//    private String descriptionWeapon; // Описание оружия "Метла из говна и палок, ахуенна против пауков и алкашей"
+
     private String classificationWeaponStrings; // Классификация оружия "Метла поганая двухручная"
-    private int levelWeapon; //Уровень брони (обычная, клёвая, пиздатая, ахуенная) в зависимости будет название писатся разным цветом.
-    private String descriptionWeapon; // Описание оружия "Метла из говна и палок, ахуенна против пауков и алкашей"
     private int classificationWeapon; // 1 - одноручное, 2 - двуручное,
 
     private int optimalDistance; //Оптимальная дистанция
     private int correktDistance;
 
-    private int physicalDamage;
+    private int physicalDamage = 50;
     private int magicaDamage;
     private int rof;
     private int accuracy;

@@ -1,5 +1,5 @@
 package com.fenix.app.dto;
-import org.jetbrains.annotations.NotNull;
+import com.fenix.app.data.GeneralInfo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 
 
 
-public class RuneDto {
-    public String nameRune; // название руны
-    public String descriptionRune; // описание руны
-    private int levelRune; //уровень руны, чисто для визуализации цвета.
+public class RuneDto extends GeneralInfo {
 
     private String descriptionMutableRune; // Описание изменений
     private String mutableVariableRune; //Изменяемая переменная, например восстановления здоровья.
