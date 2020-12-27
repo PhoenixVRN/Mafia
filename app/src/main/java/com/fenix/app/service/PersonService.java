@@ -1,44 +1,32 @@
 package com.fenix.app.service;
 
-import com.fenix.app.dto.ActorDto;
 import com.fenix.app.dto.PersonDto;
-import com.fenix.app.util.JsonUtil;
-import com.mongodb.client.MongoCollection;
+import com.fenix.app.service.entity.EntitySeriveBase;
 import com.mongodb.client.model.Filters;
 
-import org.bson.Document;
+public class PersonService extends EntitySeriveBase<PersonDto> {
 
-import lombok.var;
+    private static final String COLLECTION_NAME = "persons";
+    private static final String KEY_FIELD = "namePerson";
 
-public class PersonService {
-
-    MongoService service;
-    MongoCollection<Document> persons;
-
-    public PersonService(MongoService service) {
-        this.service = service;
-        this.persons = service.getDocuments("persons");
+    @Override
+    protected void initEntityClass() {
+        super.entityClass = PersonDto.class;
     }
 
-    public void save(PersonDto person) {
-        var personJson = JsonUtil.Serialize(person);
-        var personDoc = Document.parse(personJson);
-
-        persons.insertOne(personDoc);
+    public PersonService(MongoService service) {
+        super(service, COLLECTION_NAME);
     }
 
     public PersonDto loadByName(String personName) {
-        var doc = persons.find(Filters.eq("namePerson", personName)).limit(1).first();
-        if(doc == null)
-            return null;
-
-        var personJson = doc.toJson();
-        var personDto = JsonUtil.Parse(PersonDto.class, personJson);
-
-        return personDto;
+        return super.read(Filters.eq(KEY_FIELD, personName));
     }
 
-    public void delete(PersonDto person) {
-        persons.deleteOne(Filters.eq("namePerson", person.getNamePerson()));
+    public void save(PersonDto dto) {
+        super.update(dto, Filters.eq(KEY_FIELD, dto.getNamePerson()));
+    }
+
+    public void delete(PersonDto dto) {
+        super.delete(Filters.eq(KEY_FIELD, dto.getNamePerson()));
     }
 }
