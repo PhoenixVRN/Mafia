@@ -104,7 +104,7 @@ public class MapsActivity extends AppCompatActivity implements
 
             // Save current state to DB
             ThreadUtil.Do(() -> {
-                actorService.update(my, Filters.eq("name", my.getName()));
+                actorService.save(my);
             });
         }
     };

@@ -3,6 +3,7 @@ package com.fenix.app.service.entity;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.util.JsonUtil;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.FindOneAndReplaceOptions;
 
 import org.bson.Document;
@@ -16,6 +17,7 @@ import lombok.var;
 public abstract class EntitySeriveBase<E> {
 
     protected Class<E> entityClass;
+    protected String entityKeyField;
 
     protected abstract void initEntityClass();
 
@@ -27,6 +29,8 @@ public abstract class EntitySeriveBase<E> {
         this.service = service;
         this.collection = service.getDocuments(collectionName);
     }
+
+    //#region CRUDL
 
     public void create(E entity) {
         var json = JsonUtil.Serialize(entity);
@@ -41,9 +45,9 @@ public abstract class EntitySeriveBase<E> {
             return null;
 
         var json = doc.toJson();
-        var dto = JsonUtil.Parse(this.entityClass, json);
+        var entity = JsonUtil.Parse(entityClass, json);
 
-        return dto;
+        return entity;
     }
 
     public void update(E entity, Bson filter) {
@@ -63,10 +67,38 @@ public abstract class EntitySeriveBase<E> {
         while (cursor.hasNext()) {
             var doc = cursor.next();
             var json = doc.toJson();
-            var entity = JsonUtil.Parse(this.entityClass, json);
+            var entity = JsonUtil.Parse(entityClass, json);
             entities.add(entity);
         }
         return entities;
     }
 
+    //#endregion
+
+    //#region LSD
+
+    public E load(String keyValue) {
+        return read(Filters.eq(entityKeyField, keyValue));
+    }
+
+    public void save(E entity) {
+        var json = JsonUtil.Serialize(entity);
+        var doc = Document.parse(json);
+
+        collection.findOneAndReplace(
+                Filters.eq(entityKeyField, doc.get(entityKeyField)),
+                doc,
+                new FindOneAndReplaceOptions().upsert(true));
+    }
+
+    public void delete(E entity) {
+        var json = JsonUtil.Serialize(entity);
+        var doc = Document.parse(json);
+
+        collection.deleteOne(Filters.eq(entityKeyField, doc.get(entityKeyField)));
+    }
+
+    //#endregion
+
 }
+

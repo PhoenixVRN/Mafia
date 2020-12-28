@@ -31,7 +31,7 @@ public class PersonServiceTest {
     public void t002_LoadPerson() {
         System.out.println("test LoadPerson");
 
-        var dto = service.loadByName("TestPersonName");
+        var dto = service.load("TestPersonName");
 
         System.out.println("ok " + dto.getNamePerson());
     }
@@ -40,7 +40,7 @@ public class PersonServiceTest {
     public void t003_DeletePerson() {
         System.out.println("test DeletePerson");
 
-        var dto = service.loadByName("TestPersonName");
+        var dto = service.load("TestPersonName");
 
         service.delete(dto);
 
