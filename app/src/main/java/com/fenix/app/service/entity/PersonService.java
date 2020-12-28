@@ -1,6 +1,7 @@
-package com.fenix.app.service;
+package com.fenix.app.service.entity;
 
 import com.fenix.app.dto.PersonDto;
+import com.fenix.app.service.MongoService;
 import com.fenix.app.service.entity.EntitySeriveBase;
 import com.mongodb.client.model.Filters;
 
