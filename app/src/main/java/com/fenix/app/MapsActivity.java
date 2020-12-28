@@ -26,7 +26,8 @@ import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.MongoService;
-import com.fenix.app.service.PersonService;
+import com.fenix.app.service.entity.ActorService;
+import com.fenix.app.service.entity.PersonService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.LocationUtil;
@@ -48,7 +49,6 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.SneakyThrows;
 import lombok.var;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -72,9 +72,7 @@ public class MapsActivity extends AppCompatActivity implements
     private PusherService pusherService;
 
     private MongoService mongoService;
-    private MongoCollection<Document> actorsCollection;
-
-    private PersonService personService;
+    private ActorService actorService;
 
     //#endregion
 
@@ -105,10 +103,8 @@ public class MapsActivity extends AppCompatActivity implements
             pusherService.Push(P_CHANNEL, P_EVENT, my);
 
             // Save current state to DB
-            var json = JsonUtil.Serialize(my);
-            var doc = Document.parse(json);
             ThreadUtil.Do(() -> {
-                actorsCollection.replaceOne(Filters.eq("name", my.getName()), doc);
+                actorService.save(my);
             });
         }
     };
@@ -191,10 +187,7 @@ public class MapsActivity extends AppCompatActivity implements
                     pusherService = new PusherService(this);
 
                     mongoService = new MongoService("fenix");
-                    actorsCollection = mongoService.getDocuments("actors");
-                    //TODO Сделать генерик для разных сущностей по примеру PersonService
-
-                    personService = new PersonService(mongoService);
+                    actorService = new ActorService(mongoService);
                 })
                 .then(res -> {
                     // Obtain the SupportMapFragment and get notified when the map is ready to be used.

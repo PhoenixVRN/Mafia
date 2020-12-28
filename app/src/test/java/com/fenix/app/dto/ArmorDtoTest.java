@@ -1,13 +1,16 @@
 package com.fenix.app.dto;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import lombok.var;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ArmorDtoTest {
 
     @Test
-    public void ArmorDtoTest_Create_setName_to_Null() {
+    public void t001_ArmorDtoTest_Create_setName_to_Null() {
         System.out.println("test ArmorDtoTest_Create_setName_to_Null");
 
         var armor = new ArmorDto();
@@ -23,7 +26,7 @@ public class ArmorDtoTest {
     }
 
     @Test
-    public void ArmorDtoTest_Create_setClassificationArmorStrings_to_Null() {
+    public void t002_ArmorDtoTest_Create_setClassificationArmorStrings_to_Null() {
         System.out.println("test ArmorDtoTest_Create_setClassificationArmorStrings_to_Null");
 
         var armor = new ArmorDto();
