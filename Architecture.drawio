@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-12-25T17:04:22.129Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="d4Oj4kz58z4Fj96XpOEy" version="14.1.2" type="github" pages="14">
+<mxfile host="app.diagrams.net" modified="2020-12-29T14:43:41.112Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="gJY3srfBYQ929XFQCegF" version="14.1.2" type="github" pages="14">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
-    <mxGraphModel dx="831" dy="582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="831" dy="525" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -127,7 +127,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="oQFGNTKlK_gTyuHEj95E" name="DeviceComponents">
-    <mxGraphModel dx="916" dy="513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="831" dy="525" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="CBAD-ejrL_S0z0rzkbWA-0" />
         <mxCell id="CBAD-ejrL_S0z0rzkbWA-1" parent="CBAD-ejrL_S0z0rzkbWA-0" />
@@ -285,7 +285,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="adiRfwW66rgFSuOgqzJK" name="PushChannelModel">
-    <mxGraphModel dx="1898" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1658" dy="525" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="Go9VpVeZ4K3Pj2w4HcUq-0" />
         <mxCell id="Go9VpVeZ4K3Pj2w4HcUq-1" parent="Go9VpVeZ4K3Pj2w4HcUq-0" />
@@ -377,7 +377,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="WnjGiDhiPae-3RGZ-pjq" name="All Architecture">
-    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="831" dy="525" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="6uT2mX7eiB3Dk5ahXdoX-0" />
         <mxCell id="6uT2mX7eiB3Dk5ahXdoX-1" parent="6uT2mX7eiB3Dk5ahXdoX-0" />
@@ -633,9 +633,6 @@
         <mxCell id="CXLga-QqeqMIZfEwQiLB-20" value="&lt;font size=&quot;1&quot;&gt;меню выбора обьекта&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;gradientColor=none;" parent="6uT2mX7eiB3Dk5ahXdoX-1" vertex="1">
           <mxGeometry x="987.5" y="610" width="112.5" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="CXLga-QqeqMIZfEwQiLB-21" value="инфа о моём персе" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;gradientColor=none;" parent="6uT2mX7eiB3Dk5ahXdoX-1" vertex="1">
-          <mxGeometry x="990" y="650" width="110" height="50" as="geometry" />
-        </mxCell>
         <mxCell id="CXLga-QqeqMIZfEwQiLB-22" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="6uT2mX7eiB3Dk5ahXdoX-1" vertex="1">
           <mxGeometry x="1110" y="675" width="100" height="10" as="geometry" />
         </mxCell>
@@ -648,17 +645,20 @@
         <mxCell id="CXLga-QqeqMIZfEwQiLB-26" value="&lt;h1 style=&quot;font-size: 20px&quot;&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;Увидел на экране активный объект&lt;br&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;Выбрал или по маркеру, либо открыл контекстное меню для выбора объекта.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;Считал его статы из БД&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;Вывели его статы&amp;nbsp; и имя в поле инфо.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;i style=&quot;font-weight: normal&quot;&gt;Подсветились кнопки действия с этим объектом.&lt;/i&gt;&lt;/li&gt;&lt;li&gt;&lt;i style=&quot;font-weight: normal&quot;&gt;При нажатии кнопки &quot;дать&amp;nbsp; по жопе&quot; или &quot;дать в жопу&quot; .&amp;nbsp;&lt;/i&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;&lt;i&gt;&lt;span&gt;Damag&lt;/span&gt;&lt;/i&gt;&lt;i&gt;&amp;nbsp;= (&lt;/i&gt;physicalDamageпеременная в классе веапон)*(рандом -+20% от 0.8 до 1.2 кооф)&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;&amp;nbsp;RealDamag = Damag - AllPhDefenc&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;&amp;nbsp;if&amp;nbsp; &amp;nbsp;RealDamag &amp;lt;= 0&amp;nbsp; &amp;nbsp;пишем &quot;Хер пробил&quot;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;&amp;nbsp;else&amp;nbsp; HP&amp;nbsp; = HP -&amp;nbsp; &amp;nbsp;RealDamag&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;Записываем в базу новое значение HP врага.&amp;nbsp; &amp;nbsp; &lt;/span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/li&gt;&lt;li style=&quot;font-size: 20px&quot;&gt;&lt;i&gt;&lt;br&gt;&lt;/i&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/h1&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="6uT2mX7eiB3Dk5ahXdoX-1" vertex="1">
           <mxGeometry x="860" y="800" width="650" height="520" as="geometry" />
         </mxCell>
-        <mxCell id="29y6XhFmf5g5m99Q8RFK-0" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="6uT2mX7eiB3Dk5ahXdoX-1" source="q3W72I_o-alBJphKKr2T-32" target="CXLga-QqeqMIZfEwQiLB-0">
+        <mxCell id="29y6XhFmf5g5m99Q8RFK-0" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="6uT2mX7eiB3Dk5ahXdoX-1" source="q3W72I_o-alBJphKKr2T-32" target="CXLga-QqeqMIZfEwQiLB-0" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="410" y="430" as="sourcePoint" />
             <mxPoint x="460" y="380" as="targetPoint" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="Uho-nI66nZvYGI2k4tJX-0" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="6uT2mX7eiB3Dk5ahXdoX-1">
+          <mxGeometry x="987.5" y="650" width="22.5" height="50" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="15v3J22-hIdhxXihDnmQ" name="Боевая модель">
-    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="831" dy="525" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="BgBHuLuoObRP8i8i-NTh-0" />
         <mxCell id="BgBHuLuoObRP8i8i-NTh-1" parent="BgBHuLuoObRP8i8i-NTh-0" />
