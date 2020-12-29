@@ -16,6 +16,7 @@ import com.fenix.app.dto.ActorDto;
 import com.fenix.app.dto.PersonDto;
 import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MongoService;
+import com.fenix.app.service.entity.ActorService;
 import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
@@ -33,7 +34,7 @@ import lombok.var;
 public class LogonActivity extends AppCompatActivity {
 
     private MongoService mongoService;
-    private MongoCollection<Document> actorsCollection;
+    private ActorService actorService;
 
     private RelativeLayout root;
 
@@ -57,7 +58,7 @@ public class LogonActivity extends AppCompatActivity {
         // Services
         ThreadUtil.Do(() -> {
             mongoService = new MongoService("fenix");
-            actorsCollection = mongoService.getDocuments("actors");
+            actorService = new ActorService(mongoService);
         }).error(ex -> {
             throw new RuntimeException(ex.toString());
         });
@@ -108,20 +109,17 @@ public class LogonActivity extends AppCompatActivity {
                                 String emailString = email.getText().toString().toLowerCase();
                                 String passString = pass.getText().toString();
 
-                                var actorDocument = actorsCollection.find(Filters
+                                var actorDto = actorService.read(Filters
                                         .and(
                                                 Filters.eq("email", emailString),
                                                 Filters.eq("pass", passString))
-                                ).limit(1).first();
+                                );
 
                                 // Пользователь не найден?
-                                if (actorDocument == null) {
+                                if (actorDto == null) {
                                     Snackbar.make(root, "Ошибка авторизации, проверьте введенную почту и пароль ", Snackbar.LENGTH_SHORT).show();
                                     throw new RuntimeException("Incorrect login or password");
                                 }
-
-                                // Пользователь вошёл в игру
-                                var actorDto = JsonUtil.Parse(ActorDto.class, actorDocument.toJson());
 
                                 // Проверяю наличие профиля
                                 if (actorDto.getPerson() == null)
@@ -187,21 +185,21 @@ public class LogonActivity extends AppCompatActivity {
 
                                 // Проверка на повторную регистрацию по почте
                                 Log.i("showRegisterWindow", "Check user by email " + emailString);
-                                var oldActor = actorsCollection.find(Filters.eq("email", emailString)).limit(1).first();
+                                var oldActor = actorService.read(Filters.eq("email", emailString));
                                 if (oldActor != null) {
                                     errorString += "Пользователь с электронной почтой\n" + emailString + "\nуже зарегистрирован!\n";
                                 }
 
                                 // Проверка на повторную регистрацию по телефону
                                 Log.i("showRegisterWindow", "Check user by phone " + phoneString);
-                                oldActor = actorsCollection.find(Filters.eq("phone", phoneString)).limit(1).first();
+                                oldActor = actorService.read(Filters.eq("phone", phoneString));
                                 if (oldActor != null) {
                                     errorString += "Пользователь с телефоном\n" + phoneString + "\nуже зарегистрирован!\n";
                                 }
 
                                 // Проверка на повторную регистрацию по имени
                                 Log.i("showRegisterWindow", "Check user by name " + nameString);
-                                oldActor = actorsCollection.find(Filters.eq("name", nameString)).limit(1).first();
+                                oldActor = actorService.read(Filters.eq("name", nameString));
                                 if (oldActor != null) {
                                     errorString += "Пользователь с именем\n" + nameString + "\nуже зарегистрирован!\n";
                                 }
@@ -217,7 +215,7 @@ public class LogonActivity extends AppCompatActivity {
                                     actor.setEmail(emailString);
                                     actor.setPhone(phoneString);
                                     actor.setPass(passString);
-                                    ThreadUtil.Await(() -> actorsCollection.insertOne(Document.parse(JsonUtil.Serialize(actor))));
+                                    actorService.create(actor);
 
                                     Log.i("showRegisterWindow", "User " + nameString + " added!");
                                     Snackbar.make(root, "Пользователь добавлен!", Snackbar.LENGTH_SHORT).show();
