@@ -1,10 +1,10 @@
 package com.fenix.app.util;
 
-import android.graphics.Point;
-
 import com.google.android.gms.maps.model.LatLng;
 
 public final class LocationUtil {
+
+    public static final String MAP_NUMBER_SEPARATOR = ";";
 
     /**
      * Calculate distance in meters between two points
@@ -48,6 +48,6 @@ public final class LocationUtil {
 
         int X = (int) (point.latitude * 1000 / grain);
         int Y = (int) (point.longitude * 1000 / grain);
-        return X + "|" + Y;
+        return X + MAP_NUMBER_SEPARATOR + Y;
     }
 }
