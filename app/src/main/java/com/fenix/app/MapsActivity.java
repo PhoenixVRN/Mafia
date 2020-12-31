@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -27,7 +26,6 @@ import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.service.entity.ActorService;
-import com.fenix.app.service.entity.PersonService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.LocationUtil;
@@ -37,14 +35,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
 import com.pusher.client.channel.PusherEvent;
 import com.pusher.client.channel.SubscriptionEventListener;
 import com.pusher.client.connection.ConnectionEventListener;
 import com.pusher.client.connection.ConnectionStateChange;
-
-import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,15 +48,15 @@ import lombok.var;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
         GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationChangeListener,
-        ConnectionEventListener, SubscriptionEventListener,
+        PusherService.EventListener,
         AdapterView.OnItemSelectedListener {
 
     //#region Constants
 
     private static final float MY_FOLLOW_DISTANCE = 0.25f;
-    private static final String P_CHANNEL = "map";
-    private static final String P_EVENT = "location";
-//    private static final String name;
+    public static final int PUSH_MAP_GRAIN = 10;
+    public static final String PUSH_MAP_CHANNEL = "map";
+    public static final String PUSH_MAP_CHANNEL_SEPARATOR = "=";
 
     //#endregion
 
@@ -78,10 +72,20 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region Variables
 
+    /**
+     * Myself
+     */
+    private ActorDto my = null;
+    private boolean myFollow = false;
+
+    /**
+     * Visible aliens
+     */
     public List<ActorDto> aliens = new ArrayList<>();
 
-    private ActorDto my = null;
-    private boolean myRegistered = false;
+    /**
+     * Target alien
+     */
     private ActorDto target = null;
     private boolean targetFollow = false;
     private Marker targetMarker = null;
@@ -100,7 +104,7 @@ public class MapsActivity extends AppCompatActivity implements
             Log.i("My", "myRegButton click");
 
             // Send them all my dto
-            pusherService.Push(P_CHANNEL, P_EVENT, my);
+            //TODO pusherService.Push(PUSH_MAP_CHANNEL, PUSH_LOCATION_EVENT, my);
 
             // Save current state to DB
             ThreadUtil.Do(() -> {
@@ -195,8 +199,8 @@ public class MapsActivity extends AppCompatActivity implements
                             .findFragmentById(R.id.map);
                     mapFragment.getMapAsync(mapService);
 
-                    // Connect to Pusher-channel
-                    pusherService.Bind(P_CHANNEL, P_EVENT);
+                    // Ready to push location
+                    myFollow = true;
 
                     // myPushButton
                     myRegButton = (Button) findViewById(R.id.myRegButton);
@@ -276,7 +280,7 @@ public class MapsActivity extends AppCompatActivity implements
     public void onMyLocationClick(@NonNull Location location) {
         my.setLocation(new LatLng(location.getLatitude(), location.getLongitude()));
 
-        Toast.makeText(this, "Current location:\n" + my.getLocation(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Current location:\n" + my.getLocation(), Toast.LENGTH_LONG).show();
         Log.i("Map", "My location click:" + my.getLocation());
     }
 
@@ -288,8 +292,13 @@ public class MapsActivity extends AppCompatActivity implements
         if (my.getLocation() == null || LocationUtil.distance(my.getLocation(), latLng) >= MY_FOLLOW_DISTANCE) {
             my.setLocation(latLng);
 
-            if (myRegistered)
-                pusherService.Push(P_CHANNEL, P_EVENT, my);
+            if (myFollow) {
+                var myChanelName = PUSH_MAP_CHANNEL + PUSH_MAP_CHANNEL_SEPARATOR + LocationUtil.calcMapNumber(latLng, PUSH_MAP_GRAIN);
+                pusherService.BindToMapChannels(myChanelName);
+
+                // channelName is like this "map=2012;1012"
+                pusherService.Push(PUSH_MAP_CHANNEL + PUSH_MAP_CHANNEL_SEPARATOR + LocationUtil.calcMapNumber(latLng, PUSH_MAP_GRAIN), my);
+            }
 
             Log.i("Map", "Changed location: " + my.getLocation());
         }
@@ -301,16 +310,16 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onEvent(PusherEvent event) {
+        Log.i("Pusher", "Received event with data: " + event.toString());
+
+        String json = event.getData();
+        ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
+
+        // Check alien name with myself
+        if (Strings.isEmptyOrWhitespace(dto.getName()) || my.getName().equals(dto.getName()))
+            return;
+
         this.runOnUiThread(() -> {
-            Log.i("Pusher", "Received event with data: " + event.toString());
-
-            String json = event.getData();
-            ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
-
-            // Check alien name with myself
-            if (Strings.isEmptyOrWhitespace(dto.getName()) || my.getName().equals(dto.getName()))
-                return;
-
             // Sync aliens list
             tryAddAlien(dto);
 

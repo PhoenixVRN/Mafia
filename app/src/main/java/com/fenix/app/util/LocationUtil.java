@@ -4,8 +4,11 @@ import com.google.android.gms.maps.model.LatLng;
 
 public final class LocationUtil {
 
+    public static final String MAP_NUMBER_SEPARATOR = ";";
+
     /**
      * Calculate distance in meters between two points
+     *
      * @param pointA - Point A
      * @param pointB - Point B
      * @return - Distance in meters
@@ -32,5 +35,19 @@ public final class LocationUtil {
         int meterConversion = 1609;
 
         return (float) (distance * meterConversion);
+    }
+
+    /**
+     * Calculate map square number
+     *
+     * @param point - location
+     * @param grain - square width in magic units
+     * @return
+     */
+    public static String calcMapNumber(LatLng point, int grain) {
+
+        int X = (int) (point.latitude * 1000 / grain);
+        int Y = (int) (point.longitude * 1000 / grain);
+        return X + MAP_NUMBER_SEPARATOR + Y;
     }
 }
