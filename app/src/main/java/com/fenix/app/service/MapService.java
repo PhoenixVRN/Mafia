@@ -69,7 +69,13 @@ public class MapService implements OnMapReadyCallback {
      */
     public void MoveCameraToMe(float zoom) {
 
+        if(map == null)
+            return; // Map still not ready
+
         Location location = map.getMyLocation();
+        if(location == null)
+            return; // Map not ready yet
+
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         float currentZoom = map.getCameraPosition().zoom;
