@@ -53,7 +53,7 @@ import lombok.var;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
-        GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationChangeListener,
+        MapService.EventListener,
         PusherService.EventListener,
         AdapterView.OnItemSelectedListener {
 

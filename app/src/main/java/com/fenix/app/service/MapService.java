@@ -1,6 +1,7 @@
 package com.fenix.app.service;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 
@@ -24,9 +25,9 @@ public class MapService implements OnMapReadyCallback {
 
     public GoogleMap map;
 
-    private AppCompatActivity activity;
+    private EventListener activity;
 
-    public MapService(AppCompatActivity activity) {
+    public MapService(EventListener activity) {
         this.activity = activity;
     }
 
@@ -69,11 +70,11 @@ public class MapService implements OnMapReadyCallback {
      */
     public void MoveCameraToMe(float zoom) {
 
-        if(map == null)
+        if (map == null)
             return; // Map still not ready
 
         Location location = map.getMyLocation();
-        if(location == null)
+        if (location == null)
             return; // Map not ready yet
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -92,14 +93,14 @@ public class MapService implements OnMapReadyCallback {
      */
     public void enableMyLocation() {
         //#region maps_check_location_permission
-        if (ContextCompat.checkSelfPermission(this.activity, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ContextCompat.checkSelfPermission((Context) this.activity, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             if (map != null) {
                 map.setMyLocationEnabled(true);
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
-            PermissionUtil.requestPermission(this.activity, PermissionUtil.LOCATION_PERMISSION_REQUEST_CODE,
+            PermissionUtil.requestPermission((AppCompatActivity) this.activity, PermissionUtil.LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         }
         //#endregion
@@ -125,5 +126,11 @@ public class MapService implements OnMapReadyCallback {
         map.setOnMyLocationChangeListener((GoogleMap.OnMyLocationChangeListener) this.activity);
         map.getUiSettings().setZoomControlsEnabled(true);
 
+    }
+
+    public interface EventListener extends
+            GoogleMap.OnMyLocationButtonClickListener,
+            GoogleMap.OnMyLocationClickListener,
+            GoogleMap.OnMyLocationChangeListener {
     }
 }
