@@ -19,9 +19,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 
@@ -35,20 +32,18 @@ import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.pusher.client.channel.PusherEvent;
-import com.pusher.client.channel.SubscriptionEventListener;
-import com.pusher.client.connection.ConnectionEventListener;
 import com.pusher.client.connection.ConnectionStateChange;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.var;
-
 
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -142,7 +137,9 @@ public class MapsActivity extends AppCompatActivity implements
     private View.OnClickListener myAreaButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
+
+            LatLng latLng = mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
+            ThreadUtil.Do(() -> setMyLocation(latLng));
         }
     };
     //#endregion
@@ -306,7 +303,9 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        my.setLocation(new LatLng(location.getLatitude(), location.getLongitude()));
+
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        ThreadUtil.Do(() -> setMyLocation(latLng));
 
         //Toast.makeText(this, "Current location:\n" + my.getLocation(), Toast.LENGTH_LONG).show();
         Log.i("Map", "My location click:" + my.getLocation());
@@ -318,17 +317,30 @@ public class MapsActivity extends AppCompatActivity implements
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         if (my.getLocation() == null || LocationUtil.distance(my.getLocation(), latLng) >= MY_FOLLOW_DISTANCE) {
-            my.setLocation(latLng);
 
-            if (myFollow) {
-                var myChanelName = PUSH_MAP_CHANNEL + PUSH_MAP_CHANNEL_SEPARATOR + LocationUtil.calcMapNumber(latLng, PUSH_MAP_GRAIN);
-                pusherService.BindToMapChannels(myChanelName);
-
-                // channelName is like this "map=2012;1012"
-                pusherService.Push(PUSH_MAP_CHANNEL + PUSH_MAP_CHANNEL_SEPARATOR + LocationUtil.calcMapNumber(latLng, PUSH_MAP_GRAIN), my);
-            }
+            ThreadUtil.Do(() -> setMyLocation(latLng));
 
             Log.i("Map", "Changed location: " + my.getLocation());
+        }
+    }
+
+    private void setMyLocation(LatLng latLng) {
+        if (latLng == null)
+            return;
+
+        my.setLocation(latLng);
+
+        // I'm ready to action
+        if (myFollow) {
+            // channelName is like this "map=2012;1012"
+            var myChanelName = PUSH_MAP_CHANNEL + PUSH_MAP_CHANNEL_SEPARATOR + LocationUtil.calcMapNumber(latLng, PUSH_MAP_GRAIN);
+            pusherService.BindToMapChannels(myChanelName);
+
+            // Save my profile to database
+            actorService.save(my);
+
+            // Push my id(email) to all
+            pusherService.Push(myChanelName, my.getEmail());
         }
     }
 
@@ -340,19 +352,24 @@ public class MapsActivity extends AppCompatActivity implements
     public void onEvent(PusherEvent event) {
         Log.i("Pusher", "Received event with data: " + event.toString());
 
-        String json = event.getData();
-        ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
-
-        // Check alien name with myself
-        if (Strings.isEmptyOrWhitespace(dto.getName()) || my.getName().equals(dto.getName()))
+        String email = event.getData();
+        if(email == null)
             return;
+
+        // Clean email and check alien email with myself
+        email = StringUtils.strip(email, "\"");
+        if (Strings.isEmptyOrWhitespace(email) || my.getEmail().equals(email))
+            return;
+
+        // Read data from database by alien email
+        ActorDto alienDto = actorService.load(email);
 
         this.runOnUiThread(() -> {
             // Sync aliens list
-            tryAddAlien(dto);
+            tryAddAlien(alienDto);
 
             // Mark alien on map
-            tryFindOnMap(dto);
+            tryFindOnMap(alienDto);
         });
     }
 

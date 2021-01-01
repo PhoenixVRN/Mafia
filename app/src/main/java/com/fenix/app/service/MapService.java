@@ -66,18 +66,30 @@ public class MapService implements OnMapReadyCallback {
     }
 
     /**
-     * Map around me and zoom if need
+     * Try to find my location
      */
-    public void MoveCameraToMe(float zoom) {
+    public LatLng FindMyLocation() {
 
         if (map == null)
-            return; // Map still not ready
+            return null; // Map still not ready
 
         Location location = map.getMyLocation();
         if (location == null)
-            return; // Map not ready yet
+            return null; // Map not ready yet
 
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        return latLng;
+    }
+
+    /**
+     * Map around me and zoom if need
+     */
+    public LatLng MoveCameraToMe(float zoom) {
+
+        LatLng latLng = FindMyLocation();
+        if (latLng == null)
+            return null; // Map not ready yet
 
         float currentZoom = map.getCameraPosition().zoom;
         if (currentZoom > zoom) {
@@ -86,6 +98,8 @@ public class MapService implements OnMapReadyCallback {
 
         CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(latLng, zoom);
         map.animateCamera(cu);
+
+        return latLng;
     }
 
     /**
