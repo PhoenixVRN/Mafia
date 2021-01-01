@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -18,6 +19,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 
@@ -44,6 +48,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.var;
+
+
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
@@ -141,6 +147,24 @@ public class MapsActivity extends AppCompatActivity implements
     };
     //#endregion
 
+    //# Вызов окна персонажа
+    private ImageButton iconPersBatton;
+    private View.OnContextClickListener iconPersBattonListener = new View.OnContextClickListener() {
+        @Override
+        public boolean onContextClick(View view) {
+//            var fragment = null;
+            var fragment = new PersonWindow();
+            var fm = getFragmentManager();
+            var ft = fm.beginTransaction();
+            ft.replace(R.id.map, fragment);
+            ft.commit();
+
+
+            return false;
+        }
+    };
+    //# end
+
     //#region mySwitch
     private Switch mySwitch;
     private CompoundButton.OnCheckedChangeListener mySwitchListener = (compoundButton, b) -> targetFollow = b;
@@ -214,6 +238,10 @@ public class MapsActivity extends AppCompatActivity implements
                     // myAreaButton
                     myAreaButton = (Button) findViewById(R.id.myAreaButton);
                     myAreaButton.setOnClickListener(myAreaButtonListener);
+
+                    // my iconPersBatton
+                    iconPersBatton = (ImageButton) findViewById(R.id.iconPersBatton);
+                    iconPersBatton.setOnContextClickListener(iconPersBattonListener);
 
                     // aliensSpinner
                     aliensSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
