@@ -42,6 +42,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import lombok.var;
 
@@ -69,6 +71,13 @@ public class MapsActivity extends AppCompatActivity implements
     private MongoService mongoService;
     private ActorService actorService;
 
+    private Timer timerService;
+    private TimerTask timerTaskPerSecond = new TimerTask() {
+        @Override
+        public void run() {
+            onTimerPerSecond();
+        }
+    };
     //#endregion
 
     //#region Variables
@@ -223,6 +232,10 @@ public class MapsActivity extends AppCompatActivity implements
                     // Ready to push location
                     myFollow = true;
 
+                    // timerService
+                    timerService = new Timer();
+                    timerService.schedule(timerTaskPerSecond, 1000, 1000);
+
                     // myPushButton
                     myRegButton = (Button) findViewById(R.id.myRegButton);
                     myRegButton.setOnClickListener(myPushButtonListener);
@@ -262,7 +275,7 @@ public class MapsActivity extends AppCompatActivity implements
     protected void tryAddAlien(final ActorDto alien) {
 
         long alreadyLinked = aliens.stream()
-                .filter(s -> s.getName().equals(alien.getName()))
+                .filter(s -> s.getEmail().equals(alien.getEmail()))
                 .count();
 
         if (alreadyLinked > 0)
@@ -278,7 +291,7 @@ public class MapsActivity extends AppCompatActivity implements
      * Finding alien o map
      */
     public void tryFindOnMap(ActorDto alien) {
-        if (target != null && target.getName().equals(alien.getName())) {
+        if (target != null && target.getEmail().equals(alien.getEmail())) {
 
             // Remove previous marker
             if (targetMarker != null)
@@ -353,7 +366,7 @@ public class MapsActivity extends AppCompatActivity implements
         Log.i("Pusher", "Received event with data: " + event.toString());
 
         String email = event.getData();
-        if(email == null)
+        if (email == null)
             return;
 
         // Clean email and check alien email with myself
@@ -386,6 +399,21 @@ public class MapsActivity extends AppCompatActivity implements
                 "\nmessage: " + message +
                 "\nException: " + e
         );
+    }
+
+    //#endregion
+
+    //#region Timer events
+
+    private void onTimerPerSecond() {
+        Log.i("TimerPerSecond", "tick");
+
+        ThreadUtil.Do(() -> {
+            aliens.forEach(alien -> {
+//TODO Зафигачить обновление и чистку скиска врагов
+
+            });
+        });
     }
 
     //#endregion

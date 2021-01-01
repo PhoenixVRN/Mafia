@@ -23,5 +23,17 @@ public class ActorDto {
         return name;
     }
 
+    public void Set(ActorDto dto){
+        // Local properties
+        this.setName(dto.getName());
+        this.setPass(dto.getPass());
+        this.setPhone(dto.getPhone());
+
+        // location
+        this.setLocation(dto.getLocation());
+
+        // Person profile
+        this.setPerson(dto.getPerson());
+    }
 
 }
