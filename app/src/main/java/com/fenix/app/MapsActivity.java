@@ -40,6 +40,7 @@ import com.pusher.client.connection.ConnectionStateChange;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -93,7 +94,7 @@ public class MapsActivity extends AppCompatActivity implements
     /**
      * Visible aliens
      */
-    public List<ActorMarkerPair> aliens = new ArrayList<>();
+    public final List<ActorMarkerPair> aliens = Collections.synchronizedList(new ArrayList<>());
 
     /**
      * Target alien
