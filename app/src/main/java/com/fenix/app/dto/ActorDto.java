@@ -23,7 +23,7 @@ public class ActorDto {
         return name;
     }
 
-    public void Set(ActorDto dto){
+    public void set(ActorDto dto){
         // Local properties
         this.setName(dto.getName());
         this.setPass(dto.getPass());

@@ -28,7 +28,6 @@ import com.fenix.app.service.MapService;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.service.entity.ActorService;
 import com.fenix.app.service.PusherService;
-import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
@@ -44,7 +43,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
+import lombok.AllArgsConstructor;
 import lombok.var;
 
 
@@ -57,6 +58,7 @@ public class MapsActivity extends AppCompatActivity implements
     //#region Constants
 
     private static final float MY_FOLLOW_DISTANCE = 0.25f;
+    private static final float MY_VIEW_DISTANCE = 200f;
     public static final int PUSH_MAP_GRAIN = 10;
     public static final String PUSH_MAP_CHANNEL = "map";
     public static final String PUSH_MAP_CHANNEL_SEPARATOR = "=";
@@ -72,10 +74,10 @@ public class MapsActivity extends AppCompatActivity implements
     private ActorService actorService;
 
     private Timer timerService;
-    private TimerTask timerTaskPerSecond = new TimerTask() {
+    private TimerTask timerTaskPerTenSeconds = new TimerTask() {
         @Override
         public void run() {
-            onTimerPerSecond();
+            onTimerPerTenSeconds();
         }
     };
     //#endregion
@@ -91,14 +93,13 @@ public class MapsActivity extends AppCompatActivity implements
     /**
      * Visible aliens
      */
-    public List<ActorDto> aliens = new ArrayList<>();
+    public List<ActorMarkerPair> aliens = new ArrayList<>();
 
     /**
      * Target alien
      */
-    private ActorDto target = null;
+    private ActorMarkerPair target = null;
     private boolean targetFollow = false;
-    private Marker targetMarker = null;
 
     //#endregion
 
@@ -234,7 +235,7 @@ public class MapsActivity extends AppCompatActivity implements
 
                     // timerService
                     timerService = new Timer();
-                    timerService.schedule(timerTaskPerSecond, 1000, 1000);
+                    timerService.schedule(timerTaskPerTenSeconds, 1000, 10000);
 
                     // myPushButton
                     myRegButton = (Button) findViewById(R.id.myRegButton);
@@ -272,33 +273,46 @@ public class MapsActivity extends AppCompatActivity implements
     /**
      * Adding alien actor
      */
-    protected void tryAddAlien(final ActorDto alien) {
+    protected void trySyncAlien(final ActorDto alien) {
+        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE) {
+            // Sync already linked
+            List<ActorMarkerPair> listToRemove = new ArrayList<>();
+            aliens.stream()
+                    .filter(s -> s.actor.getEmail().equals(alien.getEmail()))
+                    .forEach(pair -> listToRemove.add(pair));
 
-        long alreadyLinked = aliens.stream()
-                .filter(s -> s.getEmail().equals(alien.getEmail()))
-                .count();
+            if (listToRemove.size() > 0)
+                MapsActivity.this.runOnUiThread(() -> {
+                    listToRemove.forEach(pair -> {
+                        aliens.remove(pair);
+                        if (pair.marker != null)
+                            pair.marker.remove();
+                    });
+                    aliensSpinnerAdapter.clear();
+                    aliensSpinnerAdapter.addAll(aliens);
+                });
+        } else {
+            // Sync already linked
+            var linked = aliens.stream()
+                    .filter(s -> s.actor.getEmail().equals(alien.getEmail()))
+                    .collect(Collectors.toList());
 
-        if (alreadyLinked > 0)
-            return;
+            linked.forEach(pair -> MapsActivity.this.runOnUiThread(() -> {
+                pair.actor.set(alien);
+                pair.marker.setPosition(alien.getLocation());
+                aliens.add(pair);
+                aliensSpinnerAdapter.clear();
+                aliensSpinnerAdapter.addAll(aliens);
+            }));
 
-        aliens.add(alien);
-
-        aliensSpinnerAdapter.clear();
-        aliensSpinnerAdapter.addAll(aliens);
-    }
-
-    /**
-     * Finding alien o map
-     */
-    public void tryFindOnMap(ActorDto alien) {
-        if (target != null && target.getEmail().equals(alien.getEmail())) {
-
-            // Remove previous marker
-            if (targetMarker != null)
-                targetMarker.remove();
-
-            // Save new marker
-            targetMarker = mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow);
+            // Add new
+            if (linked.size() == 0)
+                MapsActivity.this.runOnUiThread(() -> {
+                    var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow));
+                    aliens.add(pair);
+                    aliensSpinnerAdapter.clear();
+                    aliensSpinnerAdapter.addAll(aliens);
+                });
         }
     }
 
@@ -377,13 +391,8 @@ public class MapsActivity extends AppCompatActivity implements
         // Read data from database by alien email
         ActorDto alienDto = actorService.load(email);
 
-        this.runOnUiThread(() -> {
-            // Sync aliens list
-            tryAddAlien(alienDto);
-
-            // Mark alien on map
-            tryFindOnMap(alienDto);
-        });
+        // Sync aliens list and mark alien on map
+        trySyncAlien(alienDto);
     }
 
     @Override
@@ -405,13 +414,22 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region Timer events
 
-    private void onTimerPerSecond() {
+    private void onTimerPerTenSeconds() {
         Log.i("TimerPerSecond", "tick");
 
         ThreadUtil.Do(() -> {
-            aliens.forEach(alien -> {
-//TODO Зафигачить обновление и чистку скиска врагов
+            // Push myself
+            if (my.getPerson() != null)
+                setMyLocation(my.getLocation());
 
+            // Sync aliens
+            aliens.forEach(alien -> {
+
+                // Load actual alien state from database
+                var alienDto = actorService.load(alien.actor.getEmail());
+
+                // Sync aliens list and mark alien on map
+                trySyncAlien(alienDto);
             });
         });
     }
@@ -423,7 +441,7 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         target = aliens.get(position);
-        Log.i("AlienSpinner", target.getName());
+        Log.i("AlienSpinner", target.actor.getName());
     }
 
     @Override
@@ -434,4 +452,14 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#endregion
 
+    @AllArgsConstructor
+    private class ActorMarkerPair {
+        public final ActorDto actor;
+        public final Marker marker;
+
+        @Override
+        public String toString() {
+            return actor.getName();
+        }
+    }
 }
