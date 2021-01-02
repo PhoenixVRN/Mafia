@@ -40,7 +40,6 @@ import com.pusher.client.connection.ConnectionStateChange;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -63,7 +62,6 @@ public class MapsActivity extends AppCompatActivity implements
     public static final int PUSH_MAP_GRAIN = 10;
     public static final String PUSH_MAP_CHANNEL = "map";
     public static final String PUSH_MAP_CHANNEL_SEPARATOR = "=";
-    public static final Object SYNC_OBJECT = new Object();
 
     //#endregion
 
@@ -278,17 +276,16 @@ public class MapsActivity extends AppCompatActivity implements
     protected void trySyncAlien(final ActorDto alien) {
         if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE) {
             // Sync already linked
-            List<ActorMarkerPair> listToRemove = new ArrayList<>();
-            aliens.stream()
-                    .filter(s -> s.actor.getEmail().equals(alien.getEmail()))
-                    .forEach(pair -> listToRemove.add(pair));
+            var listToRemove = new ArrayList<ActorMarkerPair>();
+            aliens.forEach(p -> {
+                if (p.actor.getEmail().equals(alien.getEmail()))
+                    listToRemove.add(p);
+            });
 
             if (listToRemove.size() > 0)
                 MapsActivity.this.runOnUiThread(() -> {
                     listToRemove.forEach(pair -> {
-                        synchronized (SYNC_OBJECT) {
-                            aliens.remove(pair);
-                        }
+                        aliens.remove(pair);
                         if (pair.marker != null)
                             pair.marker.remove();
                     });
@@ -297,16 +294,16 @@ public class MapsActivity extends AppCompatActivity implements
                 });
         } else {
             // Sync already linked
-            var linked = aliens.stream()
-                    .filter(s -> s.actor.getEmail().equals(alien.getEmail()))
-                    .collect(Collectors.toList());
+            var linked = new ArrayList<ActorMarkerPair>();
+            aliens.forEach(p -> {
+                if (p.actor.getEmail().equals(alien.getEmail()))
+                    linked.add(p);
+            });
 
             linked.forEach(pair -> MapsActivity.this.runOnUiThread(() -> {
                 pair.actor.set(alien);
                 pair.marker.setPosition(alien.getLocation());
-                synchronized (SYNC_OBJECT) {
-                    aliens.add(pair);
-                }
+                aliens.add(pair);
                 aliensSpinnerAdapter.clear();
                 aliensSpinnerAdapter.addAll(aliens);
             }));
@@ -315,9 +312,7 @@ public class MapsActivity extends AppCompatActivity implements
             if (linked.size() == 0)
                 MapsActivity.this.runOnUiThread(() -> {
                     var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow));
-                    synchronized (SYNC_OBJECT) {
-                        aliens.add(pair);
-                    }
+                    aliens.add(pair);
                     aliensSpinnerAdapter.clear();
                     aliensSpinnerAdapter.addAll(aliens);
                 });
@@ -400,7 +395,7 @@ public class MapsActivity extends AppCompatActivity implements
         ActorDto alienDto = actorService.load(email);
 
         // Sync aliens list and mark alien on map
-        trySyncAlien(alienDto);
+        MapsActivity.this.runOnUiThread(() -> trySyncAlien(alienDto));
     }
 
     @Override
@@ -437,7 +432,7 @@ public class MapsActivity extends AppCompatActivity implements
                 var alienDto = actorService.load(alien.actor.getEmail());
 
                 // Sync aliens list and mark alien on map
-                trySyncAlien(alienDto);
+                MapsActivity.this.runOnUiThread(() -> trySyncAlien(alienDto));
             });
         });
     }
