@@ -101,6 +101,9 @@ public class MapsActivity extends AppCompatActivity implements
     private ActorMarkerPair target = null;
     private boolean targetFollow = false;
 
+    volatile boolean inPusherEventWork = false;
+    volatile boolean inTimerEventWork = false;
+
     //#endregion
 
     //#region Controls
@@ -278,18 +281,21 @@ public class MapsActivity extends AppCompatActivity implements
         if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE) {
             // Sync already linked
 
-            var listToRemove = new ArrayList<ActorMarkerPair>();
+            var toRemove = new ArrayList<ActorMarkerPair>();
             aliens.forEach(p -> {
                 if (p.actor.getEmail().equals(alien.getEmail()))
-                    listToRemove.add(p);
+                    toRemove.add(p);
             });
 
-            if (listToRemove.size() > 0) {
-                listToRemove.forEach(pair -> {
+            if (toRemove.size() > 0) {
+                toRemove.forEach(pair -> {
                     aliens.remove(pair);
                     if (pair.marker != null)
                         pair.marker.remove();
                 });
+
+                aliensSpinnerAdapter.clear();
+                aliensSpinnerAdapter.addAll(aliens);
             }
         } else {
             // Sync already linked
@@ -303,18 +309,18 @@ public class MapsActivity extends AppCompatActivity implements
             linked.forEach(pair -> MapsActivity.this.runOnUiThread(() -> {
                 pair.actor.set(alien);
                 pair.marker.setPosition(alien.getLocation());
-                aliens.add(pair);
             }));
 
             // Add new
             if (linked.size() == 0) {
                 var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow));
                 aliens.add(pair);
+
+                aliensSpinnerAdapter.clear();
+                aliensSpinnerAdapter.addAll(aliens);
             }
         }
 
-        aliensSpinnerAdapter.clear();
-        aliensSpinnerAdapter.addAll(aliens);
     }
 
     //#region Map events
@@ -378,22 +384,31 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onEvent(PusherEvent event) {
-        Log.i("Pusher", "Received event with data: " + event.toString());
-
-        String email = event.getData();
-        if (email == null)
+        if (inPusherEventWork)
             return;
+        inPusherEventWork = true;
+        try {
 
-        // Clean email and check alien email with myself
-        email = StringUtils.strip(email, "\"");
-        if (Strings.isEmptyOrWhitespace(email) || my.getEmail().equals(email))
-            return;
+            Log.i("Pusher", "Received event with data: " + event.toString());
 
-        // Read data from database by alien email
-        ActorDto alienDto = actorService.load(email);
+            String email = event.getData();
+            if (email == null)
+                return;
 
-        // Sync aliens list and mark alien on map
-        MapsActivity.this.runOnUiThread(() -> trySyncAlien(alienDto));
+            // Clean email and check alien email with myself
+            email = StringUtils.strip(email, "\"");
+            if (Strings.isEmptyOrWhitespace(email) || my.getEmail().equals(email))
+                return;
+
+            // Read data from database by alien email
+            ActorDto alienDto = actorService.load(email);
+
+            // Sync aliens list and mark alien on map
+            MapsActivity.this.runOnUiThread(() -> trySyncAlien(alienDto));
+
+        } finally {
+            inPusherEventWork = false;
+        }
     }
 
     @Override
@@ -416,22 +431,33 @@ public class MapsActivity extends AppCompatActivity implements
     //#region Timer events
 
     private void onTimerPerTenSeconds() {
-        Log.i("TimerPerSecond", "tick");
-
+        if (inTimerEventWork)
+            return;
         ThreadUtil.Do(() -> {
-            // Push myself
-            if (my.getPerson() != null)
-                setMyLocation(my.getLocation());
+            if (inTimerEventWork)
+                return;
+            inTimerEventWork = true;
+            try {
 
-            // Sync aliens
-            aliens.forEach(alien -> {
+                Log.i("TimerPerSecond", "tick");
 
-                // Load actual alien state from database
-                var alienDto = actorService.load(alien.actor.getEmail());
+                // Push myself
+                if (my.getPerson() != null)
+                    setMyLocation(my.getLocation());
 
-                // Sync aliens list and mark alien on map
-                MapsActivity.this.runOnUiThread(() -> trySyncAlien(alienDto));
-            });
+                // Sync aliens
+                aliens.forEach(alien -> {
+
+                    // Load actual alien state from database
+                    var alienDto = actorService.load(alien.actor.getEmail());
+
+                    // Sync aliens list and mark alien on map
+                    MapsActivity.this.runOnUiThread(() -> trySyncAlien(alienDto));
+                });
+
+            } finally {
+                inTimerEventWork = false;
+            }
         });
     }
 
