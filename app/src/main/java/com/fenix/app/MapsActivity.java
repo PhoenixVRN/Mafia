@@ -274,26 +274,26 @@ public class MapsActivity extends AppCompatActivity implements
      * Adding alien actor
      */
     protected void trySyncAlien(final ActorDto alien) {
+
         if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE) {
             // Sync already linked
+
             var listToRemove = new ArrayList<ActorMarkerPair>();
             aliens.forEach(p -> {
                 if (p.actor.getEmail().equals(alien.getEmail()))
                     listToRemove.add(p);
             });
 
-            if (listToRemove.size() > 0)
-                MapsActivity.this.runOnUiThread(() -> {
-                    listToRemove.forEach(pair -> {
-                        aliens.remove(pair);
-                        if (pair.marker != null)
-                            pair.marker.remove();
-                    });
-                    aliensSpinnerAdapter.clear();
-                    aliensSpinnerAdapter.addAll(aliens);
+            if (listToRemove.size() > 0) {
+                listToRemove.forEach(pair -> {
+                    aliens.remove(pair);
+                    if (pair.marker != null)
+                        pair.marker.remove();
                 });
+            }
         } else {
             // Sync already linked
+
             var linked = new ArrayList<ActorMarkerPair>();
             aliens.forEach(p -> {
                 if (p.actor.getEmail().equals(alien.getEmail()))
@@ -304,19 +304,17 @@ public class MapsActivity extends AppCompatActivity implements
                 pair.actor.set(alien);
                 pair.marker.setPosition(alien.getLocation());
                 aliens.add(pair);
-                aliensSpinnerAdapter.clear();
-                aliensSpinnerAdapter.addAll(aliens);
             }));
 
             // Add new
-            if (linked.size() == 0)
-                MapsActivity.this.runOnUiThread(() -> {
-                    var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow));
-                    aliens.add(pair);
-                    aliensSpinnerAdapter.clear();
-                    aliensSpinnerAdapter.addAll(aliens);
-                });
+            if (linked.size() == 0) {
+                var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow));
+                aliens.add(pair);
+            }
         }
+
+        aliensSpinnerAdapter.clear();
+        aliensSpinnerAdapter.addAll(aliens);
     }
 
     //#region Map events
