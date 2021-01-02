@@ -63,6 +63,7 @@ public class MapsActivity extends AppCompatActivity implements
     public static final int PUSH_MAP_GRAIN = 10;
     public static final String PUSH_MAP_CHANNEL = "map";
     public static final String PUSH_MAP_CHANNEL_SEPARATOR = "=";
+    public static final Object SYNC_OBJECT = new Object();
 
     //#endregion
 
@@ -94,7 +95,7 @@ public class MapsActivity extends AppCompatActivity implements
     /**
      * Visible aliens
      */
-    public final List<ActorMarkerPair> aliens = Collections.synchronizedList(new ArrayList<>());
+    public final List<ActorMarkerPair> aliens = new ArrayList<>();
 
     /**
      * Target alien
@@ -285,7 +286,9 @@ public class MapsActivity extends AppCompatActivity implements
             if (listToRemove.size() > 0)
                 MapsActivity.this.runOnUiThread(() -> {
                     listToRemove.forEach(pair -> {
-                        aliens.remove(pair);
+                        synchronized (SYNC_OBJECT) {
+                            aliens.remove(pair);
+                        }
                         if (pair.marker != null)
                             pair.marker.remove();
                     });
@@ -301,7 +304,9 @@ public class MapsActivity extends AppCompatActivity implements
             linked.forEach(pair -> MapsActivity.this.runOnUiThread(() -> {
                 pair.actor.set(alien);
                 pair.marker.setPosition(alien.getLocation());
-                aliens.add(pair);
+                synchronized (SYNC_OBJECT) {
+                    aliens.add(pair);
+                }
                 aliensSpinnerAdapter.clear();
                 aliensSpinnerAdapter.addAll(aliens);
             }));
@@ -310,7 +315,9 @@ public class MapsActivity extends AppCompatActivity implements
             if (linked.size() == 0)
                 MapsActivity.this.runOnUiThread(() -> {
                     var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow));
-                    aliens.add(pair);
+                    synchronized (SYNC_OBJECT) {
+                        aliens.add(pair);
+                    }
                     aliensSpinnerAdapter.clear();
                     aliensSpinnerAdapter.addAll(aliens);
                 });
