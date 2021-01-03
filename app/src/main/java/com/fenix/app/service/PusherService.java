@@ -9,6 +9,7 @@ import com.pusher.client.connection.ConnectionState;
 import com.pusher.http.PusherServer;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lombok.var;
@@ -20,10 +21,13 @@ import static com.fenix.app.util.LocationUtil.MAP_NUMBER_SEPARATOR;
 public class PusherService {
 
     public static final String PUSH_EVENT = "event";
+    public static final long PUSH_INTERVAL = 1000; // 1000ms
 
     private final Pusher pusherClient;
     private PusherServer pusherServer;
     private final EventListener activity;
+
+    volatile long lastPushTime = 0;
 
     protected final List<String> channelList = new ArrayList<>();
 
@@ -93,7 +97,11 @@ public class PusherService {
             pusherServer.setCluster("eu");
         }
 
-        pusherServer.trigger(channelName, PUSH_EVENT, data);
+        long currentTime = new Date().getTime(); // milliseconds
+        if ((currentTime - lastPushTime) >= PUSH_INTERVAL) {
+            lastPushTime = currentTime;
+            pusherServer.trigger(channelName, PUSH_EVENT, data);
+        }
     }
 
     public interface EventListener extends ConnectionEventListener, SubscriptionEventListener {
