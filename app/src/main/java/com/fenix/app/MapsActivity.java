@@ -1,5 +1,6 @@
 package com.fenix.app;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,14 +21,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.MongoService;
-import com.fenix.app.service.entity.ActorService;
 import com.fenix.app.service.PusherService;
+import com.fenix.app.service.entity.ActorService;
 import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
@@ -43,7 +42,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.var;
@@ -57,9 +55,9 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region Constants
 
-    private static final float MY_FOLLOW_DISTANCE = 0.25f;
-    private static final float MY_VIEW_DISTANCE = 200f;
-    public static final int PUSH_MAP_GRAIN = 10;
+    private static final float MY_FOLLOW_DISTANCE = 0.25f; // 25sm
+    private static final float MY_VIEW_DISTANCE = 200f; // 200m
+    public static final int PUSH_MAP_GRAIN = 10; // ~1000m
     public static final String PUSH_MAP_CHANNEL = "map";
     public static final String PUSH_MAP_CHANNEL_SEPARATOR = "=";
 
