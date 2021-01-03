@@ -122,8 +122,10 @@ public class LogonActivity extends AppCompatActivity {
                                 }
 
                                 // Проверяю наличие профиля
-                                if (actorDto.getPerson() == null)
+                                if (actorDto.getPerson() == null) {
                                     actorDto.setPerson(new PersonDto());
+                                    actorService.save(actorDto);
+                                }
 
                                 // Устанавливаю пользовательский контекст
                                 ContextService.Context.setActor(actorDto);

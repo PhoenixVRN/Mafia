@@ -1,5 +1,6 @@
 package com.fenix.app;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -19,42 +21,43 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.MongoService;
-import com.fenix.app.service.entity.ActorService;
 import com.fenix.app.service.PusherService;
-import com.fenix.app.util.JsonUtil;
+import com.fenix.app.service.entity.ActorService;
 import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.pusher.client.channel.PusherEvent;
-import com.pusher.client.channel.SubscriptionEventListener;
-import com.pusher.client.connection.ConnectionEventListener;
 import com.pusher.client.connection.ConnectionStateChange;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import lombok.AllArgsConstructor;
 import lombok.var;
+
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
-        GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationChangeListener,
+        MapService.EventListener,
         PusherService.EventListener,
         AdapterView.OnItemSelectedListener {
 
     //#region Constants
 
-    private static final float MY_FOLLOW_DISTANCE = 0.25f;
-    public static final int PUSH_MAP_GRAIN = 10;
+    private static final float MY_FOLLOW_DISTANCE = 0.25f; // 25sm
+    private static final float MY_VIEW_DISTANCE = 200f; // 200m
+    public static final int PUSH_MAP_GRAIN = 10; // ~1000m
     public static final String PUSH_MAP_CHANNEL = "map";
     public static final String PUSH_MAP_CHANNEL_SEPARATOR = "=";
 
@@ -68,6 +71,13 @@ public class MapsActivity extends AppCompatActivity implements
     private MongoService mongoService;
     private ActorService actorService;
 
+    private Timer timerService;
+    private TimerTask timerTaskPerTenSeconds = new TimerTask() {
+        @Override
+        public void run() {
+            onTimerPerTenSeconds();
+        }
+    };
     //#endregion
 
     //#region Variables
@@ -81,14 +91,16 @@ public class MapsActivity extends AppCompatActivity implements
     /**
      * Visible aliens
      */
-    public List<ActorDto> aliens = new ArrayList<>();
+    public final List<ActorMarkerPair> aliens = new ArrayList<>();
 
     /**
      * Target alien
      */
-    private ActorDto target = null;
+    private ActorMarkerPair target = null;
     private boolean targetFollow = false;
-    private Marker targetMarker = null;
+
+    volatile boolean inPusherEventWork = false;
+    volatile boolean inTimerEventWork = false;
 
     //#endregion
 
@@ -136,10 +148,30 @@ public class MapsActivity extends AppCompatActivity implements
     private View.OnClickListener myAreaButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
+
+            LatLng latLng = mapService.MoveCameraToMe(MapService.LOCAL_ZOOM);
+            ThreadUtil.Do(() -> setMyLocation(latLng));
         }
     };
     //#endregion
+
+    //# Вызов окна персонажа
+    private ImageButton iconPersBatton;
+    private View.OnContextClickListener iconPersBattonListener = new View.OnContextClickListener() {
+        @Override
+        public boolean onContextClick(View view) {
+//            var fragment = null;
+            var fragment = new PersonWindow();
+            var fm = getFragmentManager();
+            var ft = fm.beginTransaction();
+            ft.replace(R.id.map, fragment);
+            ft.commit();
+
+
+            return false;
+        }
+    };
+    //# end
 
     //#region mySwitch
     private Switch mySwitch;
@@ -202,6 +234,10 @@ public class MapsActivity extends AppCompatActivity implements
                     // Ready to push location
                     myFollow = true;
 
+                    // timerService
+                    timerService = new Timer();
+                    timerService.schedule(timerTaskPerTenSeconds, 1000, 10000);
+
                     // myPushButton
                     myRegButton = (Button) findViewById(R.id.myRegButton);
                     myRegButton.setOnClickListener(myPushButtonListener);
@@ -214,6 +250,10 @@ public class MapsActivity extends AppCompatActivity implements
                     // myAreaButton
                     myAreaButton = (Button) findViewById(R.id.myAreaButton);
                     myAreaButton.setOnClickListener(myAreaButtonListener);
+
+                    // my iconPersBatton
+                    iconPersBatton = (ImageButton) findViewById(R.id.iconPersBatton);
+                    iconPersBatton.setOnContextClickListener(iconPersBattonListener);
 
                     // aliensSpinner
                     aliensSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
@@ -234,34 +274,51 @@ public class MapsActivity extends AppCompatActivity implements
     /**
      * Adding alien actor
      */
-    protected void tryAddAlien(final ActorDto alien) {
+    protected void trySyncAlien(final ActorDto alien) {
 
-        long alreadyLinked = aliens.stream()
-                .filter(s -> s.getName().equals(alien.getName()))
-                .count();
+        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE) {
+            // Sync already linked
 
-        if (alreadyLinked > 0)
-            return;
+            var toRemove = new ArrayList<ActorMarkerPair>();
+            aliens.forEach(p -> {
+                if (p.actor.getEmail().equals(alien.getEmail()))
+                    toRemove.add(p);
+            });
 
-        aliens.add(alien);
+            if (toRemove.size() > 0) {
+                toRemove.forEach(pair -> {
+                    aliens.remove(pair);
+                    if (pair.marker != null)
+                        pair.marker.remove();
+                });
 
-        aliensSpinnerAdapter.clear();
-        aliensSpinnerAdapter.addAll(aliens);
-    }
+                aliensSpinnerAdapter.clear();
+                aliensSpinnerAdapter.addAll(aliens);
+            }
+        } else {
+            // Sync already linked
 
-    /**
-     * Finding alien o map
-     */
-    public void tryFindOnMap(ActorDto alien) {
-        if (target != null && target.getName().equals(alien.getName())) {
+            var linked = new ArrayList<ActorMarkerPair>();
+            aliens.forEach(p -> {
+                if (p.actor.getEmail().equals(alien.getEmail()))
+                    linked.add(p);
+            });
 
-            // Remove previous marker
-            if (targetMarker != null)
-                targetMarker.remove();
+            linked.forEach(pair -> MapsActivity.this.runOnUiThread(() -> {
+                pair.actor.set(alien);
+                pair.marker.setPosition(alien.getLocation());
+            }));
 
-            // Save new marker
-            targetMarker = mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow);
+            // Add new
+            if (linked.size() == 0) {
+                var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow));
+                aliens.add(pair);
+
+                aliensSpinnerAdapter.clear();
+                aliensSpinnerAdapter.addAll(aliens);
+            }
         }
+
     }
 
     //#region Map events
@@ -278,7 +335,9 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        my.setLocation(new LatLng(location.getLatitude(), location.getLongitude()));
+
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        ThreadUtil.Do(() -> setMyLocation(latLng));
 
         //Toast.makeText(this, "Current location:\n" + my.getLocation(), Toast.LENGTH_LONG).show();
         Log.i("Map", "My location click:" + my.getLocation());
@@ -290,17 +349,30 @@ public class MapsActivity extends AppCompatActivity implements
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         if (my.getLocation() == null || LocationUtil.distance(my.getLocation(), latLng) >= MY_FOLLOW_DISTANCE) {
-            my.setLocation(latLng);
 
-            if (myFollow) {
-                var myChanelName = PUSH_MAP_CHANNEL + PUSH_MAP_CHANNEL_SEPARATOR + LocationUtil.calcMapNumber(latLng, PUSH_MAP_GRAIN);
-                pusherService.BindToMapChannels(myChanelName);
-
-                // channelName is like this "map=2012;1012"
-                pusherService.Push(PUSH_MAP_CHANNEL + PUSH_MAP_CHANNEL_SEPARATOR + LocationUtil.calcMapNumber(latLng, PUSH_MAP_GRAIN), my);
-            }
+            ThreadUtil.Do(() -> setMyLocation(latLng));
 
             Log.i("Map", "Changed location: " + my.getLocation());
+        }
+    }
+
+    private void setMyLocation(LatLng latLng) {
+        if (latLng == null)
+            return;
+
+        my.setLocation(latLng);
+
+        // I'm ready to action
+        if (myFollow) {
+            // channelName is like this "map=2012;1012"
+            var myChanelName = PUSH_MAP_CHANNEL + PUSH_MAP_CHANNEL_SEPARATOR + LocationUtil.calcMapNumber(latLng, PUSH_MAP_GRAIN);
+            pusherService.BindToMapChannels(myChanelName);
+
+            // Save my profile to database
+            actorService.save(my);
+
+            // Push my id(email) to all
+            pusherService.Push(myChanelName, my.getEmail());
         }
     }
 
@@ -310,22 +382,31 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onEvent(PusherEvent event) {
-        Log.i("Pusher", "Received event with data: " + event.toString());
-
-        String json = event.getData();
-        ActorDto dto = JsonUtil.Parse(ActorDto.class, json);
-
-        // Check alien name with myself
-        if (Strings.isEmptyOrWhitespace(dto.getName()) || my.getName().equals(dto.getName()))
+        if (inPusherEventWork)
             return;
+        inPusherEventWork = true;
+        try {
 
-        this.runOnUiThread(() -> {
-            // Sync aliens list
-            tryAddAlien(dto);
+            Log.i("Pusher", "Received event with data: " + event.toString());
 
-            // Mark alien on map
-            tryFindOnMap(dto);
-        });
+            String email = event.getData();
+            if (email == null)
+                return;
+
+            // Clean email and check alien email with myself
+            email = StringUtils.strip(email, "\"");
+            if (Strings.isEmptyOrWhitespace(email) || my.getEmail().equals(email))
+                return;
+
+            // Read data from database by alien email
+            ActorDto alienDto = actorService.load(email);
+
+            // Sync aliens list and mark alien on map
+            MapsActivity.this.runOnUiThread(() -> trySyncAlien(alienDto));
+
+        } finally {
+            inPusherEventWork = false;
+        }
     }
 
     @Override
@@ -345,12 +426,47 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#endregion
 
+    //#region Timer events
+
+    private void onTimerPerTenSeconds() {
+        if (inTimerEventWork)
+            return;
+        ThreadUtil.Do(() -> {
+            if (inTimerEventWork)
+                return;
+            inTimerEventWork = true;
+            try {
+
+                Log.i("TimerPerSecond", "tick");
+
+                // Push myself
+                if (my.getPerson() != null)
+                    setMyLocation(my.getLocation());
+
+                // Sync aliens
+                aliens.forEach(alien -> {
+
+                    // Load actual alien state from database
+                    var alienDto = actorService.load(alien.actor.getEmail());
+
+                    // Sync aliens list and mark alien on map
+                    MapsActivity.this.runOnUiThread(() -> trySyncAlien(alienDto));
+                });
+
+            } finally {
+                inTimerEventWork = false;
+            }
+        });
+    }
+
+    //#endregion
+
     //#region Alien Spinner
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         target = aliens.get(position);
-        Log.i("AlienSpinner", target.getName());
+        Log.i("AlienSpinner", target.actor.getName());
     }
 
     @Override
@@ -361,4 +477,14 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#endregion
 
+    @AllArgsConstructor
+    private class ActorMarkerPair {
+        public final ActorDto actor;
+        public final Marker marker;
+
+        @Override
+        public String toString() {
+            return actor.getName();
+        }
+    }
 }

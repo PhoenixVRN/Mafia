@@ -6,7 +6,7 @@ import com.fenix.app.service.MongoService;
 public class ActorService extends EntitySeriveBase<ActorDto> {
 
     private static final String COLLECTION_NAME = "actors";
-    private static final String KEY_FIELD = "name";
+    private static final String KEY_FIELD = "email";
 
     @Override
     protected void initEntityClass() {
