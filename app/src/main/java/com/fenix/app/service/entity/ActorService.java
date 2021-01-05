@@ -2,6 +2,14 @@ package com.fenix.app.service.entity;
 
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.MongoService;
+import com.google.android.gms.maps.model.LatLng;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.geojson.Point;
+import com.mongodb.client.model.geojson.Position;
+
+import java.util.List;
+
+import lombok.var;
 
 public class ActorService extends EntitySeriveBase<ActorDto> {
 
@@ -18,4 +26,22 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         super(service, COLLECTION_NAME);
     }
 
+    public List<ActorDto> findByGeoPoint(LatLng location, double distance) {
+/*
+    {
+        geoPoint: {
+            $near: {
+                $geometry: {
+                    type: "Point",
+                    coordinates: [51.5866325, 38.9970941]
+                },
+                $minDistance: 0,
+                $maxDistance: 400
+            }
+        }
+    }
+*/
+        var point = new Point(new Position(location.latitude, location.longitude));
+        return super.list(Filters.near("geoPoint", point, distance, 0d));
+    }
 }
