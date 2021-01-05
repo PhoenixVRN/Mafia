@@ -44,4 +44,15 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         var point = new Point(new Position(location.latitude, location.longitude));
         return super.list(Filters.near("geoPoint", point, distance, 0d));
     }
+
+    /**
+     * Ударить
+     * @param alien
+     */
+    public void hit(ActorDto my, ActorDto alien) {
+        //TODO Тут логика удара
+
+        var acc = my.getPerson().getWeaponHeadLeft().getAccuracy();
+        this.save(alien);
+    }
 }
