@@ -98,7 +98,7 @@ public class PusherService {
         }
 
         long currentTime = new Date().getTime(); // milliseconds
-        if ((currentTime - lastPushTime) >= PUSH_INTERVAL) {
+        if ((currentTime - lastPushTime) > PUSH_INTERVAL) {
             lastPushTime = currentTime;
             pusherServer.trigger(channelName, PUSH_EVENT, data);
         }

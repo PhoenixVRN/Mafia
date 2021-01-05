@@ -72,10 +72,10 @@ public class MapsActivity extends AppCompatActivity implements
     private ActorService actorService;
 
     private Timer timerService;
-    private TimerTask timerTaskPerTenSeconds = new TimerTask() {
+    private TimerTask timerTaskPerSecond = new TimerTask() {
         @Override
         public void run() {
-            onTimerPerTenSeconds();
+            onTimerPerSecond();
         }
     };
     //#endregion
@@ -152,7 +152,7 @@ public class MapsActivity extends AppCompatActivity implements
 
             // I'm ready to action
             if (myFollow)
-                ThreadUtil.Do(() -> setMyLocation(latLng));
+                ThreadUtil.Do(() -> setMyLocation(latLng, true));
         }
     };
     //#endregion
@@ -238,7 +238,7 @@ public class MapsActivity extends AppCompatActivity implements
 
                     // timerService
                     timerService = new Timer();
-                    timerService.schedule(timerTaskPerTenSeconds, 1000, 10000);
+                    timerService.schedule(timerTaskPerSecond, 1000, 1000);
 
                     // myPushButton
                     myRegButton = (Button) findViewById(R.id.myRegButton);
@@ -277,7 +277,7 @@ public class MapsActivity extends AppCompatActivity implements
      * Adding alien actor
      */
     protected void trySyncAlien(final ActorDto alien) {
-        if(my.getEmail().equals(alien.getEmail()))
+        if (my.getEmail().equals(alien.getEmail()))
             return; // It's not a alien
 
         if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE) {
@@ -343,7 +343,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         // I'm ready to action
         if (myFollow)
-            ThreadUtil.Do(() -> setMyLocation(latLng));
+            ThreadUtil.Do(() -> setMyLocation(latLng, true));
 
         //Toast.makeText(this, "Current location:\n" + my.getLocation(), Toast.LENGTH_LONG).show();
         Log.i("Map", "My location click:" + my.getLocation());
@@ -356,21 +356,22 @@ public class MapsActivity extends AppCompatActivity implements
 
         if (my.getLocation() == null || LocationUtil.distance(my.getLocation(), latLng) >= MY_FOLLOW_DISTANCE) {
 
-            ThreadUtil.Do(() -> setMyLocation(latLng));
+            ThreadUtil.Do(() -> setMyLocation(latLng, false));
 
             Log.i("Map", "Changed location: " + my.getLocation());
         }
     }
 
-    private void setMyLocation(LatLng latLng) {
+    private void setMyLocation(LatLng latLng, boolean push) {
         if (latLng == null)
             return;
 
         my.setLocation(latLng);
-        saveMe();
+
+        saveMe(push);
     }
 
-    private void saveMe() {
+    private void saveMe(boolean push) {
         var myLocation = my.getLocation();
         if (myLocation == null)
             return;
@@ -385,8 +386,9 @@ public class MapsActivity extends AppCompatActivity implements
         // Save my profile to database
         actorService.save(my);
 
-        // Push my id(email) to all
-        pusherService.Push(myChanelName, my.getEmail());
+        // Push my id(email) to all if need
+        if (push)
+            pusherService.Push(myChanelName, my.getEmail());
     }
 
     //#endregion
@@ -441,7 +443,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region Timer events
 
-    private void onTimerPerTenSeconds() {
+    private void onTimerPerSecond() {
         if (inTimerEventWork)
             return;
 
@@ -455,14 +457,19 @@ public class MapsActivity extends AppCompatActivity implements
                     Log.i("TimerPerSecond", "tick");
 
                     // Push myself
-                    saveMe();
+                    saveMe(false);
 
                     // Load visible aliens from database
-                    var aliens = actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE);
-                    //TODO Добавить тварей из списка - ибо из базы они не вернутся, если уже далеко
+                    var aliensList = actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE);
+
+                    // Add current invisible aliens
+                    this.aliens.forEach(pair -> {
+                        if (!aliensList.contains(pair.actor))
+                            aliensList.add(pair.actor);
+                    });
 
                     // Sync aliens list and mark alien on map
-                    MapsActivity.this.runOnUiThread(() -> aliens.forEach(this::trySyncAlien));
+                    MapsActivity.this.runOnUiThread(() -> aliensList.forEach(this::trySyncAlien));
 
                 } finally {
                     inTimerEventWork = false;

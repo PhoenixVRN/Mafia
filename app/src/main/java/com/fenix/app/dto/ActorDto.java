@@ -25,6 +25,24 @@ public class ActorDto {
         return name;
     }
 
+    @Override
+    public boolean equals(Object anObject) {
+        if (anObject == null)
+            return false;
+
+        if (anObject instanceof ActorDto) {
+            ActorDto anotherActor = (ActorDto) anObject;
+
+            if (this.getEmail() == anotherActor.getEmail())
+                return true;
+
+            if (this.getEmail() != null && this.getEmail().equals(anotherActor.getEmail()))
+                return true;
+        }
+
+        return false;
+    }
+
     /**
      * Complete set state
      */
