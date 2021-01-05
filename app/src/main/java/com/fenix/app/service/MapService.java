@@ -56,13 +56,20 @@ public class MapService implements OnMapReadyCallback {
     }
 
     /**
-     * Add a marker and move the camera yo my
+     * Change a marker color
      */
-    public Marker MarkerToMyLocation(String title) {
-        Location location = map.getMyLocation();
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+    public Marker ChangeMarkerColor(Marker marker, float color) {
+        try {
+            if (color < 0)
+                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+            else
+                marker.setIcon(BitmapDescriptorFactory.defaultMarker(color));
 
-        return MarkerToLocation(title, latLng, true);
+            return marker;
+        } catch (IllegalArgumentException ex)
+        {
+            return null;
+        }
     }
 
     /**
