@@ -31,6 +31,7 @@ import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.pusher.client.channel.PusherEvent;
@@ -50,8 +51,7 @@ import lombok.var;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MapsActivity extends AppCompatActivity implements
         MapService.EventListener,
-        PusherService.EventListener,
-        AdapterView.OnItemSelectedListener {
+        PusherService.EventListener {
 
     //#region Constants
 
@@ -109,19 +109,15 @@ public class MapsActivity extends AppCompatActivity implements
     //#region My
 
     //#region myRegButton
-    private Button myRegButton;
-    private final View.OnClickListener myPushButtonListener = new View.OnClickListener() {
+    private Button hitButton;
+    private final View.OnClickListener hitButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.i("My", "myRegButton click");
+            Log.i("My", "hitButton click");
 
-            // Send them all my dto
-            //TODO pusherService.Push(PUSH_MAP_CHANNEL, PUSH_LOCATION_EVENT, my);
-
-            // Save current state to DB
-            ThreadUtil.Do(() -> {
-                actorService.save(my);
-            });
+            //TODO Тут логика после выбора врага!
+            if(my != null &&  target != null && target.actor!= null)
+                actorService.hit(my, target.actor);
         }
     };
     //#endregion
@@ -157,23 +153,20 @@ public class MapsActivity extends AppCompatActivity implements
     };
     //#endregion
 
-    //# Вызов окна персонажа
+    //#region Вызов окна персонажа
     private ImageButton iconPersBatton;
-    private View.OnContextClickListener iconPersBattonListener = new View.OnContextClickListener() {
-        @Override
-        public boolean onContextClick(View view) {
+    private View.OnContextClickListener iconPersBattonListener = view -> {
 //            var fragment = null;
-            var fragment = new PersonWindow();
-            var fm = getFragmentManager();
-            var ft = fm.beginTransaction();
-            ft.replace(R.id.map, fragment);
-            ft.commit();
+        var fragment = new PersonWindow();
+        var fm = getFragmentManager();
+        var ft = fm.beginTransaction();
+        ft.replace(R.id.map, fragment);
+        ft.commit();
 
 
-            return false;
-        }
+        return false;
     };
-    //# end
+    //#endregion
 
     //#region mySwitch
     private Switch mySwitch;
@@ -187,6 +180,50 @@ public class MapsActivity extends AppCompatActivity implements
     //#region aliensSpinner
     Spinner aliensSpinner;
     ArrayAdapter aliensSpinnerAdapter;
+    AdapterView.OnItemSelectedListener aliensSpinnerItemSelectedListener = new AdapterView.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            // Clear color of old target
+            var oldTarget = target;
+            if (oldTarget != null) {
+                var oldMarker = oldTarget.marker;
+                if (oldMarker != null)
+                    mapService.ChangeMarkerColor(oldMarker, -1f);
+            }
+
+            // Take the new target
+            var newTarget = aliens.get(position);
+
+            if (newTarget != null && newTarget.marker != null) {
+                Log.i("AlienSpinner", newTarget.actor.getName());
+
+                // Paint new target
+                mapService.ChangeMarkerColor(newTarget.marker, BitmapDescriptorFactory.HUE_RED);
+            }
+
+            // Set the new target to activity
+            MapsActivity.this.target = newTarget;
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+            Log.i("AlienSpinner", "Nothing selected");
+
+            // Clear color of old target
+            var oldTarget = target;
+            if (oldTarget != null) {
+                var oldMarker = oldTarget.marker;
+                if (oldMarker != null)
+                    mapService.ChangeMarkerColor(oldMarker, -1f);
+            }
+
+            // Clear target
+            target = null;
+        }
+
+    };
     //#endregion
 
     //#endregion
@@ -241,8 +278,8 @@ public class MapsActivity extends AppCompatActivity implements
                     timerService.schedule(timerTaskPerSecond, 1000, 1000);
 
                     // myPushButton
-                    myRegButton = (Button) findViewById(R.id.myRegButton);
-                    myRegButton.setOnClickListener(myPushButtonListener);
+                    hitButton = (Button) findViewById(R.id.hitButton);
+                    hitButton.setOnClickListener(hitButtonListener);
 
                     // myNameTextView
                     myNameTextView = findViewById(R.id.myNameTextView);
@@ -262,7 +299,15 @@ public class MapsActivity extends AppCompatActivity implements
                     aliensSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     aliensSpinner = findViewById(R.id.aliensSpinner);
                     aliensSpinner.setAdapter(aliensSpinnerAdapter);
-                    aliensSpinner.setOnItemSelectedListener(this);
+                    aliensSpinner.setOnItemSelectedListener(aliensSpinnerItemSelectedListener);
+                    {
+                        var actorNull = new ActorDto();
+                        actorNull.setName("Никто");
+                        actorNull.setEmail("");
+                        actorNull.setLocation(new LatLng(1000000f, 1000000f));
+                        aliens.add(new ActorMarkerPair(actorNull, null));
+                        aliensSpinnerAdapter.addAll(aliens);
+                    }
 
                     // mySwitch
                     mySwitch = (Switch) findViewById(R.id.mySwitch);
@@ -280,6 +325,9 @@ public class MapsActivity extends AppCompatActivity implements
         if (my.getEmail().equals(alien.getEmail()))
             return; // It's not a alien
 
+        if(StringUtils.isEmpty(alien.getEmail()))
+            return; // It's a Null
+
         if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE) {
             // Sync already linked
 
@@ -295,9 +343,6 @@ public class MapsActivity extends AppCompatActivity implements
                     if (pair.marker != null)
                         pair.marker.remove();
                 });
-
-                aliensSpinnerAdapter.clear();
-                aliensSpinnerAdapter.addAll(aliens);
             }
         } else {
             // Sync already linked
@@ -308,21 +353,19 @@ public class MapsActivity extends AppCompatActivity implements
                     linked.add(p);
             });
 
-            linked.forEach(pair -> MapsActivity.this.runOnUiThread(() -> {
+            linked.forEach(pair -> {
                 pair.actor.set(alien);
                 pair.marker.setPosition(alien.getLocation());
-            }));
+            });
 
             // Add new
             if (linked.size() == 0) {
                 var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow));
                 aliens.add(pair);
-
-                aliensSpinnerAdapter.clear();
-                aliensSpinnerAdapter.addAll(aliens);
             }
         }
-
+        aliensSpinnerAdapter.clear();
+        aliensSpinnerAdapter.addAll(aliens);
     }
 
     //#region Map events
@@ -475,22 +518,6 @@ public class MapsActivity extends AppCompatActivity implements
                     inTimerEventWork = false;
                 }
             });
-    }
-
-    //#endregion
-
-    //#region Alien Spinner
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        target = aliens.get(position);
-        Log.i("AlienSpinner", target.actor.getName());
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        Log.i("AlienSpinner", "Nothing selected");
-        target = null;
     }
 
     //#endregion
