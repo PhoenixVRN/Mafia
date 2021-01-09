@@ -2,6 +2,7 @@ package com.fenix.app.service.entity;
 
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.MongoService;
+import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.maps.model.LatLng;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.geojson.Point;
@@ -53,6 +54,6 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         //TODO Тут логика удара
 
         var acc = my.getPerson().getWeaponHeadLeft().getAccuracy();
-        this.save(alien);
+        ThreadUtil.Do(()->this.save(alien));
     }
 }
