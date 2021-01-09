@@ -117,7 +117,14 @@ public class MapsActivity extends AppCompatActivity implements
 
             //TODO Тут логика после выбора врага!
             if(my != null &&  target != null && target.actor!= null)
+            {
                 actorService.hit(my, target.actor);
+                var enamyhp = target.actor.getPerson().getHp();
+                var hpwe = (TextView) findViewById(R.id.hpbar);
+                hpwe.setText(enamyhp);
+
+            }
+
         }
     };
     //#endregion
@@ -278,7 +285,7 @@ public class MapsActivity extends AppCompatActivity implements
                     timerService.schedule(timerTaskPerSecond, 1000, 1000);
 
                     // myPushButton
-                    hitButton = (Button) findViewById(R.id.hitButton);
+                    hitButton = (Button) findViewById(R.id.hitButton2);
                     hitButton.setOnClickListener(hitButtonListener);
 
                     // myNameTextView
