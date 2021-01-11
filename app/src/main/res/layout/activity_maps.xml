@@ -18,8 +18,8 @@
 
     <com.fenix.app.service.entity.ProgressTextView
         android:id="@+id/progressTextView"
-        android:layout_width="182dp"
-        android:layout_height="21dp"
+        android:layout_width="379dp"
+        android:layout_height="27dp"
         android:layout_margin="20dp"
         android:layout_marginStart="1dp"
 
@@ -29,7 +29,7 @@
         map:layout_constraintEnd_toStartOf="@+id/ButtonFire1"
         map:layout_constraintHorizontal_bias="0.0"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toBottomOf="@+id/Hpalien" />
+        map:layout_constraintTop_toBottomOf="@+id/ButtonFire1" />
 
     <Spinner
         android:id="@+id/aliensSpinner"
@@ -119,45 +119,13 @@
         android:id="@+id/ButtonFire1"
         android:layout_width="87dp"
         android:layout_height="85dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="24dp"
         android:background="@color/colorSigsa"
-        map:layout_constraintEnd_toStartOf="@+id/ButtonFire2"
-        map:layout_constraintHorizontal_bias="0.923"
+        map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toEndOf="@+id/Hpalien"
         map:layout_constraintTop_toBottomOf="@+id/aliensSpinner"
         map:srcCompat="@drawable/impact" />
-
-    <ImageButton
-        android:id="@+id/ButtonFire3"
-        android:layout_width="87dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="4dp"
-        map:layout_constraintEnd_toStartOf="@+id/ButtonFire2"
-        map:layout_constraintHorizontal_bias="0.923"
-        map:layout_constraintStart_toEndOf="@+id/Hpalien"
-        map:layout_constraintTop_toBottomOf="@+id/ButtonFire1"
-        map:srcCompat="@drawable/btn_sig" />
-
-    <ImageButton
-        android:id="@+id/ButtonFire2"
-        android:layout_width="87dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="244dp"
-        android:layout_marginTop="16dp"
-        map:layout_constraintStart_toEndOf="@+id/Hpalien"
-        map:layout_constraintTop_toBottomOf="@+id/mySwitch"
-        map:srcCompat="@drawable/btn_sig" />
-
-    <ImageButton
-        android:id="@+id/ButtonFire4"
-        android:layout_width="87dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="244dp"
-        android:layout_marginTop="108dp"
-        map:layout_constraintStart_toEndOf="@+id/Hpalien"
-        map:layout_constraintTop_toBottomOf="@+id/mySwitch"
-        map:srcCompat="@drawable/impact" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 
 public class ProgressTextView extends androidx.appcompat.widget.AppCompatAutoCompleteTextView {
     // Максимальное значение шкалы
-    private int mMaxValue = 350;
+    public int mMaxValue;
 
     // Конструкторы
     public ProgressTextView(Context context, AttributeSet attrs, int defStyle) {
@@ -29,7 +29,7 @@ public class ProgressTextView extends androidx.appcompat.widget.AppCompatAutoCom
     }
 
     // Установка значения
-    public synchronized void setValue(int value, int maxValue) {
+    public synchronized void setValue(int value, int mMaxValue) {
         // Установка новой надписи
        this.setText(String.valueOf(value + "/" + mMaxValue));
 
