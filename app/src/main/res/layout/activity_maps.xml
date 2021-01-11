@@ -88,4 +88,58 @@
         map:layout_constraintStart_toStartOf="parent"
         map:srcCompat="@drawable/iconpers" />
 
+    <TextView
+        android:id="@+id/Hpalien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="HP Alien"
+        android:textSize="16sp"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.045"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/aliensSpinner" />
+
+    <ImageButton
+        android:id="@+id/ButtonFire1"
+        android:layout_width="87dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="16dp"
+        map:layout_constraintEnd_toStartOf="@+id/ButtonFire2"
+        map:layout_constraintHorizontal_bias="0.923"
+        map:layout_constraintStart_toEndOf="@+id/Hpalien"
+        map:layout_constraintTop_toBottomOf="@+id/aliensSpinner"
+        map:srcCompat="@drawable/btn_sig" />
+
+    <ImageButton
+        android:id="@+id/ButtonFire3"
+        android:layout_width="87dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="8dp"
+        map:layout_constraintEnd_toStartOf="@+id/ButtonFire2"
+        map:layout_constraintHorizontal_bias="0.923"
+        map:layout_constraintStart_toEndOf="@+id/Hpalien"
+        map:layout_constraintTop_toBottomOf="@+id/ButtonFire1"
+        map:srcCompat="@drawable/btn_sig" />
+
+    <ImageButton
+        android:id="@+id/ButtonFire2"
+        android:layout_width="87dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="16dp"
+        map:layout_constraintStart_toEndOf="@+id/Hpalien"
+        map:layout_constraintTop_toBottomOf="@+id/mySwitch"
+        map:srcCompat="@drawable/btn_sig" />
+
+    <ImageButton
+        android:id="@+id/ButtonFire4"
+        android:layout_width="87dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="108dp"
+        map:layout_constraintStart_toEndOf="@+id/Hpalien"
+        map:layout_constraintTop_toBottomOf="@+id/mySwitch"
+        map:srcCompat="@drawable/btn_sig" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
