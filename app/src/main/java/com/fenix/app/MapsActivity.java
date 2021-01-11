@@ -27,6 +27,7 @@ import com.fenix.app.service.MapService;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.service.entity.ActorService;
+import com.fenix.app.service.entity.ProgressTextView;
 import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
@@ -119,10 +120,15 @@ public class MapsActivity extends AppCompatActivity implements
             if(my != null &&  target != null && target.actor!= null)
             {
                 actorService.hit(my, target.actor);
-                var enamyhp = target.actor.getPerson().getHp();
+                int enamyhp = target.actor.getPerson().getHp();
+                int maxHP = target.actor.getPerson().getMaxhp();
                 TextView hpwe = findViewById(R.id.Hpalien);
-                String str =Integer.toString(enamyhp);
-                hpwe.setText(str);
+                String sHp =Integer.toString(enamyhp);
+                String smHp =Integer.toString(maxHP);
+                hpwe.setText(sHp + "/" + smHp);
+                ProgressTextView progressTextView = (ProgressTextView) findViewById(R.id.progressTextView);
+                progressTextView.setValue(enamyhp, maxHP); // устанавливаем нужное значение
+
 
             }
 

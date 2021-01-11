@@ -52,8 +52,10 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
      */
     public void hit(ActorDto my, ActorDto alien) {
         //TODO Тут логика удара
-
+        var alienHP = alien.getPerson().getHp();
         var acc = my.getPerson().getWeaponHeadLeft().getAccuracy();
+        var result = alienHP - acc;
+        alien.getPerson().setHp(result);
         ThreadUtil.Do(()->this.save(alien));
     }
 }

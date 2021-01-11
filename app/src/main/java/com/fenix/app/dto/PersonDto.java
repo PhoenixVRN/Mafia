@@ -16,7 +16,8 @@ public class PersonDto {
     private String rang;
     private String bio;
 
-    private int hp = 1000;
+    private int hp = 1000; // Текущее количество Хитпоинтов
+    private int maxhp = 1000; // Максимальное количество Хитпоинтов
     private int streng = 100; // а если задонатите на карту 6762 8013 9005 0249 00  я накину ещё Хилсов)
     private int agility = 100;
     private int mana = 100;

@@ -16,6 +16,21 @@
 
     <!--#endregion -->
 
+    <com.fenix.app.service.entity.ProgressTextView
+        android:id="@+id/progressTextView"
+        android:layout_width="182dp"
+        android:layout_height="21dp"
+        android:layout_margin="20dp"
+        android:layout_marginStart="1dp"
+
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background"
+        android:gravity="center"
+        map:layout_constraintEnd_toStartOf="@+id/ButtonFire1"
+        map:layout_constraintHorizontal_bias="0.0"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/Hpalien" />
+
     <Spinner
         android:id="@+id/aliensSpinner"
         android:layout_width="248dp"
@@ -105,17 +120,18 @@
         android:layout_width="87dp"
         android:layout_height="85dp"
         android:layout_marginTop="16dp"
+        android:background="@color/colorSigsa"
         map:layout_constraintEnd_toStartOf="@+id/ButtonFire2"
         map:layout_constraintHorizontal_bias="0.923"
         map:layout_constraintStart_toEndOf="@+id/Hpalien"
         map:layout_constraintTop_toBottomOf="@+id/aliensSpinner"
-        map:srcCompat="@drawable/btn_sig" />
+        map:srcCompat="@drawable/impact" />
 
     <ImageButton
         android:id="@+id/ButtonFire3"
         android:layout_width="87dp"
         android:layout_height="85dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         map:layout_constraintEnd_toStartOf="@+id/ButtonFire2"
         map:layout_constraintHorizontal_bias="0.923"
         map:layout_constraintStart_toEndOf="@+id/Hpalien"
@@ -140,6 +156,8 @@
         android:layout_marginTop="108dp"
         map:layout_constraintStart_toEndOf="@+id/Hpalien"
         map:layout_constraintTop_toBottomOf="@+id/mySwitch"
-        map:srcCompat="@drawable/btn_sig" />
+        map:srcCompat="@drawable/impact" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
