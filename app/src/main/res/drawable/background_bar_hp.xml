@@ -7,10 +7,10 @@
 
             <gradient
                 android:angle="270"
-                android:centerColor="#111111"
+                android:centerColor="#3d3a3a"
                 android:centerY="0.75"
-                android:endColor="#555555"
-                android:startColor="#666666" />
+                android:endColor="#615d5d"
+                android:startColor="#948e8e" />
         </shape>
     </item>
     <item android:id="@+id/bar_value">
@@ -20,10 +20,10 @@
 
                 <gradient
                     android:angle="270"
-                    android:centerColor="#ad151c"
+                    android:centerColor="#781e1e"
                     android:centerY="0.75"
-                    android:endColor="#cc161f"
-                    android:startColor="#f71b26" />
+                    android:endColor="#a12727"
+                    android:startColor="#d43333" />
             </shape>
         </clip>
     </item>

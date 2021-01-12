@@ -110,7 +110,7 @@ public class MapsActivity extends AppCompatActivity implements
     //#region My
 
     //#region myRegButton
-    private Button hitButton;
+    private ImageButton hitButton;
     private final View.OnClickListener hitButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -122,12 +122,18 @@ public class MapsActivity extends AppCompatActivity implements
                 actorService.hit(my, target.actor);
                 int enamyhp = target.actor.getPerson().getHp();
                 int maxHP = target.actor.getPerson().getMaxhp();
-                TextView hpwe = findViewById(R.id.Hpalien);
-                String sHp =Integer.toString(enamyhp);
-                String smHp =Integer.toString(maxHP);
-                hpwe.setText(sHp + "/" + smHp);
-                ProgressTextView progressTextView = (ProgressTextView) findViewById(R.id.progressTextView);
-                progressTextView.setValue(enamyhp, maxHP); // устанавливаем нужное значение
+//                TextView hpwe = findViewById(R.id.Hpalien);
+//                String sHp =Integer.toString(enamyhp);
+//                String smHp =Integer.toString(maxHP);
+//                hpwe.setText(sHp + "/" + smHp);
+                ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
+                progressTextViewAlien.setValue(enamyhp, maxHP); // устанавливаем нужное значение
+
+                // Прогресс бар с моим ХР
+                my.getPerson().getHp();
+                ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
+                progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp()); // устанавливаем нужное значение
+
 
 
             }
@@ -292,7 +298,7 @@ public class MapsActivity extends AppCompatActivity implements
                     timerService.schedule(timerTaskPerSecond, 1000, 1000);
 
                     // myPushButton
-                    hitButton = (Button) findViewById(R.id.hitButton);
+                    hitButton = (ImageButton) findViewById(R.id.hitButton);
                     hitButton.setOnClickListener(hitButtonListener);
 
                     // myNameTextView
@@ -324,8 +330,8 @@ public class MapsActivity extends AppCompatActivity implements
                     }
 
                     // mySwitch
-                    mySwitch = (Switch) findViewById(R.id.mySwitch);
-                    mySwitch.setOnCheckedChangeListener(mySwitchListener);
+ //                   mySwitch = (Switch) findViewById(R.id.mySwitch);
+ //                   mySwitch.setOnCheckedChangeListener(mySwitchListener);
                 })
                 .error(ex -> {
                     throw new RuntimeException(ex.toString());
@@ -380,6 +386,17 @@ public class MapsActivity extends AppCompatActivity implements
         }
         aliensSpinnerAdapter.clear();
         aliensSpinnerAdapter.addAll(aliens);
+/*
+        if(my != null &&  target != null && target.actor!= null)
+        {
+            actorService.hit(my, target.actor);
+            int enamyhp = target.actor.getPerson().getHp();
+            int maxHP = target.actor.getPerson().getMaxhp();
+            ProgressTextView progressTextView = (ProgressTextView) findViewById(R.id.progressAlienHP);
+            progressTextView.setValue(enamyhp, maxHP); // устанавливаем нужное значение
+
+
+        }*/
     }
 
     //#region Map events

@@ -21,6 +21,9 @@
         android:layout_width="170dp"
         android:layout_height="15dp"
         android:layout_margin="5dp"
+        android:textColor="#de6868"
+        android:gravity="center"
+        android:textStyle="bold"
 
 
         android:layout_marginTop="4dp"

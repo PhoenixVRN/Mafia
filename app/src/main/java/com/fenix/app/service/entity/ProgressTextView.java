@@ -5,7 +5,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
+import android.widget.AutoCompleteTextView;
 
+
+/**
+ * Реализуем прогресс бар
+ */
 public class ProgressTextView extends androidx.appcompat.widget.AppCompatAutoCompleteTextView {
     // Максимальное значение шкалы
     public int mMaxValue;
@@ -25,15 +30,15 @@ public class ProgressTextView extends androidx.appcompat.widget.AppCompatAutoCom
 
     // Установка максимального значения
     public void setMaxValue(int maxValue) {
-   //     mMaxValue = maxValue;
+        //     mMaxValue = maxValue;
     }
 
     // Установка значения
     public synchronized void setValue(int value, int mMaxValue) {
         // Установка новой надписи
-       this.setText(String.valueOf(value + "/" + mMaxValue));
-
-        this.setTextColor(Color.RED);
+        this.setText(String.valueOf(value + "/" + mMaxValue));
+        this.setTextSize(12);
+        this.setTextColor(Color.BLACK);
 
         // Drawable, отвечающий за фон
         LayerDrawable background = (LayerDrawable) this.getBackground();
