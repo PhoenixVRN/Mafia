@@ -17,54 +17,50 @@
     <!--#endregion -->
 
     <com.fenix.app.service.entity.ProgressTextView
-        android:id="@+id/progressTextView"
-        android:layout_width="379dp"
-        android:layout_height="27dp"
-        android:layout_margin="20dp"
-        android:layout_marginStart="1dp"
+        android:id="@+id/progressAlienHP"
+        android:layout_width="170dp"
+        android:layout_height="15dp"
+        android:layout_margin="5dp"
 
-        android:layout_marginTop="20dp"
-        android:background="@drawable/background"
-        android:gravity="center"
-        map:layout_constraintEnd_toStartOf="@+id/ButtonFire1"
-        map:layout_constraintHorizontal_bias="0.0"
+
+        android:layout_marginTop="4dp"
+        android:background="@drawable/background_bar_hp"
+
+
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="1.0"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toBottomOf="@+id/ButtonFire1" />
+        map:layout_constraintTop_toBottomOf="@+id/aliensSpinner" />
+
+    <com.fenix.app.service.entity.ProgressTextView
+        android:id="@+id/progressMyHP"
+        android:layout_width="170dp"
+        android:layout_height="15dp"
+        android:layout_margin="5dp"
+
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_bar_hp"
+
+        map:layout_constraintEnd_toStartOf="@+id/progressAlienHP"
+        map:layout_constraintHorizontal_bias="0.066"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@+id/aliensSpinner" />
 
     <Spinner
         android:id="@+id/aliensSpinner"
-        android:layout_width="248dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="228dp"
+        android:layout_width="170dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="250dp"
         android:dropDownWidth="wrap_content"
         android:spinnerMode="dropdown"
         map:layout_constraintBottom_toBottomOf="parent"
-        map:layout_constraintStart_toStartOf="parent" />
-
-    <Switch
-        android:id="@+id/mySwitch"
-        android:layout_width="136dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="228dp"
-        android:text="Следить"
-        map:layout_constraintBottom_toBottomOf="parent"
-        map:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/hitButton"
-        android:layout_width="70dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="284dp"
-        android:text="Удар"
-        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.983"
         map:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/myNameTextView"
-        android:layout_width="156dp"
+        android:layout_width="100dp"
         android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="284dp"
@@ -77,11 +73,12 @@
 
     <Button
         android:id="@+id/myAreaButton"
-        android:layout_width="150dp"
+        android:layout_width="70dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="284dp"
         android:text="Вокруг меня"
+        android:textSize="8sp"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent" />
 
@@ -103,29 +100,35 @@
         map:layout_constraintStart_toStartOf="parent"
         map:srcCompat="@drawable/iconpers" />
 
-    <TextView
-        android:id="@+id/Hpalien"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="HP Alien"
-        android:textSize="16sp"
+    <FrameLayout
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintHorizontal_bias="0.045"
-        map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toBottomOf="@+id/aliensSpinner" />
+        map:layout_constraintTop_toBottomOf="@+id/progressAlienHP">
 
-    <ImageButton
-        android:id="@+id/ButtonFire1"
-        android:layout_width="87dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/colorSigsa"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintStart_toEndOf="@+id/Hpalien"
-        map:layout_constraintTop_toBottomOf="@+id/aliensSpinner"
-        map:srcCompat="@drawable/impact" />
+        <com.fenix.app.service.entity.ProgressTextView
+            android:id="@+id/progressIconAction"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+
+            android:layout_marginTop="4dp"
+            android:background="@drawable/background_icon_action"
+
+            android:rotation="-90"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintHorizontal_bias="1.0"
+            map:layout_constraintStart_toStartOf="parent"
+            map:layout_constraintTop_toBottomOf="@+id/aliensSpinner" />
+
+        <ImageButton
+            android:id="@+id/hitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            map:srcCompat="@drawable/impact" />
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
