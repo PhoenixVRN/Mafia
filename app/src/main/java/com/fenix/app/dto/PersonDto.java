@@ -25,6 +25,7 @@ public class PersonDto {
 
     private int AllPhDefenc = 10;
     private int AllMagefenc = 10;
+    private int RegHp = 5;    //  регенирация Хитпоинтов в 1 сек
 
         private LatLng location = null;
 
