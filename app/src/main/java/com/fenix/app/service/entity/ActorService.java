@@ -1,5 +1,7 @@
 package com.fenix.app.service.entity;
 
+import android.util.Log;
+
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.util.ThreadUtil;
@@ -56,6 +58,8 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         int acc = my.getPerson().getWeaponHeadLeft().getPhysicalDamage();
         int result = alienHP - acc;
         alien.getPerson().setHp(result);
-        ThreadUtil.Do(()->this.save(alien));
+        ThreadUtil.Do(()->this.save(alien)).error(ex->{
+            Log.e("actor sevis",ex.toString());
+        });
     }
 }

@@ -229,7 +229,8 @@ public class MapsActivity extends AppCompatActivity implements
                 progressTextViewAlien.setVisibility(View.INVISIBLE);
 
             }
-// устанавливаем нужное значение
+            ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
+            progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp());
         }
 
         @Override
@@ -350,7 +351,7 @@ public class MapsActivity extends AppCompatActivity implements
         if (my.getEmail().equals(alien.getEmail())) {
             my = alien;
             // TODO логика с MY ДТО
-            my.getPerson().getHp();
+
             ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
             progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp()); // устанавливаем нужное значение
             return; // It's not a alien
@@ -398,6 +399,8 @@ public class MapsActivity extends AppCompatActivity implements
         }
         aliensSpinnerAdapter.clear();
         aliensSpinnerAdapter.addAll(aliens);
+
+
 /*
         if(my != null &&  target != null && target.actor!= null)
         {
