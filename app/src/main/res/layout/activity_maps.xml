@@ -40,6 +40,8 @@
         android:layout_width="170dp"
         android:layout_height="15dp"
         android:layout_margin="5dp"
+        android:gravity="center"
+        android:textStyle="bold"
 
         android:layout_marginTop="8dp"
         android:background="@drawable/background_bar_hp"

@@ -117,8 +117,7 @@ public class MapsActivity extends AppCompatActivity implements
             Log.i("My", "hitButton click");
 
             //TODO Тут логика после выбора врага!
-            if(my != null &&  target != null && target.actor!= null)
-            {
+            if (my != null && target != null && target.actor != null) {
                 actorService.hit(my, target.actor);
                 int enamyhp = target.actor.getPerson().getHp();
                 int maxHP = target.actor.getPerson().getMaxhp();
@@ -128,12 +127,6 @@ public class MapsActivity extends AppCompatActivity implements
 //                hpwe.setText(sHp + "/" + smHp);
                 ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
                 progressTextViewAlien.setValue(enamyhp, maxHP); // устанавливаем нужное значение
-
-                // Прогресс бар с моим ХР
-                my.getPerson().getHp();
-                ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
-                progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp()); // устанавливаем нужное значение
-
 
 
             }
@@ -225,6 +218,18 @@ public class MapsActivity extends AppCompatActivity implements
 
             // Set the new target to activity
             MapsActivity.this.target = newTarget;
+            var AlienDTO = newTarget.actor;
+            // TODO здесь алиен ДТО
+            ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
+            if (AlienDTO != null && AlienDTO.getPerson() != null) {
+                progressTextViewAlien.setVisibility(View.VISIBLE);
+                progressTextViewAlien.setValue(AlienDTO.getPerson().getHp(), AlienDTO.getPerson().getMaxhp());
+                // устанавливаем нужное значение
+            } else {
+                progressTextViewAlien.setVisibility(View.INVISIBLE);
+
+            }
+// устанавливаем нужное значение
         }
 
         @Override
@@ -330,8 +335,8 @@ public class MapsActivity extends AppCompatActivity implements
                     }
 
                     // mySwitch
- //                   mySwitch = (Switch) findViewById(R.id.mySwitch);
- //                   mySwitch.setOnCheckedChangeListener(mySwitchListener);
+                    //                   mySwitch = (Switch) findViewById(R.id.mySwitch);
+                    //                   mySwitch.setOnCheckedChangeListener(mySwitchListener);
                 })
                 .error(ex -> {
                     throw new RuntimeException(ex.toString());
@@ -342,10 +347,17 @@ public class MapsActivity extends AppCompatActivity implements
      * Adding alien actor
      */
     protected void trySyncAlien(final ActorDto alien) {
-        if (my.getEmail().equals(alien.getEmail()))
+        if (my.getEmail().equals(alien.getEmail())) {
+            my = alien;
+            // TODO логика с MY ДТО
+            my.getPerson().getHp();
+            ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
+            progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp()); // устанавливаем нужное значение
             return; // It's not a alien
+        }
 
-        if(StringUtils.isEmpty(alien.getEmail()))
+
+        if (StringUtils.isEmpty(alien.getEmail()))
             return; // It's a Null
 
         if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE) {
