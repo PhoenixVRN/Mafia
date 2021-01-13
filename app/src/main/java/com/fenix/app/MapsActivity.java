@@ -118,15 +118,22 @@ public class MapsActivity extends AppCompatActivity implements
 
             //TODO Тут логика после выбора врага!
             if (my != null && target != null && target.actor != null) {
-                actorService.hit(my, target.actor);
-                int enamyhp = target.actor.getPerson().getHp();
-                int maxHP = target.actor.getPerson().getMaxhp();
+                ThreadUtil
+                        .Do(() -> actorService.hit(my, target.actor))
+                        .then(alien ->
+                        {
+                            target.actor = (ActorDto) alien;
+                            int enamyhp = target.actor.getPerson().getHp();
+                            int maxHP = target.actor.getPerson().getMaxhp();
+
+                            ProgressTextView progressTextViewAlien = findViewById(R.id.progressAlienHP);
+                            progressTextViewAlien.setValue(enamyhp, maxHP); // устанавливаем нужное значение
+                        })
+                        .error(ex -> Log.e("hitButtonListener", ex.toString()));
 //                TextView hpwe = findViewById(R.id.Hpalien);
 //                String sHp =Integer.toString(enamyhp);
 //                String smHp =Integer.toString(maxHP);
 //                hpwe.setText(sHp + "/" + smHp);
-                ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
-                progressTextViewAlien.setValue(enamyhp, maxHP); // устанавливаем нужное значение
 
 
             }
@@ -350,6 +357,7 @@ public class MapsActivity extends AppCompatActivity implements
     protected void trySyncAlien(final ActorDto alien) {
         if (my.getEmail().equals(alien.getEmail())) {
             my = alien;
+            myNameTextView.setText(my.getName());
             // TODO логика с MY ДТО
 
             ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
@@ -455,29 +463,27 @@ public class MapsActivity extends AppCompatActivity implements
         if (latLng == null)
             return;
 
-        my.setLocation(latLng);
-
-        saveMe(push);
+        my = updateMyLocation(latLng, push);
     }
 
-    private void saveMe(boolean push) {
-        var myLocation = my.getLocation();
-        if (myLocation == null)
-            return;
+    private ActorDto updateMyLocation(LatLng myLocation, boolean push) {
 
         // channelName is like this "map=2012;1012"
         var myChanelName = PUSH_MAP_CHANNEL + PUSH_MAP_CHANNEL_SEPARATOR + LocationUtil.calcMapNumber(myLocation, PUSH_MAP_GRAIN);
         pusherService.BindToMapChannels(myChanelName);
 
+        // Если dto не готова - просто возвращаем и ничего не делаем
         if (my.getPerson() == null)
-            return;
+            return my;
 
         // Save my profile to database
-        actorService.save(my);
+        var result = actorService.updateLocation(my, myLocation);
 
         // Push my id(email) to all if need
         if (push)
             pusherService.Push(myChanelName, my.getEmail());
+
+        return result;
     }
 
     //#endregion
@@ -545,9 +551,6 @@ public class MapsActivity extends AppCompatActivity implements
                 try {
                     Log.i("TimerPerSecond", "tick");
 
-                    // Push myself
-                    saveMe(false);
-
                     // Load visible aliens from database
                     var aliensList = actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE);
 
@@ -570,7 +573,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     @AllArgsConstructor
     private class ActorMarkerPair {
-        public final ActorDto actor;
+        public ActorDto actor;
         public final Marker marker;
 
         @Override

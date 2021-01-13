@@ -3,12 +3,17 @@ package com.fenix.app.service.entity;
 import android.util.Log;
 
 import com.fenix.app.dto.ActorDto;
+import com.fenix.app.dto.geo.GeoPointDto;
 import com.fenix.app.service.MongoService;
+import com.fenix.app.util.JsonUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.maps.model.LatLng;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Position;
+
+import org.bson.Document;
 
 import java.util.List;
 
@@ -29,6 +34,12 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         super(service, COLLECTION_NAME);
     }
 
+    /**
+     * Найти участников по позиции и расстоянию
+     * @param location  - позиция
+     * @param distance  - максимальное расстоние от позиции до участника
+     * @return          - списко найденных
+     */
     public List<ActorDto> findByGeoPoint(LatLng location, double distance) {
 /*
     {
@@ -49,17 +60,74 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
     }
 
     /**
+     * Изменить позицию
+     *  @param entity   - сущность
+     * @param location  - новая позиция
+     * @return          - обновлённая сущность из БД
+     */
+    public ActorDto updateLocation(ActorDto entity, LatLng location) {
+        var json = JsonUtil.Serialize(entity);
+        var doc = Document.parse(json);
+
+        var jsonLocation = JsonUtil.Serialize(location);
+        var docLocation = Document.parse(jsonLocation);
+
+        var geoPoint = new GeoPointDto(location);
+        var jsonGeoPoint = JsonUtil.Serialize(geoPoint);
+        var docGeoPoint = Document.parse(jsonGeoPoint);
+/*
+    { $set:
+        {
+            location: {
+                latitude: 51.586045,
+                longitude: 39.0010533
+            },
+            geoPoint: {
+                type: "Point",
+                coordinates: [51.586045, 39.0010533]
+            }
+        }
+    }
+*/
+        var filter = Filters.eq(entityKeyField, doc.get(entityKeyField));
+        var update = Updates.combine(
+                Updates.set("location", docLocation),
+                Updates.set("geoPoint", docGeoPoint)
+        );
+        var result = collection.updateOne(filter, update);
+        if (result.getModifiedCount() > 0)
+            return super.read(filter);
+
+        throw new RuntimeException("updateLocation: ActorDto with " + entityKeyField + " = " + doc.get(entityKeyField) + " not found!");
+    }
+
+    /**
      * Ударить
+     *
      * @param alien
      */
-    public void hit(ActorDto my, ActorDto alien) {
-        //TODO Тут логика удара
-        int alienHP = alien.getPerson().getHp();
+    public ActorDto hit(ActorDto my, ActorDto alien) {
+        //Сила удара
         int acc = my.getPerson().getWeaponHeadLeft().getPhysicalDamage();
+/*
+        int alienHP = alien.getPerson().getHp();
         int result = alienHP - acc;
         alien.getPerson().setHp(result);
-        ThreadUtil.Do(()->this.save(alien)).error(ex->{
-            Log.e("actor sevis",ex.toString());
-        });
+*/
+        // Строю фильтр участника
+        var json = JsonUtil.Serialize(alien);
+        var doc = Document.parse(json);
+        var filter = Filters.eq(entityKeyField, doc.get(entityKeyField));
+
+        // Строю update для поля person.hp
+        var update = Updates.inc("person.hp", -acc);
+
+        // Делаю update и получаю результат из БД
+        var result = collection.updateOne(filter, update);
+        if (result.getModifiedCount() > 0)
+            return super.read(filter); // Отдаю успешно обновленной dto участника
+
+        // Если дошел до сюда, значит в БД нет такого участника
+        throw new RuntimeException("hit: ActorDto with " + entityKeyField + " = " + doc.get(entityKeyField) + " not found!");
     }
 }
