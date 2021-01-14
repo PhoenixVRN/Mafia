@@ -22,11 +22,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fenix.app.dto.ActorDto;
+import com.fenix.app.dto.ItemBox;
 import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.service.entity.ActorService;
+import com.fenix.app.service.entity.ItemService;
 import com.fenix.app.service.entity.ProgressTextView;
 import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.ThreadUtil;
@@ -44,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.var;
@@ -72,6 +75,8 @@ public class MapsActivity extends AppCompatActivity implements
     private MongoService mongoService;
     private ActorService actorService;
 
+    private ItemService itemService;
+
     private Timer timerService;
     private TimerTask timerTaskPerSecond = new TimerTask() {
         @Override
@@ -93,6 +98,8 @@ public class MapsActivity extends AppCompatActivity implements
      * Visible aliens
      */
     public final List<ActorMarkerPair> aliens = new ArrayList<>();
+    // Список лута
+    public final List<ItemMarkerPair> items = new ArrayList<>();
 
     /**
      * Target alien
@@ -131,8 +138,16 @@ public class MapsActivity extends AppCompatActivity implements
                                 progressTextViewAlien.setVisibility(View.INVISIBLE);
                                 textDead.setVisibility(View.VISIBLE);
                                 textDead.setText(target.actor.getName() + " СДОХ НАХ");
+                                // ощздаеём
+                                var item = new ItemBox();
+                                item.setItemID(UUID.randomUUID().toString());
+                                item.getArmorItems().add(target.actor.getPerson().getArmorBoots());
+
+                             
+
                                 ThreadUtil.Do(() -> {
                                     try {
+                                        itemService.save(item);
                                         Thread.sleep(2000);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
@@ -303,6 +318,8 @@ public class MapsActivity extends AppCompatActivity implements
 
                     mongoService = new MongoService("fenix");
                     actorService = new ActorService(mongoService);
+
+                    itemService = new ItemService(mongoService);
                 })
                 .then(res -> {
                     // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -586,6 +603,17 @@ public class MapsActivity extends AppCompatActivity implements
         @Override
         public String toString() {
             return actor.getName();
+        }
+    }
+// Пара
+    @AllArgsConstructor
+    private class ItemMarkerPair {
+        public ItemBox item;
+        public final Marker marker;
+
+        @Override
+        public String toString() {
+            return item.getNameBox();
         }
     }
 }
