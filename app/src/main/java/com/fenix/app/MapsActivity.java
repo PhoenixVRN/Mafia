@@ -367,10 +367,11 @@ public class MapsActivity extends AppCompatActivity implements
         }
 
 
+
         if (StringUtils.isEmpty(alien.getEmail()))
             return; // It's a Null
-
-        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE) {
+// если дистанция до лоха больше чем я могу его пистануть или бобик уже сдох то уберите его с глаз моих нах....
+        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE || alien.getPerson().getHp() <=0) {
             // Sync already linked
 
             var toRemove = new ArrayList<ActorMarkerPair>();
