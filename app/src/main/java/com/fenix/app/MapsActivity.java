@@ -117,27 +117,28 @@ public class MapsActivity extends AppCompatActivity implements
             Log.i("My", "hitButton click");
 
             //TODO Тут логика после выбора врага!
+            ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
             if (my != null && target != null && target.actor != null) {
                 ThreadUtil
                         .Do(() -> actorService.hit(my, target.actor))
                         .then(alien ->
                         {
                             target.actor = (ActorDto) alien;
-                            int enamyhp = target.actor.getPerson().getHp();
-                            int maxHP = target.actor.getPerson().getMaxhp();
-
-                            ProgressTextView progressTextViewAlien = findViewById(R.id.progressAlienHP);
-                            progressTextViewAlien.setValue(enamyhp, maxHP); // устанавливаем нужное значение
+                            progressTextViewAlien.setVisibility(View.VISIBLE);
+                            progressTextViewAlien.setValue(target.actor.getPerson().getHp(), target.actor.getPerson().getMaxhp()); // устанавливаем нужное значение
+                            if (target.actor.getPerson().getHp() <= 0) {
+                                progressTextViewAlien.setVisibility(View.INVISIBLE);
+//                    TODO написать что этот бобик сдох, удалить из списка или перевести в подраздел "трупаки"
+                            } else {
+                            }
                         })
                         .error(ex -> Log.e("hitButtonListener", ex.toString()));
+
 //                TextView hpwe = findViewById(R.id.Hpalien);
 //                String sHp =Integer.toString(enamyhp);
 //                String smHp =Integer.toString(maxHP);
 //                hpwe.setText(sHp + "/" + smHp);
-
-
             }
-
         }
     };
     //#endregion
