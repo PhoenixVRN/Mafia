@@ -117,6 +117,7 @@ public class MapsActivity extends AppCompatActivity implements
             Log.i("My", "hitButton click");
 
             //TODO Тут логика после выбора врага!
+            TextView textDead = findViewById(R.id.infoText);
             ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
             if (my != null && target != null && target.actor != null) {
                 ThreadUtil
@@ -128,16 +129,21 @@ public class MapsActivity extends AppCompatActivity implements
                             progressTextViewAlien.setValue(target.actor.getPerson().getHp(), target.actor.getPerson().getMaxhp()); // устанавливаем нужное значение
                             if (target.actor.getPerson().getHp() <= 0) {
                                 progressTextViewAlien.setVisibility(View.INVISIBLE);
+                                textDead.setVisibility(View.VISIBLE);
+                                textDead.setText(target.actor.getName() + " СДОХ НАХ");
+                                ThreadUtil.Do(() -> {
+                                    try {
+                                        Thread.sleep(2000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }).then((res) -> {
+                                    textDead.setVisibility(View.INVISIBLE);
+                                });
 //                    TODO написать что этот бобик сдох, удалить из списка или перевести в подраздел "трупаки"
-                            } else {
                             }
                         })
                         .error(ex -> Log.e("hitButtonListener", ex.toString()));
-
-//                TextView hpwe = findViewById(R.id.Hpalien);
-//                String sHp =Integer.toString(enamyhp);
-//                String smHp =Integer.toString(maxHP);
-//                hpwe.setText(sHp + "/" + smHp);
             }
         }
     };
@@ -367,11 +373,10 @@ public class MapsActivity extends AppCompatActivity implements
         }
 
 
-
         if (StringUtils.isEmpty(alien.getEmail()))
             return; // It's a Null
 // если дистанция до лоха больше чем я могу его пистануть или бобик уже сдох то уберите его с глаз моих нах....
-        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE || alien.getPerson().getHp() <=0) {
+        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE || alien.getPerson().getHp() <= 0) {
             // Sync already linked
 
             var toRemove = new ArrayList<ActorMarkerPair>();
