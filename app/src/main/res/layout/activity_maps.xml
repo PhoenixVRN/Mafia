@@ -93,6 +93,7 @@
         android:layout_width="410dp"
         android:layout_height="413dp"
         map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.0"
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
         tools:context=".MapsActivity" />
@@ -134,6 +135,21 @@
             android:layout_height="wrap_content"
             map:srcCompat="@drawable/impact" />
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/infoText"
+        android:layout_width="322dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="312dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#e34236"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.494"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="@+id/map" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

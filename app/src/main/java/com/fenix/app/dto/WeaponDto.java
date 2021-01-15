@@ -21,13 +21,13 @@ public class WeaponDto extends GeneralInfo {
     private int optimalDistance; //Оптимальная дистанция
     private int correktDistance;
 
-    private int physicalDamage = 50;
-    private int magicaDamage;
-    private int rof;
-    private int accuracy;
-    private int armorPenetration;
-    private int critChance;
-    private int critValue;
+    private int physicalDamage = 50; // Физический урон
+    private int magicaDamage; // Магический урон
+    private int rof;   // Кулдаун (откат) в сек.
+    private int accuracy; // шанс что удар попадёт в цель в %
+    private int armorPenetration; // бронепробитие
+    private int critChance; // Шанс критической атаки в %.
+    private int critValue; // Коэфициент критической атаки (+ к основному урону или в %)
 
     private String descriptionMutable; // Описание изменений
     private String mutableVariable; //Изменяемая переменная, например восстановления здоровья.
@@ -38,13 +38,13 @@ public class WeaponDto extends GeneralInfo {
     private int valueMutVar2; // значение для изменения переменной характеристик.
 
     private String descriptionMutable3; // Описание изменений
-    private String mutableVariable3; //Изменяемая переменная, например понижения потенции.
-    private int valueMutVar3; // значение для изменения переменной характеристик.
+    private String mutableVariable3; //Изменяемая переменная( например усиленный реген ХП)
+    private int valueMutVar3; // значение для изменения переменной характеристик. (+100 ХП в мин)
 
     private int slotsRunes; //количество слотов под руны
 
-    RuneDto runeDto = new RuneDto();
-    RuneDto runeDto2 = new RuneDto();
-    RuneDto runeDto3 = new RuneDto();
+    RuneDto runeDto = null;
+    RuneDto runeDto2 = null;
+    RuneDto runeDto3 = null;
 
 }
