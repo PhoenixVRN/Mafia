@@ -141,9 +141,18 @@ public class MapsActivity extends AppCompatActivity implements
                                 // ощздаеём
                                 var item = new ItemBox();
                                 item.setItemID(UUID.randomUUID().toString());
+                                item.setName(target.actor.getName()+" CORPS");
+                                item.getArmorItems().add(target.actor.getPerson().getArmorHead());
+                                item.getArmorItems().add(target.actor.getPerson().getArmorTorso());
+                                item.getArmorItems().add(target.actor.getPerson().getArmorGloves());
+                                item.getArmorItems().add(target.actor.getPerson().getArmorBoots());
                                 item.getArmorItems().add(target.actor.getPerson().getArmorBoots());
 
-                             
+                                item.getWeaponItems().add(target.actor.getPerson().getWeaponHeadLeft());
+                                item.getWeaponItems().add(target.actor.getPerson().getWeaponHeadRight());
+
+                                item.getObjectsItems().add(target.actor.getPerson().getBag());
+
 
                                 ThreadUtil.Do(() -> {
                                     try {
@@ -153,6 +162,7 @@ public class MapsActivity extends AppCompatActivity implements
                                         e.printStackTrace();
                                     }
                                 }).then((res) -> {
+                                    textDead.setText("");
                                     textDead.setVisibility(View.INVISIBLE);
                                 });
 //                    TODO написать что этот бобик сдох, удалить из списка или перевести в подраздел "трупаки"
@@ -613,7 +623,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         @Override
         public String toString() {
-            return item.getNameBox();
+            return item.getName();
         }
     }
 }
