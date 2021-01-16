@@ -30,6 +30,14 @@ public abstract class EntitySeriveBase<E> {
         this.collection = service.getDocuments(collectionName);
     }
 
+    protected Bson getOneFilter(E entity){
+        var json = JsonUtil.Serialize(entity);
+        var doc = Document.parse(json);
+
+        var filter = Filters.eq(entityKeyField, doc.get(entityKeyField));
+        return filter;
+    }
+
     //#region CRUDL
 
     public void create(E entity) {

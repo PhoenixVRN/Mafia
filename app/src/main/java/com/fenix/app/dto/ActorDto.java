@@ -18,6 +18,8 @@ public class ActorDto {
     private LatLng location = null;
     private GeoPointDto geoPoint; // Implementation GeoJSON
 
+    private long lastAccessTime; // Дата последнего обращения
+
     private PersonDto person = null;
 
     @Override

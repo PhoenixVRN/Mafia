@@ -141,7 +141,7 @@ public class MapsActivity extends AppCompatActivity implements
                                 // ощздаеём
                                 var item = new ItemBox();
                                 item.setItemID(UUID.randomUUID().toString());
-                                item.setName(target.actor.getName()+" CORPS");
+                                item.setName(target.actor.getName() + " CORPS");
                                 item.getArmorItems().add(target.actor.getPerson().getArmorHead());
                                 item.getArmorItems().add(target.actor.getPerson().getArmorTorso());
                                 item.getArmorItems().add(target.actor.getPerson().getArmorGloves());
@@ -585,6 +585,9 @@ public class MapsActivity extends AppCompatActivity implements
                 try {
                     Log.i("TimerPerSecond", "tick");
 
+                    // Update my last access time
+                    my = actorService.updateAccessTime(my);
+
                     // Load visible aliens from database
                     var aliensList = actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE);
 
@@ -615,7 +618,8 @@ public class MapsActivity extends AppCompatActivity implements
             return actor.getName();
         }
     }
-// Пара
+
+    // Пара
     @AllArgsConstructor
     private class ItemMarkerPair {
         public ItemBox item;

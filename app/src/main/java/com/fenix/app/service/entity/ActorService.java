@@ -1,12 +1,13 @@
 package com.fenix.app.service.entity;
 
-import android.util.Log;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.dto.geo.GeoPointDto;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.util.JsonUtil;
-import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.maps.model.LatLng;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
@@ -15,6 +16,9 @@ import com.mongodb.client.model.geojson.Position;
 
 import org.bson.Document;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import lombok.var;
@@ -36,10 +40,12 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
 
     /**
      * Найти участников по позиции и расстоянию
-     * @param location  - позиция
-     * @param distance  - максимальное расстоние от позиции до участника
-     * @return          - списко найденных
+     *
+     * @param location - позиция
+     * @param distance - максимальное расстоние от позиции до участника
+     * @return - списко найденных
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public List<ActorDto> findByGeoPoint(LatLng location, double distance) {
 /*
     {
@@ -55,20 +61,26 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         }
     }
 */
+        var localTime = LocalDateTime.now();
+        localTime = localTime.plusMinutes(-2);
+        var date = Date.from(localTime.atZone(ZoneId.systemDefault()).toInstant());
+
         var point = new Point(new Position(location.latitude, location.longitude));
-        return super.list(Filters.near("geoPoint", point, distance, 0d));
+        var filter = Filters.and(
+                Filters.near("geoPoint", point, distance, 0d),
+                Filters.gte("lastAccessTime", date.getTime())
+        );
+        return super.list(filter);
     }
 
     /**
      * Изменить позицию
-     *  @param entity   - сущность
-     * @param location  - новая позиция
-     * @return          - обновлённая сущность из БД
+     *
+     * @param entity   - сущность
+     * @param location - новая позиция
+     * @return - обновлённая сущность из БД
      */
     public ActorDto updateLocation(ActorDto entity, LatLng location) {
-        var json = JsonUtil.Serialize(entity);
-        var doc = Document.parse(json);
-
         var jsonLocation = JsonUtil.Serialize(location);
         var docLocation = Document.parse(jsonLocation);
 
@@ -89,7 +101,7 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         }
     }
 */
-        var filter = Filters.eq(entityKeyField, doc.get(entityKeyField));
+        var filter = super.getOneFilter(entity);
         var update = Updates.combine(
                 Updates.set("location", docLocation),
                 Updates.set("geoPoint", docGeoPoint)
@@ -98,7 +110,30 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         if (result.getModifiedCount() > 0)
             return super.read(filter);
 
-        throw new RuntimeException("updateLocation: ActorDto with " + entityKeyField + " = " + doc.get(entityKeyField) + " not found!");
+        throw new RuntimeException("updateLocation: ActorDto with filter=" + filter.toString() + " not found!");
+    }
+
+    /**
+     * Изменить позицию
+     *
+     * @param entity - сущность
+     * @return - обновлённая сущность из БД
+     */
+    public ActorDto updateAccessTime(ActorDto entity) {
+/*
+    { $set:
+        {
+            lastAccessTime: 51586045
+        }
+    }
+*/
+        var filter = super.getOneFilter(entity);
+        var update = Updates.set("lastAccessTime", new Date().getTime());
+        var result = collection.updateOne(filter, update);
+        if (result.getModifiedCount() > 0)
+            return super.read(filter);
+
+        throw new RuntimeException("updateAccessTime: ActorDto with filter=" + filter.toString() + " not found!");
     }
 
     /**
@@ -115,9 +150,7 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         alien.getPerson().setHp(result);
 */
         // Строю фильтр участника
-        var json = JsonUtil.Serialize(alien);
-        var doc = Document.parse(json);
-        var filter = Filters.eq(entityKeyField, doc.get(entityKeyField));
+        var filter = super.getOneFilter(alien);
 
         // Строю update для поля person.hp
         var update = Updates.inc("person.hp", -acc);
@@ -128,6 +161,6 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
             return super.read(filter); // Отдаю успешно обновленной dto участника
 
         // Если дошел до сюда, значит в БД нет такого участника
-        throw new RuntimeException("hit: ActorDto with " + entityKeyField + " = " + doc.get(entityKeyField) + " not found!");
+        throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
     }
 }
