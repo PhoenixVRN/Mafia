@@ -22,11 +22,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fenix.app.dto.ActorDto;
+import com.fenix.app.dto.ItemBox;
 import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.service.PusherService;
 import com.fenix.app.service.entity.ActorService;
+import com.fenix.app.service.entity.ItemService;
+import com.fenix.app.service.entity.ProgressTextView;
 import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
@@ -43,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.var;
@@ -71,6 +75,8 @@ public class MapsActivity extends AppCompatActivity implements
     private MongoService mongoService;
     private ActorService actorService;
 
+    private ItemService itemService;
+
     private Timer timerService;
     private TimerTask timerTaskPerSecond = new TimerTask() {
         @Override
@@ -92,6 +98,8 @@ public class MapsActivity extends AppCompatActivity implements
      * Visible aliens
      */
     public final List<ActorMarkerPair> aliens = new ArrayList<>();
+    // Список лута
+    public final List<ItemMarkerPair> items = new ArrayList<>();
 
     /**
      * Target alien
@@ -109,22 +117,59 @@ public class MapsActivity extends AppCompatActivity implements
     //#region My
 
     //#region myRegButton
-    private Button hitButton;
+    private ImageButton hitButton;
     private final View.OnClickListener hitButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Log.i("My", "hitButton click");
 
             //TODO Тут логика после выбора врага!
-            if(my != null &&  target != null && target.actor!= null)
-            {
-                actorService.hit(my, target.actor);
-                var enamyhp = target.actor.getPerson().getHp();
-                var hpwe = (TextView) findViewById(R.id.hpbar);
-                hpwe.setText(enamyhp);
+            TextView textDead = findViewById(R.id.infoText);
+            ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
+            if (my != null && target != null && target.actor != null) {
+                ThreadUtil
+                        .Do(() -> actorService.hit(my, target.actor))
+                        .then(alien ->
+                        {
+                            target.actor = (ActorDto) alien;
+                            progressTextViewAlien.setVisibility(View.VISIBLE);
+                            progressTextViewAlien.setValue(target.actor.getPerson().getHp(), target.actor.getPerson().getMaxhp()); // устанавливаем нужное значение
+                            if (target.actor.getPerson().getHp() <= 0) {
+                                progressTextViewAlien.setVisibility(View.INVISIBLE);
+                                textDead.setVisibility(View.VISIBLE);
+                                textDead.setText(target.actor.getName() + " СДОХ НАХ");
+                                // ощздаеём
+                                var item = new ItemBox();
+                                item.setItemID(UUID.randomUUID().toString());
+                                item.setName(target.actor.getName()+" CORPS");
+                                item.getArmorItems().add(target.actor.getPerson().getArmorHead());
+                                item.getArmorItems().add(target.actor.getPerson().getArmorTorso());
+                                item.getArmorItems().add(target.actor.getPerson().getArmorGloves());
+                                item.getArmorItems().add(target.actor.getPerson().getArmorBoots());
+                                item.getArmorItems().add(target.actor.getPerson().getArmorBoots());
 
+                                item.getWeaponItems().add(target.actor.getPerson().getWeaponHeadLeft());
+                                item.getWeaponItems().add(target.actor.getPerson().getWeaponHeadRight());
+
+                                item.getObjectsItems().add(target.actor.getPerson().getBag());
+
+
+                                ThreadUtil.Do(() -> {
+                                    try {
+                                        itemService.save(item);
+                                        Thread.sleep(2000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }).then((res) -> {
+                                    textDead.setText("");
+                                    textDead.setVisibility(View.INVISIBLE);
+                                });
+//                    TODO написать что этот бобик сдох, удалить из списка или перевести в подраздел "трупаки"
+                            }
+                        })
+                        .error(ex -> Log.e("hitButtonListener", ex.toString()));
             }
-
         }
     };
     //#endregion
@@ -212,6 +257,19 @@ public class MapsActivity extends AppCompatActivity implements
 
             // Set the new target to activity
             MapsActivity.this.target = newTarget;
+            var AlienDTO = newTarget.actor;
+            // TODO здесь алиен ДТО
+            ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
+            if (AlienDTO != null && AlienDTO.getPerson() != null) {
+                progressTextViewAlien.setVisibility(View.VISIBLE);
+                progressTextViewAlien.setValue(AlienDTO.getPerson().getHp(), AlienDTO.getPerson().getMaxhp());
+                // устанавливаем нужное значение
+            } else {
+                progressTextViewAlien.setVisibility(View.INVISIBLE);
+
+            }
+            ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
+            progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp());
         }
 
         @Override
@@ -270,6 +328,8 @@ public class MapsActivity extends AppCompatActivity implements
 
                     mongoService = new MongoService("fenix");
                     actorService = new ActorService(mongoService);
+
+                    itemService = new ItemService(mongoService);
                 })
                 .then(res -> {
                     // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -285,7 +345,7 @@ public class MapsActivity extends AppCompatActivity implements
                     timerService.schedule(timerTaskPerSecond, 1000, 1000);
 
                     // myPushButton
-                    hitButton = (Button) findViewById(R.id.hitButton2);
+                    hitButton = (ImageButton) findViewById(R.id.hitButton);
                     hitButton.setOnClickListener(hitButtonListener);
 
                     // myNameTextView
@@ -317,8 +377,8 @@ public class MapsActivity extends AppCompatActivity implements
                     }
 
                     // mySwitch
-                    mySwitch = (Switch) findViewById(R.id.mySwitch);
-                    mySwitch.setOnCheckedChangeListener(mySwitchListener);
+                    //                   mySwitch = (Switch) findViewById(R.id.mySwitch);
+                    //                   mySwitch.setOnCheckedChangeListener(mySwitchListener);
                 })
                 .error(ex -> {
                     throw new RuntimeException(ex.toString());
@@ -329,13 +389,21 @@ public class MapsActivity extends AppCompatActivity implements
      * Adding alien actor
      */
     protected void trySyncAlien(final ActorDto alien) {
-        if (my.getEmail().equals(alien.getEmail()))
+        if (my.getEmail().equals(alien.getEmail())) {
+            my = alien;
+            myNameTextView.setText(my.getName());
+            // TODO логика с MY ДТО
+
+            ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
+            progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp()); // устанавливаем нужное значение
             return; // It's not a alien
+        }
 
-        if(StringUtils.isEmpty(alien.getEmail()))
+
+        if (StringUtils.isEmpty(alien.getEmail()))
             return; // It's a Null
-
-        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE) {
+// если дистанция до лоха больше чем я могу его пистануть или бобик уже сдох то уберите его с глаз моих нах....
+        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE || alien.getPerson().getHp() <= 0) {
             // Sync already linked
 
             var toRemove = new ArrayList<ActorMarkerPair>();
@@ -373,6 +441,19 @@ public class MapsActivity extends AppCompatActivity implements
         }
         aliensSpinnerAdapter.clear();
         aliensSpinnerAdapter.addAll(aliens);
+
+
+/*
+        if(my != null &&  target != null && target.actor!= null)
+        {
+            actorService.hit(my, target.actor);
+            int enamyhp = target.actor.getPerson().getHp();
+            int maxHP = target.actor.getPerson().getMaxhp();
+            ProgressTextView progressTextView = (ProgressTextView) findViewById(R.id.progressAlienHP);
+            progressTextView.setValue(enamyhp, maxHP); // устанавливаем нужное значение
+
+
+        }*/
     }
 
     //#region Map events
@@ -416,29 +497,27 @@ public class MapsActivity extends AppCompatActivity implements
         if (latLng == null)
             return;
 
-        my.setLocation(latLng);
-
-        saveMe(push);
+        my = updateMyLocation(latLng, push);
     }
 
-    private void saveMe(boolean push) {
-        var myLocation = my.getLocation();
-        if (myLocation == null)
-            return;
+    private ActorDto updateMyLocation(LatLng myLocation, boolean push) {
 
         // channelName is like this "map=2012;1012"
         var myChanelName = PUSH_MAP_CHANNEL + PUSH_MAP_CHANNEL_SEPARATOR + LocationUtil.calcMapNumber(myLocation, PUSH_MAP_GRAIN);
         pusherService.BindToMapChannels(myChanelName);
 
+        // Если dto не готова - просто возвращаем и ничего не делаем
         if (my.getPerson() == null)
-            return;
+            return my;
 
         // Save my profile to database
-        actorService.save(my);
+        var result = actorService.updateLocation(my, myLocation);
 
         // Push my id(email) to all if need
         if (push)
             pusherService.Push(myChanelName, my.getEmail());
+
+        return result;
     }
 
     //#endregion
@@ -506,9 +585,6 @@ public class MapsActivity extends AppCompatActivity implements
                 try {
                     Log.i("TimerPerSecond", "tick");
 
-                    // Push myself
-                    saveMe(false);
-
                     // Load visible aliens from database
                     var aliensList = actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE);
 
@@ -531,12 +607,23 @@ public class MapsActivity extends AppCompatActivity implements
 
     @AllArgsConstructor
     private class ActorMarkerPair {
-        public final ActorDto actor;
+        public ActorDto actor;
         public final Marker marker;
 
         @Override
         public String toString() {
             return actor.getName();
+        }
+    }
+// Пара
+    @AllArgsConstructor
+    private class ItemMarkerPair {
+        public ItemBox item;
+        public final Marker marker;
+
+        @Override
+        public String toString() {
+            return item.getName();
         }
     }
 }
