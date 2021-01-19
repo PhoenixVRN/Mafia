@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.dto.geo.GeoPointDto;
 import com.fenix.app.service.MongoService;
+import com.fenix.app.util.DateUtil;
 import com.fenix.app.util.JsonUtil;
 import com.google.android.gms.maps.model.LatLng;
 import com.mongodb.client.model.Filters;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import lombok.var;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ActorService extends EntitySeriveBase<ActorDto> {
 
     private static final String COLLECTION_NAME = "actors";
@@ -60,14 +62,12 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         }
     }
 */
-        var localTime = LocalDateTime.now();
-        localTime = localTime.plusMinutes(-2);
-        var date = Date.from(localTime.atZone(ZoneId.systemDefault()).toInstant());
-
         var point = new Point(new Position(location.latitude, location.longitude));
         var filter = Filters.and(
                 Filters.near("geoPoint", point, distance, 0d),
-                Filters.gte("lastAccessTime", date.getTime())
+                Filters.gte("lastAccessTime", DateUtil.toISO(
+                        DateUtil.addMinutes(new Date(), -2)
+                ))
         );
         return super.list(filter);
     }
@@ -127,7 +127,7 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
     }
 */
         var filter = super.getOneFilter(entity);
-        var update = Updates.set("lastAccessTime", new Date().getTime());
+        var update = Updates.set("lastAccessTime", DateUtil.toISO(new Date()));
         var result = collection.updateOne(filter, update);
         if (result.getModifiedCount() > 0)
             return super.read(filter);
