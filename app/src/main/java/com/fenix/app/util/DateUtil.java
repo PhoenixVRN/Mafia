@@ -23,6 +23,9 @@ public final class DateUtil {
     }
 
     public static Date fromISO(String isoDate) {
+        if(isoDate == null)
+            return null;
+
         SimpleDateFormat sdf = new SimpleDateFormat(ISO_DATETIME_FORMAT_PATTERN, ISO_DATETIME_LOCALE);
         Date date;
         try {
@@ -37,5 +40,12 @@ public final class DateUtil {
         LocalDateTime localTime = LocalDateTime.now();
         localTime = localTime.plusMinutes(minutes);
         return Date.from(localTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static long dateDiff(Date dateA, Date dateB) {
+        if(dateA == null || dateB == null)
+            return 0;
+
+        return dateA.getTime() - dateB.getTime();
     }
 }

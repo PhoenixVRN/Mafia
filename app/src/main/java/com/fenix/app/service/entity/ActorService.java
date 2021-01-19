@@ -63,12 +63,7 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
     }
 */
         var point = new Point(new Position(location.latitude, location.longitude));
-        var filter = Filters.and(
-                Filters.near("geoPoint", point, distance, 0d),
-                Filters.gte("lastAccessTime", DateUtil.toISO(
-                        DateUtil.addMinutes(new Date(), -2)
-                ))
-        );
+        var filter = Filters.near("geoPoint", point, distance, 0d);
         return super.list(filter);
     }
 

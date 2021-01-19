@@ -30,6 +30,7 @@ import com.fenix.app.service.PusherService;
 import com.fenix.app.service.entity.ActorService;
 import com.fenix.app.service.entity.ItemService;
 import com.fenix.app.service.entity.ProgressTextView;
+import com.fenix.app.util.DateUtil;
 import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
@@ -43,6 +44,7 @@ import com.pusher.client.connection.ConnectionStateChange;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -402,10 +404,14 @@ public class MapsActivity extends AppCompatActivity implements
 
         if (StringUtils.isEmpty(alien.getEmail()))
             return; // It's a Null
-// если дистанция до лоха больше чем я могу его пистануть или бобик уже сдох то уберите его с глаз моих нах....
-        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE || alien.getPerson().getHp() <= 0) {
+// если дистанция до лоха больше чем я могу его пистануть,
+// или бобик уже сдох,
+// или просто не активен 2 минуты, то уберите его с глаз моих нах....
+        var dateDiff = DateUtil.dateDiff(new Date(), DateUtil.fromISO(alien.getLastAccessTime()));
+        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE
+                || alien.getPerson().getHp() <= 0
+                || dateDiff > 2 * 60 * 1000) {
             // Sync already linked
-
             var toRemove = new ArrayList<ActorMarkerPair>();
             aliens.forEach(p -> {
                 if (p.actor.getEmail().equals(alien.getEmail()))
