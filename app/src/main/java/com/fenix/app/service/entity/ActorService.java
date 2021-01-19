@@ -45,7 +45,6 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
      * @param distance - максимальное расстоние от позиции до участника
      * @return - списко найденных
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public List<ActorDto> findByGeoPoint(LatLng location, double distance) {
 /*
     {

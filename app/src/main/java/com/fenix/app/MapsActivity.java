@@ -52,7 +52,7 @@ import lombok.AllArgsConstructor;
 import lombok.var;
 
 
-@RequiresApi(api = Build.VERSION_CODES.N)
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class MapsActivity extends AppCompatActivity implements
         MapService.EventListener,
         PusherService.EventListener {
