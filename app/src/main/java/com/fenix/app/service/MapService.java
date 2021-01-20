@@ -14,6 +14,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -35,12 +36,22 @@ public class MapService implements OnMapReadyCallback {
      * Add a marker and move the camera if need
      */
     public Marker MarkerToLocation(String title, LatLng latLng, boolean moveCamera) {
+        return MarkerToLocation(title, latLng, moveCamera, null);
+    }
+
+    /**
+     * Add a custom marker and move the camera if need
+     */
+    public Marker MarkerToLocation(String title, LatLng latLng, boolean moveCamera, BitmapDescriptor icon) {
         if (latLng == null)
             return null;
 
+        if(icon == null)
+            icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
+
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                .icon(icon);
 
         if (!Strings.isEmptyOrWhitespace(title))
             options.title(title);
@@ -54,6 +65,8 @@ public class MapService implements OnMapReadyCallback {
 
         return marker;
     }
+
+
 
     /**
      * Change a marker color

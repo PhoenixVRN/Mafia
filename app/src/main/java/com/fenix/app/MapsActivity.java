@@ -486,6 +486,70 @@ public class MapsActivity extends AppCompatActivity implements
         }*/
     }
 
+    /**
+     * Adding item box
+     */
+    protected void trySyncItem(final ItemBox item) {
+// если дистанция до ящика больше чем я могу его пистануть,
+// или просто прошло 20 минут, то уберите его с глаз моих нах....
+        var dateDiff = DateUtil.dateDiff(new Date(), DateUtil.fromISO(item.getDropTime()));
+        if (LocationUtil.distance(my.getLocation(), item.getLocation()) > MY_VIEW_DISTANCE
+                || dateDiff > 20 * 60 * 1000) {
+            // Sync already linked
+            var toRemove = new ArrayList<ItemMarkerPair>();
+            items.forEach(p -> {
+                if (p.item.getItemID().equals(item.getItemID()))
+                    toRemove.add(p);
+            });
+
+            if (toRemove.size() > 0) {
+                toRemove.forEach(pair -> {
+                    items.remove(pair);
+                    if (pair.marker != null)
+                        pair.marker.remove();
+                });
+            }
+        } else {
+            // Sync already linked
+            var linked = new ArrayList<ItemMarkerPair>();
+            items.forEach(p -> {
+                if (p.item.getItemID().equals(item.getItemID()))
+                    linked.add(p);
+            });
+
+            linked.forEach(pair -> {
+                pair.item.set(item);
+                pair.marker.setPosition(item.getLocation());
+            });
+
+            // Add new
+            if (linked.size() == 0) {
+                var pair = new ItemMarkerPair(item, mapService.MarkerToLocation(item.getName(),
+                        item.getLocation(),
+                        false,
+                        BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)
+                ));
+                items.add(pair);
+            }
+        }
+        aliensSpinnerAdapter.clear();
+        aliensSpinnerAdapter.addAll(aliens);
+
+
+/*
+        if(my != null &&  target != null && target.actor!= null)
+        {
+            actorService.hit(my, target.actor);
+            int enamyhp = target.actor.getPerson().getHp();
+            int maxHP = target.actor.getPerson().getMaxhp();
+            ProgressTextView progressTextView = (ProgressTextView) findViewById(R.id.progressAlienHP);
+            progressTextView.setValue(enamyhp, maxHP); // устанавливаем нужное значение
+
+
+        }*/
+    }
+
+
     //#region Map events
 
     @Override
@@ -619,16 +683,22 @@ public class MapsActivity extends AppCompatActivity implements
                     my = actorService.updateAccessTime(my);
 
                     // Load visible aliens from database
-                    var aliensList = actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE);
+                    var alienList = actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE);
 
                     // Add current invisible aliens
                     this.aliens.forEach(pair -> {
-                        if (!aliensList.contains(pair.actor))
-                            aliensList.add(pair.actor);
+                        if (!alienList.contains(pair.actor))
+                            alienList.add(pair.actor);
                     });
 
-                    // Sync aliens list and mark alien on map
-                    MapsActivity.this.runOnUiThread(() -> aliensList.forEach(this::trySyncAlien));
+                    // Load visible items from database
+                    var itemList = itemService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE);
+
+                    // Sync aliens and items on map
+                    MapsActivity.this.runOnUiThread(() -> {
+                        alienList.forEach(this::trySyncAlien);
+                        itemList.forEach(this::trySyncItem);
+                    });
 
                 } finally {
                     inTimerEventWork = false;
