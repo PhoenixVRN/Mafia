@@ -121,13 +121,16 @@ public class MapsActivity extends AppCompatActivity implements
     //#region myRegButton
     private ImageButton hitButton;
     private final View.OnClickListener hitButtonListener = new View.OnClickListener() {
+
         @Override
         public void onClick(View v) {
+
             Log.i("My", "hitButton click");
 
             //TODO Тут логика после выбора врага!
             TextView textDead = findViewById(R.id.infoText);
             ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
+            ProgressTextView progressButtonImpact1 = (ProgressTextView) findViewById(R.id.progressIconAction);
             if (my != null && target != null && target.actor != null) {
                 ThreadUtil
                         .Do(() -> actorService.hit(my, target.actor))
@@ -171,6 +174,20 @@ public class MapsActivity extends AppCompatActivity implements
                             }
                         })
                         .error(ex -> Log.e("hitButtonListener", ex.toString()));
+                hitButton.setClickable(false);
+                var rof = my.getPerson().getWeaponHeadRight().getRof();
+                var countrof = 0;
+                while (countrof<=rof){
+                    progressButtonImpact1.setValue(countrof, rof);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    countrof ++;
+                }
+                hitButton.setClickable(true);
+
             }
         }
     };
