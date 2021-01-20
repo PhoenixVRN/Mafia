@@ -139,6 +139,23 @@ public class MapsActivity extends AppCompatActivity implements
                             target.actor = (ActorDto) alien;
                             progressTextViewAlien.setVisibility(View.VISIBLE);
                             progressTextViewAlien.setValue(target.actor.getPerson().getHp(), target.actor.getPerson().getMaxhp()); // устанавливаем нужное значение
+                            ThreadUtil.Do(() -> {
+                                hitButton.setEnabled(false);
+                                var rof = my.getPerson().getWeaponHeadRight().getRof();
+                                var countrof = 0;
+                                while (countrof <= rof) {
+                                    progressButtonImpact1.setValueBut(countrof, rof);
+                                    try {
+                                        Thread.sleep(100);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    countrof = countrof + 100;
+                                }
+                            }).then((res) -> {
+                                hitButton.setEnabled(true);
+                            });
+
                             if (target.actor.getPerson().getHp() <= 0) {
                                 progressTextViewAlien.setVisibility(View.INVISIBLE);
                                 textDead.setVisibility(View.VISIBLE);
@@ -174,19 +191,9 @@ public class MapsActivity extends AppCompatActivity implements
                             }
                         })
                         .error(ex -> Log.e("hitButtonListener", ex.toString()));
-                hitButton.setClickable(false);
-                var rof = my.getPerson().getWeaponHeadRight().getRof();
-                var countrof = 0;
-                while (countrof<=rof){
-                    progressButtonImpact1.setValue(countrof, rof);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    countrof ++;
-                }
-                hitButton.setClickable(true);
+//                hitButton.setClickable(false);
+//                ProgressTextView progressButtonImpact = (ProgressTextView) findViewById(R.id.progressIconAction);
+
 
             }
         }
