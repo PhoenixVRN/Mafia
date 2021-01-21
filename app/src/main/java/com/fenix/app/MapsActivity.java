@@ -280,7 +280,8 @@ public class MapsActivity extends AppCompatActivity implements
                 Log.i("AlienSpinner", newTarget.actor.getName());
 
                 // Paint new target
-                mapService.ChangeMarkerColor(newTarget.marker, BitmapDescriptorFactory.HUE_RED);
+                mapService.ChangeMarkerColor(newTarget.marker,
+                        BitmapDescriptorFactory.HUE_RED);
             }
 
             // Set the new target to activity
@@ -469,7 +470,10 @@ public class MapsActivity extends AppCompatActivity implements
 
             // Add new
             if (linked.size() == 0) {
-                var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(), alien.getLocation(), targetFollow));
+                var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(),
+                        alien.getLocation(),
+                        targetFollow,
+                        BitmapDescriptorFactory.fromResource(R.drawable.sword_marker)));
                 aliens.add(pair);
             }
         }
