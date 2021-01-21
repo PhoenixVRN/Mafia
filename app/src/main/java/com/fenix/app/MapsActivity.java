@@ -498,7 +498,7 @@ public class MapsActivity extends AppCompatActivity implements
 // или просто прошло 20 минут, то уберите его с глаз моих нах....
         var dateDiff = DateUtil.dateDiff(new Date(), DateUtil.fromISO(item.getDropTime()));
         if (LocationUtil.distance(my.getLocation(), item.getLocation()) > MY_VIEW_DISTANCE
-                || dateDiff > 20 * 60 * 1000) {
+                || dateDiff > 60 * 60 * 1000) {
             // Sync already linked
             var toRemove = new ArrayList<ItemMarkerPair>();
             items.forEach(p -> {
@@ -531,7 +531,7 @@ public class MapsActivity extends AppCompatActivity implements
                 var pair = new ItemMarkerPair(item, mapService.MarkerToLocation(item.getName(),
                         item.getLocation(),
                         false,
-                        BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)
+                        BitmapDescriptorFactory.fromResource(R.drawable.box1)
                 ));
                 items.add(pair);
             }
