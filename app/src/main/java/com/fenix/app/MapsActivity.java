@@ -704,7 +704,7 @@ public class MapsActivity extends AppCompatActivity implements
                         itemList.forEach(this::trySyncItem);
                     });
                     // Реген ХП почти каждую сек
-                    if (my.getPerson().getHp() > 0|| my.getPerson().getHp() <= my.getPerson().getMaxhp()) {
+                    if (my.getPerson().getHp() > 0 && my.getPerson().getHp() <= my.getPerson().getMaxhp()) {
                                 actorService.regenHp(my); //функция для регена
                             }
 
