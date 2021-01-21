@@ -38,6 +38,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.mongodb.client.model.Updates;
 import com.pusher.client.channel.PusherEvent;
 import com.pusher.client.connection.ConnectionStateChange;
 
@@ -93,6 +94,7 @@ public class MapsActivity extends AppCompatActivity implements
     /**
      * Myself
      */
+    private boolean start_stop = true;
     private ActorDto my = null;
     private boolean myFollow = false;
 
@@ -409,6 +411,7 @@ public class MapsActivity extends AppCompatActivity implements
                 .error(ex -> {
                     throw new RuntimeException(ex.toString());
                 });
+
     }
 
     /**
@@ -700,6 +703,10 @@ public class MapsActivity extends AppCompatActivity implements
                         alienList.forEach(this::trySyncAlien);
                         itemList.forEach(this::trySyncItem);
                     });
+                    // Реген ХП почти каждую сек
+                    if (my.getPerson().getHp() > 0) {
+                                actorService.regenHp(my); //функция для регена
+                            }
 
                 } finally {
                     inTimerEventWork = false;

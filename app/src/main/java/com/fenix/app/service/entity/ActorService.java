@@ -157,4 +157,27 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         // Если дошел до сюда, значит в БД нет такого участника
         throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
     }
+
+    public ActorDto regenHp(ActorDto my) {
+        //Сила удара
+        int add = my.getPerson().getRegHp();
+/*
+        int alienHP = alien.getPerson().getHp();
+        int result = alienHP - acc;
+        alien.getPerson().setHp(result);
+*/
+        // Строю фильтр участника
+        var filter = super.getOneFilter(my);
+
+        // Строю update для поля person.hp
+        var update = Updates.inc("person.hp", +add);
+
+        // Делаю update и получаю результат из БД
+        var result = collection.updateOne(filter, update);
+        if (result.getModifiedCount() > 0)
+            return super.read(filter); // Отдаю успешно обновленной dto участника
+
+        // Если дошел до сюда, значит в БД нет такого участника
+        throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
+    }
 }
