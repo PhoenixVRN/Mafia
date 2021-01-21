@@ -56,9 +56,9 @@ public class ProgressTextView extends androidx.appcompat.widget.AppCompatAutoCom
 
     public synchronized void setValueBut(int value, int mMaxValue) {
         // Установка новой надписи
-        this.setText(String.valueOf(value + "/" + mMaxValue));
+ /*       this.setText(String.valueOf(value + "/" + mMaxValue));
         this.setTextSize(12);
-        this.setTextColor(Color.BLACK);
+        this.setTextColor(Color.BLACK);*/
 
         // Drawable, отвечающий за фон
         LayerDrawable background = (LayerDrawable) this.getBackground();

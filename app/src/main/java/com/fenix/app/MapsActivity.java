@@ -419,9 +419,10 @@ public class MapsActivity extends AppCompatActivity implements
             my = alien;
             myNameTextView.setText(my.getName());
             // TODO логика с MY ДТО
-
+            ProgressTextView progressButtonImpact1 = (ProgressTextView) findViewById(R.id.progressIconAction); // инициализируем кнопку удара
             ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
             progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp()); // устанавливаем нужное значение
+            progressButtonImpact1.setValueBut(10, 10); // красим кнопку удара в "активный цвет"
             return; // It's not a alien
         }
 
