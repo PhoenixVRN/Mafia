@@ -8,12 +8,14 @@ import android.location.Location;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.fenix.app.R;
 import com.fenix.app.util.PermissionUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -35,12 +37,24 @@ public class MapService implements OnMapReadyCallback {
      * Add a marker and move the camera if need
      */
     public Marker MarkerToLocation(String title, LatLng latLng, boolean moveCamera) {
+        return MarkerToLocation(title, latLng, moveCamera, null);
+    }
+
+    /**
+     * Add a custom marker and move the camera if need
+     */
+    public Marker MarkerToLocation(String title, LatLng latLng, boolean moveCamera, BitmapDescriptor icon) {
         if (latLng == null)
             return null;
 
+        if(icon == null)
+
+//            icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
+            icon = BitmapDescriptorFactory.fromResource(R.drawable.sword_marker);
+
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                .icon(icon);
 
         if (!Strings.isEmptyOrWhitespace(title))
             options.title(title);
@@ -55,15 +69,19 @@ public class MapService implements OnMapReadyCallback {
         return marker;
     }
 
+
+
     /**
      * Change a marker color
      */
     public Marker ChangeMarkerColor(Marker marker, float color) {
         try {
             if (color < 0)
-                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+//                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.sword_marker));
             else
-                marker.setIcon(BitmapDescriptorFactory.defaultMarker(color));
+//                marker.setIcon(BitmapDescriptorFactory.defaultMarker(color));
+                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.sword_marker));
 
             return marker;
         } catch (IllegalArgumentException ex)

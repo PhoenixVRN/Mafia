@@ -13,9 +13,11 @@ import lombok.NoArgsConstructor;
 public class ItemBox {
     private String itemID;
     private String name;
-    private int TimeDrop;
+
     private LatLng location = null;
     private GeoPointDto geoPoint; // Implementation GeoJSON
+
+    private String dropTime; // Дата появления итема
 
     private List<WeaponDto> weaponItems = new ArrayList<>();
     private List<ArmorDto> armorItems = new ArrayList<>();
@@ -44,6 +46,24 @@ public class ItemBox {
 
         return false;
     }
+
+    /**
+     * Complete set state
+     */
+    public void set(ItemBox dto) {
+        // Local properties
+        this.setName(dto.getName());
+        this.setDropTime(dto.getDropTime());
+
+        // location
+        this.setLocation(dto.getLocation());
+
+        // Items
+        this.setWeaponItems(dto.getWeaponItems());
+        this.setArmorItems(dto.getArmorItems());
+        this.setObjectsItems(dto.getObjectsItems());
+    }
+
     /**
      * Implementation GeoJSON
      */

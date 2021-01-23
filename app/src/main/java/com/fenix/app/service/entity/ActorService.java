@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.dto.geo.GeoPointDto;
 import com.fenix.app.service.MongoService;
+import com.fenix.app.util.DateUtil;
 import com.fenix.app.util.JsonUtil;
 import com.google.android.gms.maps.model.LatLng;
 import com.mongodb.client.model.Filters;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import lombok.var;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ActorService extends EntitySeriveBase<ActorDto> {
 
     private static final String COLLECTION_NAME = "actors";
@@ -45,7 +47,6 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
      * @param distance - максимальное расстоние от позиции до участника
      * @return - списко найденных
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public List<ActorDto> findByGeoPoint(LatLng location, double distance) {
 /*
     {
@@ -61,15 +62,8 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         }
     }
 */
-        var localTime = LocalDateTime.now();
-        localTime = localTime.plusMinutes(-2);
-        var date = Date.from(localTime.atZone(ZoneId.systemDefault()).toInstant());
-
         var point = new Point(new Position(location.latitude, location.longitude));
-        var filter = Filters.and(
-                Filters.near("geoPoint", point, distance, 0d),
-                Filters.gte("lastAccessTime", date.getTime())
-        );
+        var filter = Filters.near("geoPoint", point, distance, 0d);
         return super.list(filter);
     }
 
@@ -128,7 +122,7 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
     }
 */
         var filter = super.getOneFilter(entity);
-        var update = Updates.set("lastAccessTime", new Date().getTime());
+        var update = Updates.set("lastAccessTime", DateUtil.toISO(new Date()));
         var result = collection.updateOne(filter, update);
         if (result.getModifiedCount() > 0)
             return super.read(filter);
@@ -154,6 +148,29 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
 
         // Строю update для поля person.hp
         var update = Updates.inc("person.hp", -acc);
+
+        // Делаю update и получаю результат из БД
+        var result = collection.updateOne(filter, update);
+        if (result.getModifiedCount() > 0)
+            return super.read(filter); // Отдаю успешно обновленной dto участника
+
+        // Если дошел до сюда, значит в БД нет такого участника
+        throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
+    }
+
+    public ActorDto regenHp(ActorDto my) {
+        //Сила удара
+        int add = my.getPerson().getRegHp();
+/*
+        int alienHP = alien.getPerson().getHp();
+        int result = alienHP - acc;
+        alien.getPerson().setHp(result);
+*/
+        // Строю фильтр участника
+        var filter = super.getOneFilter(my);
+
+        // Строю update для поля person.hp
+        var update = Updates.inc("person.hp", +add);
 
         // Делаю update и получаю результат из БД
         var result = collection.updateOne(filter, update);

@@ -53,4 +53,24 @@ public class ProgressTextView extends androidx.appcompat.widget.AppCompatAutoCom
         // Уведомляем об изменении Drawable
         drawableStateChanged();
     }
+
+    public synchronized void setValueBut(int value, int mMaxValue) {
+        // Установка новой надписи
+ /*       this.setText(String.valueOf(value + "/" + mMaxValue));
+        this.setTextSize(12);
+        this.setTextColor(Color.BLACK);*/
+
+        // Drawable, отвечающий за фон
+        LayerDrawable background = (LayerDrawable) this.getBackground();
+
+        // Достаём Clip, отвечающий за шкалу, по индексу 1
+        ClipDrawable barValue = (ClipDrawable) background.getDrawable(1);
+
+        // Устанавливаем уровень шкалы
+        int newClipLevel = (int) (value * 10000 / mMaxValue);
+        barValue.setLevel(newClipLevel);
+
+        // Уведомляем об изменении Drawable
+        drawableStateChanged();
+    }
 }
