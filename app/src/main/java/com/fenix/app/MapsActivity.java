@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.fenix.app.dto.ActorDto;
 import com.fenix.app.dto.ItemBox;
+import com.fenix.app.dto.MapItemBase;
 import com.fenix.app.service.ContextService;
 import com.fenix.app.service.MapService;
 import com.fenix.app.service.MongoService;
@@ -38,7 +39,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.mongodb.client.model.Updates;
 import com.pusher.client.channel.PusherEvent;
 import com.pusher.client.connection.ConnectionStateChange;
 
@@ -63,7 +63,7 @@ public class MapsActivity extends AppCompatActivity implements
     //#region Constants
 
     private static final float MY_FOLLOW_DISTANCE = 0.25f; // 25sm
-    private static final float MY_VIEW_DISTANCE = 150f; // 150m
+    private static final float MY_VIEW_DISTANCE = 15000f; // 150m
     public static final int PUSH_MAP_GRAIN = 10; // ~1000m
     public static final String PUSH_MAP_CHANNEL = "map";
     public static final String PUSH_MAP_CHANNEL_SEPARATOR = "=";
@@ -101,14 +101,12 @@ public class MapsActivity extends AppCompatActivity implements
     /**
      * Visible aliens
      */
-    public final List<ActorMarkerPair> aliens = new ArrayList<>();
-    // Список лута
-    public final List<ItemMarkerPair> items = new ArrayList<>();
+    public final List<MapItemMarkerPair> aliens = new ArrayList<>();
 
     /**
      * Target alien
      */
-    private ActorMarkerPair target = null;
+    private MapItemMarkerPair target = null;
     private boolean targetFollow = false;
 
     volatile boolean inPusherEventWork = false;
@@ -133,14 +131,15 @@ public class MapsActivity extends AppCompatActivity implements
             TextView textDead = findViewById(R.id.infoText);
             ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
             ProgressTextView progressButtonImpact1 = (ProgressTextView) findViewById(R.id.progressIconAction);
-            if (my != null && target != null && target.actor != null) {
+            if (my != null && target != null && target.item != null && target.item instanceof ActorDto) {
                 ThreadUtil
-                        .Do(() -> actorService.hit(my, target.actor))
+                        .Do(() -> actorService.hit(my, (ActorDto) target.item))
                         .then(alien ->
                         {
-                            target.actor = (ActorDto) alien;
+                            var actor = (ActorDto) alien;
+                            target.item = actor;
                             progressTextViewAlien.setVisibility(View.VISIBLE);
-                            progressTextViewAlien.setValue(target.actor.getPerson().getHp(), target.actor.getPerson().getMaxhp()); // устанавливаем нужное значение
+                            progressTextViewAlien.setValue(actor.getPerson().getHp(), actor.getPerson().getMaxhp()); // устанавливаем нужное значение
                             ThreadUtil.Do(() -> {
                                 hitButton.setEnabled(false);
                                 var rof = my.getPerson().getWeaponHeadRight().getRof();
@@ -158,25 +157,24 @@ public class MapsActivity extends AppCompatActivity implements
                                 hitButton.setEnabled(true);
                             });
 
-                            if (target.actor.getPerson().getHp() <= 0) {
+                            if (actor.getPerson().getHp() <= 0) {
                                 progressTextViewAlien.setVisibility(View.INVISIBLE);
                                 textDead.setVisibility(View.VISIBLE);
-                                textDead.setText(target.actor.getName() + " СДОХ НАХ");
+                                textDead.setText(actor.getName() + " СДОХ НАХ");
                                 // ощздаеём
                                 var item = new ItemBox();
                                 item.setItemID(UUID.randomUUID().toString());
-                                item.setName(target.actor.getName() + " CORPS");
-                                item.getArmorItems().add(target.actor.getPerson().getArmorHead());
-                                item.getArmorItems().add(target.actor.getPerson().getArmorTorso());
-                                item.getArmorItems().add(target.actor.getPerson().getArmorGloves());
-                                item.getArmorItems().add(target.actor.getPerson().getArmorBoots());
-                                item.getArmorItems().add(target.actor.getPerson().getArmorBoots());
+                                item.setName(actor.getName() + " CORPS");
+                                item.getArmorItems().add(actor.getPerson().getArmorHead());
+                                item.getArmorItems().add(actor.getPerson().getArmorTorso());
+                                item.getArmorItems().add(actor.getPerson().getArmorGloves());
+                                item.getArmorItems().add(actor.getPerson().getArmorBoots());
+                                item.getArmorItems().add(actor.getPerson().getArmorBoots());
 
-                                item.getWeaponItems().add(target.actor.getPerson().getWeaponHeadLeft());
-                                item.getWeaponItems().add(target.actor.getPerson().getWeaponHeadRight());
+                                item.getWeaponItems().add(actor.getPerson().getWeaponHeadLeft());
+                                item.getWeaponItems().add(actor.getPerson().getWeaponHeadRight());
 
-                                item.getObjectsItems().add(target.actor.getPerson().getBag());
-
+                                item.getObjectsItems().add(actor.getPerson().getBag());
 
                                 ThreadUtil.Do(() -> {
                                     try {
@@ -277,28 +275,30 @@ public class MapsActivity extends AppCompatActivity implements
             var newTarget = aliens.get(position);
 
             if (newTarget != null && newTarget.marker != null) {
-                Log.i("AlienSpinner", newTarget.actor.getName());
+                Log.i("AlienSpinner", newTarget.item.getName());
 
                 // Paint new target
                 mapService.ChangeMarkerColor(newTarget.marker,
                         BitmapDescriptorFactory.HUE_RED);
             }
 
-            // Set the new target to activity
-            MapsActivity.this.target = newTarget;
-            var AlienDTO = newTarget.actor;
-            // TODO здесь алиен ДТО
-            ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
-            if (AlienDTO != null && AlienDTO.getPerson() != null) {
-                progressTextViewAlien.setVisibility(View.VISIBLE);
-                progressTextViewAlien.setValue(AlienDTO.getPerson().getHp(), AlienDTO.getPerson().getMaxhp());
-                // устанавливаем нужное значение
-            } else {
-                progressTextViewAlien.setVisibility(View.INVISIBLE);
+            if (newTarget.item instanceof ActorDto) {
+                // Set the new target to activity
+                MapsActivity.this.target = newTarget;
+                var AlienDTO = (ActorDto) newTarget.item;
+                // TODO здесь алиен ДТО
+                ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
+                if (AlienDTO != null && AlienDTO.getPerson() != null) {
+                    progressTextViewAlien.setVisibility(View.VISIBLE);
+                    progressTextViewAlien.setValue(AlienDTO.getPerson().getHp(), AlienDTO.getPerson().getMaxhp());
+                    // устанавливаем нужное значение
+                } else {
+                    progressTextViewAlien.setVisibility(View.INVISIBLE);
 
+                }
+                ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
+                progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp());
             }
-            ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
-            progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp());
         }
 
         @Override
@@ -401,7 +401,7 @@ public class MapsActivity extends AppCompatActivity implements
                         actorNull.setName("Никто");
                         actorNull.setEmail("");
                         actorNull.setLocation(new LatLng(1000000f, 1000000f));
-                        aliens.add(new ActorMarkerPair(actorNull, null));
+                        aliens.add(new MapItemMarkerPair(actorNull, null));
                         aliensSpinnerAdapter.addAll(aliens);
                     }
 
@@ -415,12 +415,36 @@ public class MapsActivity extends AppCompatActivity implements
 
     }
 
+    protected boolean testAlienToRemove(final ActorDto alien) {
+        // если дистанция до лоха больше чем я могу его пистануть,
+        // или бобик уже сдох,
+        // или просто не активен 2 минуты, то уберите его с глаз моих нах....
+
+        var dateDiff = DateUtil.dateDiff(new Date(), DateUtil.fromISO(alien.getLastAccessTime()));
+        return LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE
+                || alien.getPerson().getHp() <= 0
+                || dateDiff > 2 * 60 * 1000;
+    }
+
+    protected boolean testItemBoxToRemove(final ItemBox box) {
+        // если дистанция до ящика больше чем я могу его пистануть,
+        // или просто прошло 20 минут, то уберите его с глаз моих нах....
+
+        var dateDiff = DateUtil.dateDiff(new Date(), DateUtil.fromISO(box.getDropTime()));
+        return LocationUtil.distance(my.getLocation(), box.getLocation()) > MY_VIEW_DISTANCE
+                || dateDiff > 60 * 60 * 1000;
+    }
+
     /**
-     * Adding alien actor
+     * Sync markers and items
      */
-    protected void trySyncAlien(final ActorDto alien) {
-        if (my.getEmail().equals(alien.getEmail())) {
-            my = alien;
+    protected void trySyncMapItem(final MapItemBase item) {
+
+        if (StringUtils.isEmpty(item.getID()))
+            return; // It's a Null
+
+        if (my.equals(item)) {
+            my = (ActorDto) item;
             myNameTextView.setText(my.getName());
             // TODO логика с MY ДТО
             ProgressTextView progressButtonImpact1 = (ProgressTextView) findViewById(R.id.progressIconAction); // инициализируем кнопку удара
@@ -430,48 +454,40 @@ public class MapsActivity extends AppCompatActivity implements
             return; // It's not a alien
         }
 
-
-        if (StringUtils.isEmpty(alien.getEmail()))
-            return; // It's a Null
-// если дистанция до лоха больше чем я могу его пистануть,
-// или бобик уже сдох,
-// или просто не активен 2 минуты, то уберите его с глаз моих нах....
-        var dateDiff = DateUtil.dateDiff(new Date(), DateUtil.fromISO(alien.getLastAccessTime()));
-        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE
-                || alien.getPerson().getHp() <= 0
-                || dateDiff > 2 * 60 * 1000) {
+        // Check item for remove
+        if ((item instanceof ActorDto && testAlienToRemove((ActorDto) item))
+                || (item instanceof ItemBox && testItemBoxToRemove((ItemBox) item))
+        ) {
             // Sync already linked
-            var toRemove = new ArrayList<ActorMarkerPair>();
+            var toRemove = new ArrayList<MapItemMarkerPair>();
             aliens.forEach(p -> {
-                if (p.actor.getEmail().equals(alien.getEmail()))
+                if (p.item.equals(item))
                     toRemove.add(p);
             });
 
-            if (toRemove.size() > 0) {
-                toRemove.forEach(pair -> {
-                    aliens.remove(pair);
-                    if (pair.marker != null)
-                        pair.marker.remove();
-                });
-            }
+            toRemove.forEach(pair -> {
+                aliens.remove(pair);
+                if (pair.marker != null)
+                    pair.marker.remove();
+            });
+
         } else {
             // Sync already linked
-
-            var linked = new ArrayList<ActorMarkerPair>();
+            var linked = new ArrayList<MapItemMarkerPair>();
             aliens.forEach(p -> {
-                if (p.actor.getEmail().equals(alien.getEmail()))
+                if (p.item.equals(item))
                     linked.add(p);
             });
 
             linked.forEach(pair -> {
-                pair.actor.set(alien);
-                pair.marker.setPosition(alien.getLocation());
+                pair.item = item; // set ???
+                pair.marker.setPosition(item.getLocation());
             });
 
             // Add new
             if (linked.size() == 0) {
-                var pair = new ActorMarkerPair(alien, mapService.MarkerToLocation(alien.getName(),
-                        alien.getLocation(),
+                var pair = new MapItemMarkerPair(item, mapService.MarkerToLocation(item.getName(),
+                        item.getLocation(),
                         targetFollow,
                         BitmapDescriptorFactory.fromResource(R.drawable.sword_marker)));
                 aliens.add(pair);
@@ -493,70 +509,6 @@ public class MapsActivity extends AppCompatActivity implements
 
         }*/
     }
-
-    /**
-     * Adding item box
-     */
-    protected void trySyncItem(final ItemBox item) {
-// если дистанция до ящика больше чем я могу его пистануть,
-// или просто прошло 20 минут, то уберите его с глаз моих нах....
-        var dateDiff = DateUtil.dateDiff(new Date(), DateUtil.fromISO(item.getDropTime()));
-        if (LocationUtil.distance(my.getLocation(), item.getLocation()) > MY_VIEW_DISTANCE
-                || dateDiff > 60 * 60 * 1000) {
-            // Sync already linked
-            var toRemove = new ArrayList<ItemMarkerPair>();
-            items.forEach(p -> {
-                if (p.item.getItemID().equals(item.getItemID()))
-                    toRemove.add(p);
-            });
-
-            if (toRemove.size() > 0) {
-                toRemove.forEach(pair -> {
-                    items.remove(pair);
-                    if (pair.marker != null)
-                        pair.marker.remove();
-                });
-            }
-        } else {
-            // Sync already linked
-            var linked = new ArrayList<ItemMarkerPair>();
-            items.forEach(p -> {
-                if (p.item.getItemID().equals(item.getItemID()))
-                    linked.add(p);
-            });
-
-            linked.forEach(pair -> {
-                pair.item.set(item);
-                pair.marker.setPosition(item.getLocation());
-            });
-
-            // Add new
-            if (linked.size() == 0) {
-                var pair = new ItemMarkerPair(item, mapService.MarkerToLocation(item.getName(),
-                        item.getLocation(),
-                        false,
-                        BitmapDescriptorFactory.fromResource(R.drawable.box1)
-                ));
-                items.add(pair);
-            }
-        }
-        aliensSpinnerAdapter.clear();
-        aliensSpinnerAdapter.addAll(aliens);
-
-
-/*
-        if(my != null &&  target != null && target.actor!= null)
-        {
-            actorService.hit(my, target.actor);
-            int enamyhp = target.actor.getPerson().getHp();
-            int maxHP = target.actor.getPerson().getMaxhp();
-            ProgressTextView progressTextView = (ProgressTextView) findViewById(R.id.progressAlienHP);
-            progressTextView.setValue(enamyhp, maxHP); // устанавливаем нужное значение
-
-
-        }*/
-    }
-
 
     //#region Map events
 
@@ -648,7 +600,7 @@ public class MapsActivity extends AppCompatActivity implements
             ActorDto alienDto = actorService.load(email);
 
             // Sync aliens list and mark alien on map
-            MapsActivity.this.runOnUiThread(() -> trySyncAlien(alienDto));
+            MapsActivity.this.runOnUiThread(() -> trySyncMapItem(alienDto));
 
         } finally {
             inPusherEventWork = false;
@@ -691,12 +643,13 @@ public class MapsActivity extends AppCompatActivity implements
                     my = actorService.updateAccessTime(my);
 
                     // Load visible aliens from database
-                    var alienList = actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE);
+                    var alienList = new ArrayList<MapItemBase>();
+                    alienList.addAll(actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE));
 
                     // Add current invisible aliens
                     this.aliens.forEach(pair -> {
-                        if (!alienList.contains(pair.actor))
-                            alienList.add(pair.actor);
+                        if (!alienList.contains(pair.item))
+                            alienList.add(pair.item);
                     });
 
                     // Load visible items from database
@@ -704,13 +657,12 @@ public class MapsActivity extends AppCompatActivity implements
 
                     // Sync aliens and items on map
                     MapsActivity.this.runOnUiThread(() -> {
-                        alienList.forEach(this::trySyncAlien);
-                        itemList.forEach(this::trySyncItem);
+                        alienList.forEach(this::trySyncMapItem);
                     });
                     // Реген ХП почти каждую сек но не более 70%
-                    if (my.getPerson().getHp() > 0 && my.getPerson().getHp() <= (my.getPerson().getMaxhp())/100*70) {
-                                actorService.regenHp(my); //функция для регена
-                            }
+                    if (my.getPerson().getHp() > 0 && my.getPerson().getHp() <= (my.getPerson().getMaxhp()) / 100 * 70) {
+                        actorService.regenHp(my); //функция для регена
+                    }
 
                 } finally {
                     inTimerEventWork = false;
@@ -720,21 +672,11 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#endregion
 
-    @AllArgsConstructor
-    private class ActorMarkerPair {
-        public ActorDto actor;
-        public final Marker marker;
-
-        @Override
-        public String toString() {
-            return actor.getName();
-        }
-    }
-
     // Пара
     @AllArgsConstructor
-    private class ItemMarkerPair {
-        public ItemBox item;
+    private class MapItemMarkerPair {
+
+        public MapItemBase item;
         public final Marker marker;
 
         @Override

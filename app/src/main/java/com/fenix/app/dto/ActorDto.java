@@ -1,30 +1,25 @@
 package com.fenix.app.dto;
 
-import com.fenix.app.dto.geo.GeoPointDto;
-import com.google.android.gms.maps.model.LatLng;
-
 import org.jetbrains.annotations.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.var;
 
 @Data
 @NoArgsConstructor
-public class ActorDto {
+public class ActorDto extends MapItemBase {
 
     @NotNull
-    private String name, email, pass, phone;
-
-    private LatLng location = null;
-    private GeoPointDto geoPoint; // Implementation GeoJSON
+    private String email, pass, phone;
 
     private String lastAccessTime; // Дата последнего обращения
 
     private PersonDto person = null;
 
     @Override
-    public String toString() {
-        return name;
+    public String getID() {
+        return email;
     }
 
     @Override
@@ -48,7 +43,10 @@ public class ActorDto {
     /**
      * Complete set state
      */
-    public void set(ActorDto dto) {
+    @Override
+    public void set(MapItemBase item) {
+        var dto = (ActorDto)item;
+
         // Local properties
         this.setName(dto.getName());
         this.setPass(dto.getPass());
@@ -59,14 +57,6 @@ public class ActorDto {
 
         // Person profile
         this.setPerson(dto.getPerson());
-    }
-
-    /**
-     * Implementation GeoJSON
-     */
-    public void setLocation(LatLng location) {
-        this.location = location;
-        this.geoPoint = new GeoPointDto(location);
     }
 
 }

@@ -1,21 +1,16 @@
 package com.fenix.app.dto;
-import com.fenix.app.dto.geo.GeoPointDto;
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.var;
 
 @Data
 @NoArgsConstructor
-public class ItemBox {
-    private String itemID;
-    private String name;
+public class ItemBox extends MapItemBase {
 
-    private LatLng location = null;
-    private GeoPointDto geoPoint; // Implementation GeoJSON
+    private String itemID;
 
     private String dropTime; // Дата появления итема
 
@@ -23,34 +18,18 @@ public class ItemBox {
     private List<ArmorDto> armorItems = new ArrayList<>();
     private List<Object> objectsItems = new ArrayList<>();
 
-
     @Override
-    public String toString() {
-        return name;
-    }
-
-    @Override
-    public boolean equals(Object anObject) {
-        if (anObject == null)
-            return false;
-
-        if (anObject instanceof ItemBox) {
-            ItemBox anotherItem = (ItemBox) anObject;
-
-            if (this.getItemID() == anotherItem.getItemID())
-                return true;
-
-            if (this.getItemID() != null && this.getItemID().equals(anotherItem.getItemID()))
-                return true;
-        }
-
-        return false;
+    public String getID() {
+        return itemID;
     }
 
     /**
      * Complete set state
      */
-    public void set(ItemBox dto) {
+    @Override
+    public void set(MapItemBase item) {
+        var dto = (ItemBox)item;
+
         // Local properties
         this.setName(dto.getName());
         this.setDropTime(dto.getDropTime());
@@ -64,11 +43,4 @@ public class ItemBox {
         this.setObjectsItems(dto.getObjectsItems());
     }
 
-    /**
-     * Implementation GeoJSON
-     */
-    public void setLocation(LatLng location) {
-        this.location = location;
-        this.geoPoint = new GeoPointDto(location);
-    }
 }
