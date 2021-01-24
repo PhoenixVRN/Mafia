@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2020-12-29T14:43:41.112Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="gJY3srfBYQ929XFQCegF" version="14.1.2" type="github" pages="14">
+<mxfile host="app.diagrams.net" modified="2021-01-24T08:49:21.181Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36" etag="BlWBXZ6jSyLNXlt_lT8g" version="14.2.7" type="github" pages="15">
   <diagram id="gNH_Pl3YNp5ZFhpfkrIm" name="Concept">
-    <mxGraphModel dx="831" dy="525" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1060" dy="621" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1775,6 +1775,14 @@
         <mxCell id="7WTWfPhd-oC6hVe5J__8-2" value="Отражение входящего урона&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="B8ny_aOQclJQg81EGunP-1">
           <mxGeometry x="320" y="380" width="120" height="60" as="geometry" />
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="PtScO4k0X-xSaZuG3Ib-" name="Inventory">
+    <mxGraphModel dx="1060" dy="621" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="VvakX6o_-C2ZiRfGiYi--0" />
+        <mxCell id="VvakX6o_-C2ZiRfGiYi--1" parent="VvakX6o_-C2ZiRfGiYi--0" />
       </root>
     </mxGraphModel>
   </diagram>
