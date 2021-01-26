@@ -1,6 +1,7 @@
 package com.fenix.app;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import com.fenix.app.util.LocationUtil;
 import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -62,11 +64,15 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region Constants
 
+    public static final int DEBUG_FACTOR = 1000; // Для работы должен быть = 1, для отладки = 1000
+
     private static final float MY_FOLLOW_DISTANCE = 0.25f; // 25sm
-    private static final float MY_VIEW_DISTANCE = 15000f; // 150m
+    private static final float MY_VIEW_DISTANCE = 15000f * DEBUG_FACTOR; // 150m
     public static final int PUSH_MAP_GRAIN = 10; // ~1000m
     public static final String PUSH_MAP_CHANNEL = "map";
     public static final String PUSH_MAP_CHANNEL_SEPARATOR = "=";
+    public static final long ALIEN_DATE_DIFF_TO_REMOVE = 2 * 60 * 1000l * DEBUG_FACTOR * DEBUG_FACTOR; // 2 мин.
+    public static final long ITEM_DATE_DIFF_TO_REMOVE = 60 * 60 * 1000l * DEBUG_FACTOR * DEBUG_FACTOR; // 1 час
 
     //#endregion
 
@@ -118,7 +124,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region My
 
-    //#region myRegButton
+    //#region HitButton
     private ImageButton hitButton;
     private final View.OnClickListener hitButtonListener = new View.OnClickListener() {
 
@@ -200,6 +206,30 @@ public class MapsActivity extends AppCompatActivity implements
     };
     //#endregion
 
+    //#region HitButton
+    private Button takeButton;
+    private final View.OnClickListener takeButtonListener = v -> {
+        Log.i("My", "takeButton click");
+
+        if(target == null || !(target.item instanceof ItemBox))
+            return;
+
+        var bagList = my.getPerson().getBag();
+
+        var itemBox = (ItemBox)target.item;
+
+        bagList.addAll(itemBox.getArmorItems());
+        itemBox.getArmorItems().clear();
+
+        bagList.addAll(itemBox.getWeaponItems());
+        itemBox.getWeaponItems().clear();
+
+        bagList.addAll(itemBox.getObjectsItems());
+        itemBox.getObjectsItems().clear();
+    };
+    //#endregion
+
+
     //#region myNameTextView
     private TextView myNameTextView;
     private final TextWatcher myNameTextViewWatcher = new TextWatcher() {
@@ -265,10 +295,8 @@ public class MapsActivity extends AppCompatActivity implements
 
             // Clear color of old target
             var oldTarget = target;
-            if (oldTarget != null) {
-                var oldMarker = oldTarget.marker;
-                if (oldMarker != null)
-                    mapService.ChangeMarkerColor(oldMarker, -1f);
+            if (oldTarget != null && oldTarget.marker != null) {
+                mapService.ChangeMarkerColor(oldTarget.marker, oldTarget.item, Color.BLACK);
             }
 
             // Take the new target
@@ -278,27 +306,27 @@ public class MapsActivity extends AppCompatActivity implements
                 Log.i("AlienSpinner", newTarget.item.getName());
 
                 // Paint new target
-                mapService.ChangeMarkerColor(newTarget.marker,
-                        BitmapDescriptorFactory.HUE_RED);
+                mapService.ChangeMarkerColor(newTarget.marker, newTarget.item, Color.RED);
             }
 
+            // Set the new target to activity
+            MapsActivity.this.target = newTarget;
+
             if (newTarget.item instanceof ActorDto) {
-                // Set the new target to activity
-                MapsActivity.this.target = newTarget;
                 var AlienDTO = (ActorDto) newTarget.item;
                 // TODO здесь алиен ДТО
-                ProgressTextView progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
+
                 if (AlienDTO != null && AlienDTO.getPerson() != null) {
                     progressTextViewAlien.setVisibility(View.VISIBLE);
                     progressTextViewAlien.setValue(AlienDTO.getPerson().getHp(), AlienDTO.getPerson().getMaxhp());
                     // устанавливаем нужное значение
-                } else {
+                } else
                     progressTextViewAlien.setVisibility(View.INVISIBLE);
 
-                }
-                ProgressTextView progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
                 progressTextViewMy.setValue(my.getPerson().getHp(), my.getPerson().getMaxhp());
-            }
+            } else
+                progressTextViewAlien.setVisibility(View.INVISIBLE);
+
         }
 
         @Override
@@ -307,18 +335,21 @@ public class MapsActivity extends AppCompatActivity implements
 
             // Clear color of old target
             var oldTarget = target;
-            if (oldTarget != null) {
-                var oldMarker = oldTarget.marker;
-                if (oldMarker != null)
-                    mapService.ChangeMarkerColor(oldMarker, -1f);
+            if (oldTarget != null && oldTarget.marker != null) {
+                mapService.ChangeMarkerColor(oldTarget.marker, oldTarget.item, Color.BLACK);
             }
 
             // Clear target
             target = null;
+
+            progressTextViewAlien.setVisibility(View.INVISIBLE);
         }
 
     };
     //#endregion
+
+    ProgressTextView progressTextViewAlien;
+    ProgressTextView progressTextViewMy;
 
     //#endregion
 
@@ -373,9 +404,12 @@ public class MapsActivity extends AppCompatActivity implements
                     timerService = new Timer();
                     timerService.schedule(timerTaskPerSecond, 1000, 1000);
 
-                    // myPushButton
+                    // Hit Button
                     hitButton = (ImageButton) findViewById(R.id.hitButton);
                     hitButton.setOnClickListener(hitButtonListener);
+
+                    takeButton = (Button) findViewById(R.id.takeButton);
+                    takeButton.setOnClickListener(takeButtonListener);
 
                     // myNameTextView
                     myNameTextView = findViewById(R.id.myNameTextView);
@@ -405,9 +439,9 @@ public class MapsActivity extends AppCompatActivity implements
                         aliensSpinnerAdapter.addAll(aliens);
                     }
 
-                    // mySwitch
-                    //                   mySwitch = (Switch) findViewById(R.id.mySwitch);
-                    //                   mySwitch.setOnCheckedChangeListener(mySwitchListener);
+                    // progressText
+                    progressTextViewAlien = (ProgressTextView) findViewById(R.id.progressAlienHP);
+                    progressTextViewMy = (ProgressTextView) findViewById(R.id.progressMyHP);
                 })
                 .error(ex -> {
                     throw new RuntimeException(ex.toString());
@@ -421,9 +455,13 @@ public class MapsActivity extends AppCompatActivity implements
         // или просто не активен 2 минуты, то уберите его с глаз моих нах....
 
         var dateDiff = DateUtil.dateDiff(new Date(), DateUtil.fromISO(alien.getLastAccessTime()));
-        return LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE
-                || alien.getPerson().getHp() <= 0
-                || dateDiff > 2 * 60 * 1000;
+        if (dateDiff > ALIEN_DATE_DIFF_TO_REMOVE)
+            return true;
+
+        if (LocationUtil.distance(my.getLocation(), alien.getLocation()) > MY_VIEW_DISTANCE)
+            return true;
+
+        return alien.getPerson().getHp() <= 0;
     }
 
     protected boolean testItemBoxToRemove(final ItemBox box) {
@@ -431,8 +469,13 @@ public class MapsActivity extends AppCompatActivity implements
         // или просто прошло 20 минут, то уберите его с глаз моих нах....
 
         var dateDiff = DateUtil.dateDiff(new Date(), DateUtil.fromISO(box.getDropTime()));
-        return LocationUtil.distance(my.getLocation(), box.getLocation()) > MY_VIEW_DISTANCE
-                || dateDiff > 60 * 60 * 1000;
+        if (dateDiff > ITEM_DATE_DIFF_TO_REMOVE)
+            return true;
+
+        if (LocationUtil.distance(my.getLocation(), box.getLocation()) > MY_VIEW_DISTANCE)
+            return true;
+
+        return false;
     }
 
     /**
@@ -455,8 +498,8 @@ public class MapsActivity extends AppCompatActivity implements
         }
 
         // Check item for remove
-        if ((item instanceof ActorDto && testAlienToRemove((ActorDto) item))
-                || (item instanceof ItemBox && testItemBoxToRemove((ItemBox) item))
+        if ((item instanceof ActorDto && testAlienToRemove((ActorDto) item)) ||
+                (item instanceof ItemBox && testItemBoxToRemove((ItemBox) item))
         ) {
             // Sync already linked
             var toRemove = new ArrayList<MapItemMarkerPair>();
@@ -479,9 +522,15 @@ public class MapsActivity extends AppCompatActivity implements
                     linked.add(p);
             });
 
+            var color = Color.BLACK;
+            if (target != null && target.item != null && target.item.equals(item))
+                color = Color.RED; // Красный цвет, если предмет выбран в комбо
+            BitmapDescriptor icon = mapService.getIcon(item, color);
+
             linked.forEach(pair -> {
                 pair.item = item; // set ???
                 pair.marker.setPosition(item.getLocation());
+                pair.marker.setIcon(icon);
             });
 
             // Add new
@@ -489,14 +538,12 @@ public class MapsActivity extends AppCompatActivity implements
                 var pair = new MapItemMarkerPair(item, mapService.MarkerToLocation(item.getName(),
                         item.getLocation(),
                         targetFollow,
-                        BitmapDescriptorFactory.fromResource(R.drawable.sword_marker)));
+                        icon));
                 aliens.add(pair);
             }
         }
         aliensSpinnerAdapter.clear();
         aliensSpinnerAdapter.addAll(aliens);
-
-
 /*
         if(my != null &&  target != null && target.actor!= null)
         {
@@ -509,6 +556,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         }*/
     }
+
 
     //#region Map events
 
@@ -643,21 +691,21 @@ public class MapsActivity extends AppCompatActivity implements
                     my = actorService.updateAccessTime(my);
 
                     // Load visible aliens from database
-                    var alienList = new ArrayList<MapItemBase>();
-                    alienList.addAll(actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE));
+                    var mapItemsList = new ArrayList<MapItemBase>();
+                    mapItemsList.addAll(actorService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE));
 
                     // Add current invisible aliens
                     this.aliens.forEach(pair -> {
-                        if (!alienList.contains(pair.item))
-                            alienList.add(pair.item);
+                        if (!mapItemsList.contains(pair.item))
+                            mapItemsList.add(pair.item);
                     });
 
                     // Load visible items from database
-                    var itemList = itemService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE);
+                    mapItemsList.addAll(itemService.findByGeoPoint(my.getLocation(), MY_VIEW_DISTANCE));
 
                     // Sync aliens and items on map
                     MapsActivity.this.runOnUiThread(() -> {
-                        alienList.forEach(this::trySyncMapItem);
+                        mapItemsList.forEach(this::trySyncMapItem);
                     });
                     // Реген ХП почти каждую сек но не более 70%
                     if (my.getPerson().getHp() > 0 && my.getPerson().getHp() <= (my.getPerson().getMaxhp()) / 100 * 70) {

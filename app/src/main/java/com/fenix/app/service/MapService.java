@@ -3,12 +3,16 @@ package com.fenix.app.service;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.fenix.app.R;
+import com.fenix.app.dto.ActorDto;
+import com.fenix.app.dto.ItemBox;
+import com.fenix.app.dto.MapItemBase;
 import com.fenix.app.util.PermissionUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.CameraUpdate;
@@ -47,7 +51,7 @@ public class MapService implements OnMapReadyCallback {
         if (latLng == null)
             return null;
 
-        if(icon == null)
+        if (icon == null)
 
 //            icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
             icon = BitmapDescriptorFactory.fromResource(R.drawable.sword_marker);
@@ -70,24 +74,32 @@ public class MapService implements OnMapReadyCallback {
     }
 
 
-
     /**
      * Change a marker color
      */
-    public Marker ChangeMarkerColor(Marker marker, float color) {
-        try {
-            if (color < 0)
-//                marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.sword_marker));
-            else
-//                marker.setIcon(BitmapDescriptorFactory.defaultMarker(color));
-                marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.sword_marker));
+    public void ChangeMarkerColor(Marker marker, MapItemBase item, int color) {
+        marker.setIcon(getIcon(item, color));
+    }
 
-            return marker;
-        } catch (IllegalArgumentException ex)
-        {
-            return null;
+    /**
+     * Get colored Icon for Item
+     */
+    public BitmapDescriptor getIcon(final MapItemBase item, int color) {
+        BitmapDescriptor icon = null;
+
+        if (item instanceof ActorDto) {
+            if (color == Color.RED)
+                icon = BitmapDescriptorFactory.fromResource(R.drawable.sword_marker_red);
+            else
+                icon = BitmapDescriptorFactory.fromResource(R.drawable.sword_marker);
+        } else if (item instanceof ItemBox) {
+            if (color == Color.RED)
+                icon = BitmapDescriptorFactory.fromResource(R.drawable.box_marker_red);
+            else
+                icon = BitmapDescriptorFactory.fromResource(R.drawable.box_marker);
         }
+
+        return icon;
     }
 
     /**
