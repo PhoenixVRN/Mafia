@@ -38,7 +38,6 @@ import com.fenix.app.util.ThreadUtil;
 import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.pusher.client.channel.PusherEvent;
@@ -124,7 +123,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     //#region My
 
-    //#region HitButton
+    //#region Hit Button
     private ImageButton hitButton;
     private final View.OnClickListener hitButtonListener = new View.OnClickListener() {
 
@@ -206,26 +205,36 @@ public class MapsActivity extends AppCompatActivity implements
     };
     //#endregion
 
-    //#region HitButton
+    //#region Take Button
     private Button takeButton;
     private final View.OnClickListener takeButtonListener = v -> {
         Log.i("My", "takeButton click");
 
-        if(target == null || !(target.item instanceof ItemBox))
+        if (target == null || !(target.item instanceof ItemBox))
             return;
 
-        var bagList = my.getPerson().getBag();
+        var itemBox = (ItemBox) target.item;
 
-        var itemBox = (ItemBox)target.item;
+        ThreadUtil.Do(() -> {
+            try {
+                // Чищу ящик в БД
+                target.item = itemService.clear(itemBox);
+            } catch (Throwable ignore) {
+                // Если не получилось - забираю ящик из БД и выхожу
+                target.item = itemService.load(itemBox.getID());
+                return;
+            }
+            try {
+                // Забираю вещи себе в БД
+                my = actorService.take(my, itemBox);
+            } catch (Throwable ignore) {
+                // Если не получилось - восстанавливаю ящик в БД
+                target.item = itemService.save(itemBox);
+                // Забираю игрока из БД
+                my = actorService.load(my.getID());
+            }
+        });
 
-        bagList.addAll(itemBox.getArmorItems());
-        itemBox.getArmorItems().clear();
-
-        bagList.addAll(itemBox.getWeaponItems());
-        itemBox.getWeaponItems().clear();
-
-        bagList.addAll(itemBox.getObjectsItems());
-        itemBox.getObjectsItems().clear();
     };
     //#endregion
 

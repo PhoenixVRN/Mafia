@@ -5,6 +5,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.fenix.app.dto.ActorDto;
+import com.fenix.app.dto.ItemBox;
 import com.fenix.app.dto.geo.GeoPointDto;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.util.DateUtil;
@@ -17,8 +18,7 @@ import com.mongodb.client.model.geojson.Position;
 
 import org.bson.Document;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -158,6 +158,9 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
     }
 
+    /**
+     * Восстановление жизни
+     */
     public ActorDto regenHp(ActorDto my) {
         //Сила удара
         int add = my.getPerson().getRegHp();
@@ -176,6 +179,31 @@ public class ActorService extends EntitySeriveBase<ActorDto> {
         var result = collection.updateOne(filter, update);
         if (result.getModifiedCount() > 0)
             return super.read(filter); // Отдаю успешно обновленной dto участника
+
+        // Если дошел до сюда, значит в БД нет такого участника
+        throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
+    }
+
+    /**
+     * Ограбить сундук
+     */
+    public ActorDto take(ActorDto my, ItemBox box) {
+        // Строю фильтр участника
+        var filter = super.getOneFilter(my);
+
+        // Собираю список из документов
+        var listDocs = new ArrayList<Document>();
+        box.getArmorItems().forEach(i -> listDocs.add(Document.parse(JsonUtil.Serialize(i))));
+        box.getWeaponItems().forEach(i -> listDocs.add(Document.parse(JsonUtil.Serialize(i))));
+        box.getObjectsItems().forEach(i -> listDocs.add(Document.parse(JsonUtil.Serialize(i))));
+
+        // Строю update для поля person.bag
+        var update = Updates.pushEach("person.bag", listDocs);
+
+        // Делаю update и получаю результат из БД
+        var result = collection.updateOne(filter, update);
+        if (result.getModifiedCount() > 0)
+            return super.read(filter); // Отдаю успешно обновленный dto
 
         // Если дошел до сюда, значит в БД нет такого участника
         throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
