@@ -30,7 +30,7 @@ public abstract class EntitySeriveBase<E> {
         this.collection = service.getDocuments(collectionName);
     }
 
-    protected Bson getOneFilter(E entity){
+    protected Bson getOneFilter(E entity) {
         var json = JsonUtil.Serialize(entity);
         var doc = Document.parse(json);
 
@@ -89,14 +89,22 @@ public abstract class EntitySeriveBase<E> {
         return read(Filters.eq(entityKeyField, keyValue));
     }
 
-    public void save(E entity) {
+    public E save(E entity) {
         var json = JsonUtil.Serialize(entity);
         var doc = Document.parse(json);
 
-        collection.findOneAndReplace(
+        var result = collection.findOneAndReplace(
                 Filters.eq(entityKeyField, doc.get(entityKeyField)),
                 doc,
                 new FindOneAndReplaceOptions().upsert(true));
+
+        if (result == null)
+            return null;
+
+        var resultJson = result.toJson();
+        var resultEtity = JsonUtil.Parse(entityClass, resultJson);
+
+        return resultEtity;
     }
 
     public void delete(E entity) {

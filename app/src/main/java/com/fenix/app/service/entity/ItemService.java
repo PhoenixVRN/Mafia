@@ -1,6 +1,5 @@
 package com.fenix.app.service.entity;
 
-import com.fenix.app.dto.ActorDto;
 import com.fenix.app.dto.ItemBox;
 import com.fenix.app.dto.geo.GeoPointDto;
 import com.fenix.app.service.MongoService;
@@ -13,6 +12,7 @@ import com.mongodb.client.model.geojson.Position;
 
 import org.bson.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.var;
@@ -34,9 +34,10 @@ public class ItemService extends EntitySeriveBase<ItemBox> {
 
     /**
      * Найти участников по позиции и расстоянию
-     * @param location  - позиция
-     * @param distance  - максимальное расстоние от позиции до участника
-     * @return          - списко найденных
+     *
+     * @param location - позиция
+     * @param distance - максимальное расстоние от позиции до участника
+     * @return - списко найденных
      */
     public List<ItemBox> findByGeoPoint(LatLng location, double distance) {
 /*
@@ -59,9 +60,10 @@ public class ItemService extends EntitySeriveBase<ItemBox> {
 
     /**
      * Изменить позицию
-     *  @param entity   - сущность
-     * @param location  - новая позиция
-     * @return          - обновлённая сущность из БД
+     *
+     * @param entity   - сущность
+     * @param location - новая позиция
+     * @return - обновлённая сущность из БД
      */
     public ItemBox updateLocation(ItemBox entity, LatLng location) {
         var json = JsonUtil.Serialize(entity);
@@ -100,32 +102,26 @@ public class ItemService extends EntitySeriveBase<ItemBox> {
     }
 
     /**
-     * Ударить
-     *
-     * @param alien
+     * Очистить ящик
      */
- /*   public ActorDto hit(ActorDto my, ActorDto alien) {
-        //Сила удара
-        int acc = my.getPerson().getWeaponHeadLeft().getPhysicalDamage();
-*//*
-        int alienHP = alien.getPerson().getHp();
-        int result = alienHP - acc;
-        alien.getPerson().setHp(result);
-*//*
-        // Строю фильтр участника
-        var json = JsonUtil.Serialize(alien);
-        var doc = Document.parse(json);
-        var filter = Filters.eq(entityKeyField, doc.get(entityKeyField));
+    public ItemBox clear(ItemBox box) {
 
-        // Строю update для поля person.hp
-        var update = Updates.inc("person.hp", -acc);
+        // Строю фильтр ящика
+        var filter = super.getOneFilter(box);
+
+        // Строю update для всех нборов
+        var update = Updates.combine(
+                Updates.set("weaponItems", new ArrayList<>()),
+                Updates.set("armorItems", new ArrayList<>()),
+                Updates.set("objectsItems", new ArrayList<>())
+        );
 
         // Делаю update и получаю результат из БД
         var result = collection.updateOne(filter, update);
         if (result.getModifiedCount() > 0)
-            return super.read(filter); // Отдаю успешно обновленной dto участника
+            return super.read(filter); // Отдаю успешно обновленный dto
 
         // Если дошел до сюда, значит в БД нет такого участника
-        throw new RuntimeException("hit: ActorDto with " + entityKeyField + " = " + doc.get(entityKeyField) + " not found!");
-    }*/
+        throw new RuntimeException("clear: ItemBox with filter=" + filter.toString() + " not found!");
+    }
 }
