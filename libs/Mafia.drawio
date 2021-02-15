@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-15T17:52:05.375Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36" etag="XwV0299aNfFkM9Ia2zFn" version="14.3.1" type="github">
+<mxfile host="app.diagrams.net" modified="2021-02-15T18:05:26.554Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36" etag="CkG9rhUWyPD0mgoOej3h" version="14.3.1" type="github">
   <diagram id="6S7ugSenV1JjqLPWEwKW" name="Page-1">
     <mxGraphModel dx="917" dy="582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -26,6 +26,30 @@
           <mxGeometry y="26" width="140" height="26" as="geometry" />
         </mxCell>
         <mxCell id="i67tFkL0cApdpo55a4Au-22" value="зазывала" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="i67tFkL0cApdpo55a4Au-19" vertex="1">
+          <mxGeometry y="52" width="140" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cDL56uUrG423qAW6Z9ll-1" value="&lt;p class=&quot;MsoNormal&quot;&gt;Выносной лоток с чебуреками&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="310" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cDL56uUrG423qAW6Z9ll-2" value="Ресурсы" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="230" y="280" width="140" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="cDL56uUrG423qAW6Z9ll-3" value="Мясо" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cDL56uUrG423qAW6Z9ll-2">
+          <mxGeometry y="26" width="140" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cDL56uUrG423qAW6Z9ll-4" value="Производство" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="230" y="340" width="140" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="cDL56uUrG423qAW6Z9ll-5" value="беляши/чебуреки" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cDL56uUrG423qAW6Z9ll-4">
+          <mxGeometry y="26" width="140" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cDL56uUrG423qAW6Z9ll-6" value="Специалист" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="230" y="400" width="140" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="cDL56uUrG423qAW6Z9ll-7" value="повар/продовец" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cDL56uUrG423qAW6Z9ll-6">
+          <mxGeometry y="26" width="140" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="cDL56uUrG423qAW6Z9ll-8" value="зазывала" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cDL56uUrG423qAW6Z9ll-6">
           <mxGeometry y="52" width="140" height="26" as="geometry" />
         </mxCell>
       </root>
