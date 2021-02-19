@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-19T12:50:27.202Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" etag="CKDS9Tdrc5nav0P11Iko" version="14.4.2" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-02-19T13:03:20.958Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" etag="Iut2DeBaRDuSgTGM3iHf" version="14.4.2" type="github" pages="2">
   <diagram id="6S7ugSenV1JjqLPWEwKW" name="Page-1">
     <mxGraphModel dx="1228" dy="582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -395,7 +395,7 @@
             <mxPoint x="490" y="670" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="eyGv4FeZiMnqTki_doD5-50" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-23" target="eyGv4FeZiMnqTki_doD5-64">
+        <mxCell id="eyGv4FeZiMnqTki_doD5-50" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-23" target="eyGv4FeZiMnqTki_doD5-64">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="330" y="670" as="sourcePoint" />
             <mxPoint x="-5" y="720" as="targetPoint" />
@@ -405,7 +405,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-56" value="задержать если ты полицейский" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
-          <mxGeometry x="10" y="820" width="100" height="40" as="geometry" />
+          <mxGeometry x="10" y="910" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-57" value="" style="endArrow=open;endFill=1;endSize=12;html=1;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-23" target="eyGv4FeZiMnqTki_doD5-56">
           <mxGeometry width="160" relative="1" as="geometry">
@@ -414,7 +414,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-58" value="вызвать полицию" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
-          <mxGeometry x="150" y="815" width="100" height="30" as="geometry" />
+          <mxGeometry x="170" y="785" width="100" height="30" as="geometry" />
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-59" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-65" target="eyGv4FeZiMnqTki_doD5-58">
           <mxGeometry width="160" relative="1" as="geometry">
@@ -422,8 +422,8 @@
             <mxPoint x="490" y="870" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="eyGv4FeZiMnqTki_doD5-64" value="Напасть" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
-          <mxGeometry x="-160" y="720" width="100" height="40" as="geometry" />
+        <mxCell id="eyGv4FeZiMnqTki_doD5-64" value="для персонажей с специализацией &quot;Авторитет&quot;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="-160" y="705" width="100" height="80" as="geometry" />
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-65" value="ты бизнесмен а на персонаже&amp;nbsp; &quot;преступник&quot;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
           <mxGeometry x="110" y="720" width="110" height="50" as="geometry" />
@@ -435,25 +435,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-68" value="таймер 3 мин, полиция приезжает на место либо на ваше новое местоположение где в вашей видимости находится преступник" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
-          <mxGeometry x="230" y="870" width="140" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="eyGv4FeZiMnqTki_doD5-69" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-58" target="eyGv4FeZiMnqTki_doD5-68">
-          <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="-90" y="830" as="sourcePoint" />
-            <mxPoint x="70" y="830" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="eyGv4FeZiMnqTki_doD5-70" value="задержание либо уничтожение преступника" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
-          <mxGeometry x="240" y="1000" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="eyGv4FeZiMnqTki_doD5-71" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.45;exitY=1.02;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-68" target="eyGv4FeZiMnqTki_doD5-70">
-          <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="-90" y="1060" as="sourcePoint" />
-            <mxPoint x="70" y="1060" as="targetPoint" />
-          </mxGeometry>
+          <mxGeometry x="150" y="835" width="140" height="100" as="geometry" />
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-74" value="в течении 30 сек быть в диапазоне видимости преступника либо приблизится на 20 метров" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
-          <mxGeometry y="880" width="120" height="100" as="geometry" />
+          <mxGeometry x="10" y="960" width="120" height="100" as="geometry" />
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-75" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.292;exitY=0.817;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-23" target="eyGv4FeZiMnqTki_doD5-76">
           <mxGeometry width="160" relative="1" as="geometry">
@@ -462,15 +447,81 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-76" value="уничтожить если ты полицейский и у преступника высокий уровень тяжести" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
-          <mxGeometry x="-105" y="820" width="100" height="70" as="geometry" />
+          <mxGeometry x="-105" y="910" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-79" value="боевая система" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
-          <mxGeometry x="-105" y="910" width="100" height="40" as="geometry" />
+          <mxGeometry x="-105" y="1000" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-80" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-76" target="eyGv4FeZiMnqTki_doD5-79">
           <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="-90" y="810" as="sourcePoint" />
-            <mxPoint x="70" y="810" as="targetPoint" />
+            <mxPoint x="-90" y="900" as="sourcePoint" />
+            <mxPoint x="70" y="900" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-81" value="напасть на персонажа" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="-250" y="825" width="110" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-87" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-81" target="eyGv4FeZiMnqTki_doD5-79">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-290" y="745" as="sourcePoint" />
+            <mxPoint x="-195" y="912.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-88" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-64" target="eyGv4FeZiMnqTki_doD5-81">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-90" y="880" as="sourcePoint" />
+            <mxPoint x="70" y="880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-89" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-58" target="eyGv4FeZiMnqTki_doD5-68">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-90" y="980" as="sourcePoint" />
+            <mxPoint x="70" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-90" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-68">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-90" y="980" as="sourcePoint" />
+            <mxPoint x="-50" y="910" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-92" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-68" target="eyGv4FeZiMnqTki_doD5-56">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-90" y="980" as="sourcePoint" />
+            <mxPoint x="70" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-93" value="расчёт плюшек победившей стороне и люлей проигравшей." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="-140" y="1090" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-94" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.618;entryY=0.033;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-74" target="eyGv4FeZiMnqTki_doD5-93">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-90" y="1080" as="sourcePoint" />
+            <mxPoint x="70" y="1080" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-95" value="" style="endArrow=open;endFill=1;endSize=12;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" target="eyGv4FeZiMnqTki_doD5-93">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-55" y="1044" as="sourcePoint" />
+            <mxPoint x="70" y="1080" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-96" value="таймер на логофф&lt;br&gt;если флаг &quot;преступник&quot; + 5 мин" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="-25" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-97" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.9;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-20" target="eyGv4FeZiMnqTki_doD5-96">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-90" y="470" as="sourcePoint" />
+            <mxPoint x="70" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-98" value="если флаг &quot;преступник&quot;&amp;nbsp; &lt;br&gt;+ флаг в пути 5 мин" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="-25" y="380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-99" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-20" target="eyGv4FeZiMnqTki_doD5-98">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-90" y="470" as="sourcePoint" />
+            <mxPoint x="70" y="470" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
