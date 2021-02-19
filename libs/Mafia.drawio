@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-19T13:26:29.002Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" etag="k1N92pPsnOtvezpLaPaG" version="14.4.2" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-02-19T14:09:59.035Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" etag="1b85f4UDXDopxAg-Gx0k" version="14.4.2" type="github" pages="2">
   <diagram id="6S7ugSenV1JjqLPWEwKW" name="Page-1">
     <mxGraphModel dx="1228" dy="582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -435,7 +435,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-68" value="таймер 3 мин, полиция приезжает на место либо на ваше новое местоположение где в вашей видимости находится преступник" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
-          <mxGeometry x="150" y="835" width="140" height="100" as="geometry" />
+          <mxGeometry x="160" y="880" width="140" height="100" as="geometry" />
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-74" value="в течении 30 сек быть в диапазоне видимости преступника либо приблизится на 20 метров" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
           <mxGeometry x="10" y="960" width="120" height="100" as="geometry" />
@@ -447,7 +447,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-76" value="уничтожить если ты полицейский и у преступника высокий уровень тяжести" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
-          <mxGeometry x="-105" y="910" width="100" height="70" as="geometry" />
+          <mxGeometry x="-105" y="880" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-79" value="боевая система" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
           <mxGeometry x="-105" y="1000" width="100" height="40" as="geometry" />
@@ -479,7 +479,7 @@
             <mxPoint x="70" y="980" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="eyGv4FeZiMnqTki_doD5-90" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-68">
+        <mxCell id="eyGv4FeZiMnqTki_doD5-90" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-68" target="eyGv4FeZiMnqTki_doD5-76">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-90" y="980" as="sourcePoint" />
             <mxPoint x="-50" y="910" as="targetPoint" />
@@ -537,6 +537,111 @@
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="420" y="800" as="sourcePoint" />
             <mxPoint x="580" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-103" value="&quot;Авторитет&quot;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="360" y="705" width="110" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-104" value="ограбление" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="360" y="745" width="110" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-105" value="таймер чем дольше стоишь тем больше снимешь" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="420" y="860" width="110" height="62.5" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-106" value="прибытие ГБР зависит от дальности опорного пункта" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="300" y="785" width="110" height="62.5" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-107" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-106" target="eyGv4FeZiMnqTki_doD5-56">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="880" as="sourcePoint" />
+            <mxPoint x="450" y="880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-108" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-106">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="880" as="sourcePoint" />
+            <mxPoint x="-60" y="880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-109" value="передать денег" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="170" y="645" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-110" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-23" target="eyGv4FeZiMnqTki_doD5-109">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="890" as="sourcePoint" />
+            <mxPoint x="450" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-111" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-21" target="eyGv4FeZiMnqTki_doD5-103">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="790" as="sourcePoint" />
+            <mxPoint x="450" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-112" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-103" target="eyGv4FeZiMnqTki_doD5-104">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="790" as="sourcePoint" />
+            <mxPoint x="450" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-113" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-104" target="eyGv4FeZiMnqTki_doD5-106">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="790" as="sourcePoint" />
+            <mxPoint x="450" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-114" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-104" target="eyGv4FeZiMnqTki_doD5-105">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="790" as="sourcePoint" />
+            <mxPoint x="450" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-115" value="при удачном налете + к &quot;авторитету&quot;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="420" y="945" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-116" value="" style="endArrow=open;endFill=1;endSize=12;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" target="eyGv4FeZiMnqTki_doD5-115">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="470" y="925" as="sourcePoint" />
+            <mxPoint x="450" y="955" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-117" value="поджёг" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="560" y="741.5" width="110" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-118" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-103" target="eyGv4FeZiMnqTki_doD5-117">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="880" as="sourcePoint" />
+            <mxPoint x="450" y="880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-119" value="находится рядом 2 минуты" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="560" y="793" width="110" height="47" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-120" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-117" target="eyGv4FeZiMnqTki_doD5-119">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="870" as="sourcePoint" />
+            <mxPoint x="450" y="870" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-121" value="разрушение объекта согласно противопожарной охране" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="560" y="860" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-124" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-119" target="eyGv4FeZiMnqTki_doD5-121">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="350" y="870" as="sourcePoint" />
+            <mxPoint x="400" y="820" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-125" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-119" target="eyGv4FeZiMnqTki_doD5-115">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="850" as="sourcePoint" />
+            <mxPoint x="450" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-128" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-119" target="eyGv4FeZiMnqTki_doD5-106">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="290" y="850" as="sourcePoint" />
+            <mxPoint x="450" y="850" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
