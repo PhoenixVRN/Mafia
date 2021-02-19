@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-19T14:45:43.462Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" etag="78e2tUotIhKgK1xMqzBs" version="14.4.2" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-02-19T17:30:21.092Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" etag="RBWXU-OjTt_NbitVwHlp" version="14.4.2" type="github" pages="2">
   <diagram id="6S7ugSenV1JjqLPWEwKW" name="Page-1">
     <mxGraphModel dx="1228" dy="582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -680,6 +680,60 @@
         </mxCell>
         <mxCell id="eyGv4FeZiMnqTki_doD5-143" value="Полиция" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
           <mxGeometry x="600" y="647.5" width="110" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-144" value="&quot;Авторитет&quot;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="770" y="650" width="110" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-145" value="бизнесмен" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="1010" y="740" width="110" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-146" value="Полиция" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="1010" y="570" width="110" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-147" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-42" target="eyGv4FeZiMnqTki_doD5-144">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="730" y="740" as="sourcePoint" />
+            <mxPoint x="890" y="740" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-148" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-42" target="eyGv4FeZiMnqTki_doD5-146">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="730" y="740" as="sourcePoint" />
+            <mxPoint x="890" y="740" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-149" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.382;entryY=-0.16;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-42" target="eyGv4FeZiMnqTki_doD5-145">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="730" y="740" as="sourcePoint" />
+            <mxPoint x="890" y="740" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-150" value="1. Нанимать персонал, охрану.&lt;br&gt;2. Забирать &quot;бабло&quot;&lt;br&gt;3. Установить время &quot;стрелки&quot;&lt;br&gt;4. Установить &quot;крышу&quot; и %&lt;br&gt;5. Продать&lt;br&gt;6. Снести" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="972.5" y="800" width="185" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-151" value="1. Нанимать персонал, охрану.&lt;br&gt;2. Забирать &quot;бабло&quot;&lt;br&gt;3. Установить время &quot;стрелки&quot;&lt;br&gt;4. Установить значение конспирации.&lt;br&gt;5. Снести" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="750" y="715" width="185" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-152" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.411;entryY=0.009;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-144" target="eyGv4FeZiMnqTki_doD5-151">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="730" y="890" as="sourcePoint" />
+            <mxPoint x="890" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-153" value="" style="endArrow=open;endFill=1;endSize=12;html=1;entryX=0.468;entryY=0.009;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-145" target="eyGv4FeZiMnqTki_doD5-150">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1060" y="770" as="sourcePoint" />
+            <mxPoint x="890" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-154" value="1. Нанимать новобранцев.&lt;br&gt;3. Установить зону патрулирования.&lt;br&gt;4. Снести" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="eyGv4FeZiMnqTki_doD5-1">
+          <mxGeometry x="1157.5" y="530" width="152.5" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="eyGv4FeZiMnqTki_doD5-155" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="eyGv4FeZiMnqTki_doD5-1" source="eyGv4FeZiMnqTki_doD5-146" target="eyGv4FeZiMnqTki_doD5-154">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="730" y="790" as="sourcePoint" />
+            <mxPoint x="890" y="790" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
