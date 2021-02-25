@@ -17,7 +17,7 @@ import java.util.List;
 
 import lombok.var;
 
-public class ItemService extends EntitySeriveBase<ItemBox> {
+public class ItemService extends EntityServiceBase<ItemBox> {
 
     private static final String COLLECTION_NAME = "items";
     private static final String KEY_FIELD = "itemID";

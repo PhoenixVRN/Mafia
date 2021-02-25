@@ -14,7 +14,7 @@ import java.util.List;
 
 import lombok.var;
 
-public abstract class EntitySeriveBase<E> {
+public abstract class EntityServiceBase<E> {
 
     protected Class<E> entityClass;
     protected String entityKeyField;
@@ -24,7 +24,7 @@ public abstract class EntitySeriveBase<E> {
     protected MongoService service;
     protected MongoCollection<Document> collection;
 
-    public EntitySeriveBase(MongoService service, String collectionName) {
+    public EntityServiceBase(MongoService service, String collectionName) {
         initEntityClass();
         this.service = service;
         this.collection = service.getDocuments(collectionName);

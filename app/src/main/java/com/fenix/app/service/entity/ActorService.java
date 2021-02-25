@@ -25,7 +25,7 @@ import java.util.List;
 import lombok.var;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class ActorService extends EntitySeriveBase<ActorDto> {
+public class ActorService extends EntityServiceBase<ActorDto> {
 
     private static final String COLLECTION_NAME = "actors";
     private static final String KEY_FIELD = "email";
