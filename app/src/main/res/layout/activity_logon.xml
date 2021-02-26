@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/logs"
+    android:background="@drawable/logos"
     android:id="@+id/root_element"
     tools:context=".LogonActivity">
 
@@ -22,9 +22,9 @@
         android:layout_marginTop="519dp"
         android:layout_marginEnd="26dp"
         android:layout_marginBottom="566dp"
-        android:fontFamily="@font/metal_mania"
+        android:fontFamily="sans-serif-black"
         android:gravity="center"
-        android:text="UnderworldAR"
+        android:text="MAFIA-AR"
         android:textColor="@android:color/white"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,14 +37,14 @@
 
         android:layout_width="match_parent"
 
-        android:layout_height="60dp"
+        android:layout_height="97dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
 
         android:layout_marginStart="0dp"
-        android:layout_marginTop="664dp"
+        android:layout_marginTop="628dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="7dp"
         android:gravity="center"
@@ -57,8 +57,8 @@
 
         <Button
             android:id="@+id/btnSignIn"
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
+            android:layout_width="171dp"
+            android:layout_height="73dp"
             android:layout_marginEnd="12dp"
             android:background="@drawable/btn_sig"
             android:fontFamily="serif"
@@ -68,8 +68,8 @@
 
         <Button
             android:id="@+id/butRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="212dp"
+            android:layout_height="72dp"
             android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:background="@drawable/btn_sig"
