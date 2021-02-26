@@ -28,46 +28,5 @@ public class PersonDto {
     private int RegHp = 5;    //  регенирация Хитпоинтов в 1 сек
 
         private LatLng location = null;
-
-    /**
-     * Голова
-     */
-    private ArmorDto armorHead = new ArmorDto();
-
-    /**
-     * Тело
-     */
-    private ArmorDto armorTorso = new ArmorDto();
-
-    /**
-     * Ноги
-     */
-    private ArmorDto armorLegs = new ArmorDto();
-
-    /**
-     * Обувь
-     */
-    private ArmorDto armorBoots = new ArmorDto();
-
-    /**
-     * Перчатки
-     */
-    private ArmorDto armorGloves = new ArmorDto();
-
-    /**
-     * Оружие в левой руке
-     */
-    private WeaponDto weaponHeadLeft = new WeaponDto();
-
-    /**
-     * Оружие в левой руке
-     */
-    private WeaponDto weaponHeadRight = new WeaponDto();
-
-
-    /**
-     * Мешок со ВСЕЙ хернёй
-     */
-    private List<Object> bag = new ArrayList<>();
-
+        
 }
