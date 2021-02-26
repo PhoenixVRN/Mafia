@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-02-26T18:04:11.365Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36" etag="b20JWVZFA5Xbd0cgpRXe" version="14.4.2" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2021-02-26T18:26:14.925Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36" etag="Ut_Ya3g_R3irNTxDWyLV" version="14.4.2" type="github" pages="3">
   <diagram id="6S7ugSenV1JjqLPWEwKW" name="Page-1">
     <mxGraphModel dx="1422" dy="705" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -755,7 +755,7 @@
         <mxCell id="lQCnp67UZImSXzx1xXY0-5" value="Авторитет" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-2">
           <mxGeometry y="78" width="140" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="lQCnp67UZImSXzx1xXY0-6" value="свита" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-2">
+        <mxCell id="lQCnp67UZImSXzx1xXY0-6" value="охрана" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-2">
           <mxGeometry y="104" width="140" height="26" as="geometry" />
         </mxCell>
         <mxCell id="lQCnp67UZImSXzx1xXY0-7" value="+ field: type" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-2">
@@ -770,7 +770,7 @@
         <mxCell id="lQCnp67UZImSXzx1xXY0-10" value="+ field: type" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-2">
           <mxGeometry y="208" width="140" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="lQCnp67UZImSXzx1xXY0-11" value="свита" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-1">
+        <mxCell id="lQCnp67UZImSXzx1xXY0-11" value="охрана" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-1">
           <mxGeometry x="300" y="80" width="140" height="156" as="geometry" />
         </mxCell>
         <mxCell id="lQCnp67UZImSXzx1xXY0-12" value="Спец" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-11">
@@ -788,7 +788,7 @@
         <mxCell id="lQCnp67UZImSXzx1xXY0-26" value="Лузер" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-11">
           <mxGeometry y="130" width="140" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="lQCnp67UZImSXzx1xXY0-27" value="Interprise" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-1">
+        <mxCell id="lQCnp67UZImSXzx1xXY0-27" value="обьект" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-1">
           <mxGeometry x="120" y="440" width="150" height="288" as="geometry" />
         </mxCell>
         <mxCell id="lQCnp67UZImSXzx1xXY0-28" value="название" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-27">
@@ -815,7 +815,7 @@
         <mxCell id="lQCnp67UZImSXzx1xXY0-40" value="персонал" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-27">
           <mxGeometry y="210" width="150" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="lQCnp67UZImSXzx1xXY0-47" value="кол персонала" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-27">
+        <mxCell id="lQCnp67UZImSXzx1xXY0-47" value="кол. персонала" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-27">
           <mxGeometry y="236" width="150" height="26" as="geometry" />
         </mxCell>
         <mxCell id="lQCnp67UZImSXzx1xXY0-48" value="+ field: type" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="lQCnp67UZImSXzx1xXY0-27">
