@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 public class PersonDto {
     private LatLng location = null;// позиция на карте
     private String namePerson; // имя персонажа
+    private String nameClan; // в каком клане состоит
     private String idPerson; // хз зачем но пусть будет, вдруг пригодится
     private Enum classPerson; // специализация, бандюк, мент или комерс
     private String bio; // о себе пару слов
