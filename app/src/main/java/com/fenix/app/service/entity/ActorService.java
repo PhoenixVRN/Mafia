@@ -5,7 +5,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import com.fenix.app.dto.ActorDto;
-import com.fenix.app.dto.ItemBox;
+//import com.fenix.app.dto.ItemBox;
 import com.fenix.app.dto.geo.GeoPointDto;
 import com.fenix.app.service.MongoService;
 import com.fenix.app.util.DateUtil;
@@ -137,7 +137,7 @@ public class ActorService extends EntityServiceBase<ActorDto> {
      */
     public ActorDto hit(ActorDto my, ActorDto alien) {
         //Сила удара
-        int acc = my.getPerson().getWeaponHeadLeft().getPhysicalDamage();
+//        int acc = my.getPerson().getWeaponHeadLeft().getPhysicalDamage();
 /*
         int alienHP = alien.getPerson().getHp();
         int result = alienHP - acc;
@@ -147,15 +147,15 @@ public class ActorService extends EntityServiceBase<ActorDto> {
         var filter = super.getOneFilter(alien);
 
         // Строю update для поля person.hp
-        var update = Updates.inc("person.hp", -acc);
+//        var update = Updates.inc("person.hp", -acc);
 
         // Делаю update и получаю результат из БД
-        var result = collection.updateOne(filter, update);
-        if (result.getModifiedCount() > 0)
+//        var result = collection.updateOne(filter, update);
+//        if (result.getModifiedCount() > 0)
             return super.read(filter); // Отдаю успешно обновленной dto участника
 
         // Если дошел до сюда, значит в БД нет такого участника
-        throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
+//        throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
     }
 
     /**
@@ -187,25 +187,25 @@ public class ActorService extends EntityServiceBase<ActorDto> {
     /**
      * Ограбить сундук
      */
-    public ActorDto take(ActorDto my, ItemBox box) {
-        // Строю фильтр участника
-        var filter = super.getOneFilter(my);
-
-        // Собираю список из документов
-        var listDocs = new ArrayList<Document>();
-        box.getArmorItems().forEach(i -> listDocs.add(Document.parse(JsonUtil.Serialize(i))));
-        box.getWeaponItems().forEach(i -> listDocs.add(Document.parse(JsonUtil.Serialize(i))));
-        box.getObjectsItems().forEach(i -> listDocs.add(Document.parse(JsonUtil.Serialize(i))));
-
-        // Строю update для поля person.bag
-        var update = Updates.pushEach("person.bag", listDocs);
-
-        // Делаю update и получаю результат из БД
-        var result = collection.updateOne(filter, update);
-        if (result.getModifiedCount() > 0)
-            return super.read(filter); // Отдаю успешно обновленный dto
-
-        // Если дошел до сюда, значит в БД нет такого участника
-        throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
-    }
+//    public ActorDto take(ActorDto my, ItemBox box) {
+//        // Строю фильтр участника
+//        var filter = super.getOneFilter(my);
+//
+//        // Собираю список из документов
+//        var listDocs = new ArrayList<Document>();
+//        box.getArmorItems().forEach(i -> listDocs.add(Document.parse(JsonUtil.Serialize(i))));
+//        box.getWeaponItems().forEach(i -> listDocs.add(Document.parse(JsonUtil.Serialize(i))));
+//        box.getObjectsItems().forEach(i -> listDocs.add(Document.parse(JsonUtil.Serialize(i))));
+//
+//        // Строю update для поля person.bag
+//        var update = Updates.pushEach("person.bag", listDocs);
+//
+//        // Делаю update и получаю результат из БД
+//        var result = collection.updateOne(filter, update);
+//        if (result.getModifiedCount() > 0)
+//            return super.read(filter); // Отдаю успешно обновленный dto
+//
+//        // Если дошел до сюда, значит в БД нет такого участника
+//        throw new RuntimeException("hit: ActorDto with filter=" + filter.toString() + " not found!");
+//    }
 }
