@@ -16,7 +16,7 @@ public class PersonDto {
 
     private int rang; // авторитет 1-100
     private int cash; // деньги
-    private Security security = null; // количество и качество охраны у перса
+    private Security security = new Security(); // количество и качество охраны у перса
 
 //    private int hp = 1000; // Текущее количество Хитпоинтов
 //    private int maxhp = 1000; // Максимальное количество Хитпоинтов

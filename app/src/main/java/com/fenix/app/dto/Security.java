@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class Security {
-    private int loser; // лузер
-    private int experienced; // опытный
-    private int professional; // профи
-    private int specialist; //  специалист
+    private int loser = 0; // лузер
+    private int experienced = 0; // опытный
+    private int professional = 0; // профи
+    private int specialist = 0; //  специалист
 
 }

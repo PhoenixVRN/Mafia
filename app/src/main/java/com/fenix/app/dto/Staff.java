@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class Staff {
-    private int director; // директор
-    private int administrator; // администратор
-    private int beckoned; // зазывала
+    private int director = 0; // директор
+    private int administrator = 0; // администратор
+    private int beckoned = 0; // зазывала
 }

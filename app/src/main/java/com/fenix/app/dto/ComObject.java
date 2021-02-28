@@ -20,7 +20,7 @@ public class ComObject {
     private int cash; // наличка
 
 
-    private Security securityObject = null; // количество и качество охраны у объекта
-    private Staff staff = null; // количество и качество охраны у объекта
+    private Security securityObject = new Security(); // количество и качество охраны у объекта
+    private Staff staff = new Staff(); // количество и качество охраны у объекта
 
 }
